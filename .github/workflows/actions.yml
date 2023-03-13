@@ -37,11 +37,9 @@ jobs:
     needs: compilation
     steps:
       - uses: actions/checkout@v2
+      - uses: ad-m/github-push-action@master
         with:
-          fetch-depth: 0
-      - uses: pixta-dev/repository-mirroring-action@v1
-        with:
-          target_repo_url:
-            git@github.com:EpitechPromo2026/B-OOP-400-REN-4-1-arcade-mael1.becel.git
-          ssh_private_key:
-            ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ env.MIRROR_URL }}
+          branch: master
+          directory: .
