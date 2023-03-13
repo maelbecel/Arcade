@@ -5,7 +5,7 @@ on:
       - ga-ignore-**
 env:
   MIRROR_URL:
-    EpitechPromo2026/B-OOP-400-REN-4-1-arcade-mael1.becel
+    git@github.com:EpitechPromo2026/B-OOP-400-REN-4-1-arcade-mael1.becel.git
   EXECUTABLES:
     "arcade"
 
@@ -17,7 +17,6 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: FIND=$(find . -name "#*#" -o -name "*~" -o -name "*.o" -o -name "*.a" -o -name "*.so" -o -name "*.gcno" -o -name "*.gcda" -o -name "*.gcov" -o -wholename "*/tmp/*"); if [[ $FIND != "" ]]; then for element in $FIND; do echo "::error file=$element,line=1,title=Unwanted file detected::$element"; done; exit 1; fi
 
   compilation:
     name: Compiling...
@@ -37,9 +36,11 @@ jobs:
     needs: compilation
     steps:
       - uses: actions/checkout@v2
-      - uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ env.MIRROR_URL }}
-          branch: master
-          directory: .
+          fetch-depth: 0
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url:
+            ${{ env.MIRROR_URL }}
+          ssh_private_key:
+            ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
