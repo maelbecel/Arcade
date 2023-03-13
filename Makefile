@@ -7,3 +7,6 @@
 
 all:
 	echo "jej"
+
+clean:
+	echo "Mr propre"
