@@ -31,16 +31,6 @@ jobs:
           fetch-depth: 0
       - run: make
       - run: make clean
-      - run: IFS=','; read -a array <<< "${{ env.EXECUTABLES }}"; for element in "${array[@]}"; do if [ -z $(ls | grep -w $element$) ]; then exit 1; fi; done
-
-  Size:
-    runs-on: ubuntu-latest
-    needs: compilation
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
-      - name: SIZE
-        run: SIZE=$(du -skh --exclude=".git") && echo "::notice line=1, title=Size::$SIZE"
 
   mirroring:
     runs-on: ubuntu-latest
