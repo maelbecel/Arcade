@@ -5,8 +5,28 @@
 ## Makefile
 ##
 
-all:
-	echo "jej"
+SRC = ./main.cpp
+
+OBJ = $(SRC:.cpp=.o)
+
+NAME = arcade
+
+CXXFLAGS = -W -Wall -Wextra -Werror -ldl
+
+CXX = g++
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	$(CXX) -o $(NAME) $(OBJ)
 
 clean:
-	echo "Mr propre"
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.cpp .o:
+	gcc -o $@ $< $(CXXFLAGS)
