@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SRC = ./main.cpp
+SRC = ./main.cpp \
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -18,13 +18,16 @@ CXX = g++
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) -o $(NAME) $(OBJ)
+	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
+
+debug: CXXFLAGS += -g
+debug: all
 
 re: fclean all
 

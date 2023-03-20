@@ -6,24 +6,27 @@
 */
 
 #ifndef TEST_HPP_
-    #define TEST_HPP_
+#define TEST_HPP_
 
-    #include <iostream>
-    #include <memory>
-    #include "../../IObject.hpp"
-    #include "../../Input.hpp"
+#include <iostream>
+#include <memory>
+#include "../../IObject.hpp"
+#include "../../Input.hpp"
+#include "../../IDisplayModule.hpp"
 
-
-    class TestLib {
+namespace Arcade {
+    class TestLib : public Arcade::IDisplayModule {
         public:
             TestLib() = default;
             ~TestLib() = default;
 
-            Arcade::Input getLastInput();
-            void clear();
-            void refresh();
-            void draw(std::shared_ptr<Arcade::IObject> object);
+            Arcade::Input getLastInput() override;
+            void clear() override;
+            void refresh() override;
+            void draw(std::shared_ptr<Arcade::IObject> object) override;
     };
+};
 
+extern "C" Arcade::IDisplayModule *entryPoint();
 
 #endif /* !TEST_HPP_ */
