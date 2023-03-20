@@ -17,8 +17,9 @@ int main(void)
 {
     DLLoader<IDisplayModule> loader;
     IDisplayModule *lib = loader.load("./librairies/libtest/libtest.so");
+    std::shared_ptr<IObject> text = std::make_shared<Text>(std::make_pair(10, 0), "Hello World", Color::WHITE, 20);
     lib->clear();
     lib->refresh();
-    lib->draw(nullptr);
+    lib->draw(text);
     return (0);
 }
