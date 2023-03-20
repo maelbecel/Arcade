@@ -30,6 +30,7 @@ jobs:
           fetch-depth: 0
       - run: make
       - run: make clean
+      - run: make fclean
 
   mirroring:
     runs-on: ubuntu-latest
