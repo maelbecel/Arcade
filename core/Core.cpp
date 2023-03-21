@@ -6,6 +6,7 @@
 */
 
 #include "Core.hpp"
+#include <unistd.h>
 
 namespace Arcade {
     void Core::mainLoop()
@@ -19,7 +20,7 @@ namespace Arcade {
                 _display->draw(object);
             }
             _display->refresh();
-
+            sleep(1);
         }
     }
 }

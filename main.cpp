@@ -22,7 +22,7 @@ int main(int ac, char **av)
     DLLoader<IGameModule> game;
     Core core(av[1]);
 
-    core.setGamePath("lib/libarcade_gametest.so");
+    core.setGamePath("lib/libarcade_snake.so");
 
     try {
         core.setDisplay(loader.load(core.getDisplayPath()));
