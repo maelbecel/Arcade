@@ -16,14 +16,14 @@
 
 namespace Arcade {
     class TestLib : public Arcade::IDisplayModule {
-        public:
-            TestLib() = default;
-            ~TestLib() = default;
+    public:
+        TestLib() = default;
+        ~TestLib() = default;
 
-            Arcade::Input getLastInput() override;
-            void clear() override;
-            void refresh() override;
-            void draw(std::shared_ptr<Arcade::IObject> object) override;
+        Arcade::Input getLastInput() override;
+        void clear() override;
+        void refresh() override;
+        void draw(std::shared_ptr<Arcade::IObject> object) override;
     };
 }
 

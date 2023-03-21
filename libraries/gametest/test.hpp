@@ -16,15 +16,15 @@
 
 namespace Arcade {
     class GameLib: public IGameModule {
-        public:
-            GameLib() = default;
-            ~GameLib() override = default;
+    public:
+        GameLib() = default;
+        ~GameLib() override = default;
 
-            std::vector<std::shared_ptr<Arcade::IObject>> loop(Arcade::Input input) override;
-            int getScore() override;
-            void start() override;
-        private:
-            std::vector<std::shared_ptr<Arcade::IObject>> _objects;
+        std::vector<std::shared_ptr<Arcade::IObject>> loop(Arcade::Input input) override;
+        int getScore() override;
+        void start() override;
+    private:
+        std::vector<std::shared_ptr<Arcade::IObject>> _objects;
     };
 }
 

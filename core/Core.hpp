@@ -16,7 +16,7 @@
     namespace Arcade {
         class Core {
             public:
-                explicit Core(std::string path): _displayPath(std::move(path)), _gamePath("librairies/menu/arcade_menu.so") {};
+                explicit Core(std::string path): _displayPath(std::move(path)), _gamePath("libraries/menu/arcade_menu.so") {};
                 ~Core() = default;
 
                 void setDisplayPath(std::string path) { _displayPath = std::move(path); };

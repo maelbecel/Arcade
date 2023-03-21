@@ -1,0 +1,22 @@
+# ninja log v5
+2	403	1679418885323480994	librairies/libtest/CMakeFiles/arcade_libtest.dir/test.cpp.o	459228b678ae059b
+403	516	1679418885435485400	lib/libarcade_libtest.so	e97266a25d06fff5
+1	563	1679418885483487288	CMakeFiles/arcade.dir/core/Core.cpp.o	fa6cb4fa59700dee
+1	584	1679418885503488075	librairies/gametest/CMakeFiles/arcade_gametest.dir/test.cpp.o	37d068f58d31306f
+2	628	1679418885547489806	librairies/SFML/CMakeFiles/arcade_SFML.dir/sfml.cpp.o	b2899fe971ad8b74
+584	694	1679418885611492323	lib/libarcade_gametest.so	ff1e4581e4e51eac
+628	728	1679418885647493740	lib/libarcade_SFML.so	47cd2b6733f63012
+1	745	1679418885663494369	CMakeFiles/arcade.dir/main.cpp.o	e9cdcce06ee6c039
+745	847	1679418885763498303	arcade	9e2a6fc1508453
+3	680	1679418978699211751	CMakeFiles/arcade.dir/main.cpp.o	e9cdcce06ee6c039
+680	784	1679418978799215805	arcade	9e2a6fc1508453
+2	688	1679419047070009584	CMakeFiles/arcade.dir/main.cpp.o	e9cdcce06ee6c039
+688	790	1679419047170013712	arcade	9e2a6fc1508453
+3	405	1679419442986988641	librairies/SFML/CMakeFiles/arcade_SFML.dir/sfml.cpp.o	b2899fe971ad8b74
+3	84	1679419596573815610	lib/libarcade_SFML.so	47cd2b6733f63012
+2	361	1679419596849827961	librairies/gametest/CMakeFiles/arcade_gametest.dir/test.cpp.o	37d068f58d31306f
+361	443	1679419596929831542	lib/libarcade_gametest.so	ff1e4581e4e51eac
+3	368	1679419957622155262	librairies/gametest/CMakeFiles/arcade_gametest.dir/test.cpp.o	37d068f58d31306f
+4	430	1679419957686158184	librairies/SFML/CMakeFiles/arcade_SFML.dir/sfml.cpp.o	b2899fe971ad8b74
+368	452	1679419957706159097	lib/libarcade_gametest.so	ff1e4581e4e51eac
+431	511	1679419957766161835	lib/libarcade_SFML.so	47cd2b6733f63012

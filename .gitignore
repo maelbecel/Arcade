@@ -34,3 +34,4 @@
 arcade
 .vscode/
 .idea/
+build/
