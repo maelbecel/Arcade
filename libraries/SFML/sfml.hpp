@@ -23,6 +23,8 @@
     #include <string>
     #include <fstream>
 
+    #define FONT "../assets/font.otf"
+
 
     namespace Arcade {
         class SFML : public Arcade::IDisplayModule {

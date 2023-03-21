@@ -32,7 +32,9 @@ namespace Arcade {
     void GameLib::start()
     {
         _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(0, 0), "test", Arcade::Color::RED, 10, 10)));
-        _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(10, 10), "UWU", Arcade::Color::RED, 10, 10)));
+        _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(100, 10), "UWU", Arcade::Color::BLUE, 100, 100)));
+        _objects.push_back(std::make_shared<Arcade::Circle>(Arcade::Circle(std::make_pair(400, 10), "OwO", Arcade::Color::GREEN, 10)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(400, 200), "UwU", Arcade::Color::BLACK, 100)));
     }
 }
 

@@ -66,6 +66,31 @@ namespace Arcade {
         _window.draw(rect);
     }
 
+    void SFML::drawText(Arcade::Text *text)
+    {
+        sf::Text sfText;
+        sf::Font font;
+        sfText.setString(text->getText());
+        sfText.setPosition(text->getPos().first, text->getPos().second);
+        sfText.setCharacterSize(20);
+        sfText.setFillColor(arcadeColorToSFMLColor(text->getColor()));
+        if (access(FONT, F_OK ) != -1 && font.loadFromFile(FONT))
+            sfText.setFont(font);
+        _window.draw(sfText);
+    }
+
+    void SFML::drawCircle(Arcade::Circle *circle)
+    {
+        sf::Texture texture;
+        sf::CircleShape sfCircle(circle->getRadius());
+        sfCircle.setPosition(circle->getPos().first, circle->getPos().second);
+        if (access(circle->getTexture().c_str(), F_OK ) != -1 && texture.loadFromFile(circle->getTexture()))
+            sfCircle.setTexture(&texture);
+        else
+            sfCircle.setFillColor(arcadeColorToSFMLColor(circle->getColor()));
+        _window.draw(sfCircle);
+    }
+
     sf::Color SFML::arcadeColorToSFMLColor(Arcade::Color color)
     {
         switch (color) {
