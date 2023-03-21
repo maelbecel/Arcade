@@ -10,17 +10,32 @@
 #include <iostream>
 #include "IDisplayModule.hpp"
 #include "./core/DLLoader.hpp"
+#include "./core/Core.hpp"
 
 using namespace Arcade;
 
-int main(void)
+int main(int ac, char **av)
 {
+    if (ac != 2)
+        return (84);
     DLLoader<IDisplayModule> loader;
-    IDisplayModule *lib = loader.load("./librairies/libtest/libtest.so");
+    Core core(av[1]);
+
+    try {
+        core.setDisplay(loader.load(core.getDisplayPath()));
+    } catch (std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return (84);
+    }
+
+
+
+    // IDisplayModule *lib = loader.load("./librairies/libtest/libtest.so");
     std::shared_ptr<IObject> text = std::make_shared<Text>(std::make_pair(10, 0), "Hello World", Color::WHITE, 20);
-    std::shared_ptr<IObject> rectangle = std::make_shared<Rectangle>(std::make_pair(0, 0), "test", Color::WHITE, 10, 10);
-    lib->clear();
-    lib->refresh();
-    lib->draw(text);
+    std::shared_ptr<IObject> circle = std::make_shared<Circle>(std::make_pair(0, 0), "test", Color::WHITE, 10);
+    std::shared_ptr<Arcade::IObject> rectangle = std::make_shared<Arcade::Rectangle>(std::make_pair(0, 0), "test", Arcade::Color::WHITE, 10, 10);
+    core.getDisplay()->draw(rectangle);
+    core.getDisplay()->draw(circle);
+    core.getDisplay()->draw(text);
     return (0);
 }

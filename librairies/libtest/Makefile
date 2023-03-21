@@ -11,7 +11,7 @@ OBJ	=	$(SRC:.cpp=.o)
 
 NAME	=	libtest.so
 
-CXXFLAGS	=	-W -Wall -Wextra -Werror -fPIC -I./include
+CXXFLAGS	=	-W -Wall -Wextra -fPIC
 
 CXX	=	g++
 

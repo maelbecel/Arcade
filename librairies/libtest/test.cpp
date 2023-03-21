@@ -26,13 +26,13 @@ namespace Arcade {
 
     void TestLib::draw(std::shared_ptr<IObject> object)
     {
-        std::cout << "Draw" << std::endl;
+        Arcade::Rectangle *rectangle = dynamic_cast<Arcade::Rectangle *>(object.get());
+        if (dynamic_cast<Arcade::Rectangle *>(object.get())) {
+            std::cout << "Rectangle at (" << rectangle->getPos().first << "," << rectangle->getPos().second << "): " << rectangle->getTexture() << std::endl;
+        }
         Text *text = dynamic_cast<Text *>(object.get());
         if (text != nullptr)
             std::cout << "Text at (" << text->getPos().first << "," << text->getPos().second << "): " << text->getText() << std::endl;
-        Rectangle *rectangle = dynamic_cast<Rectangle *>(object.get());
-        if (rectangle != nullptr)
-            std::cout << "Rectangle at (" << rectangle->getPos().first << "," << rectangle->getPos().second << "): " << rectangle->getTexture() << std::endl;
         Circle *circle = dynamic_cast<Circle *>(object.get());
         if (circle != nullptr)
             std::cout << "Circle at (" << circle->getPos().first << "," << circle->getPos().second << "): " << circle->getTexture() << std::endl;

@@ -30,13 +30,13 @@ namespace Arcade {
 
     class Text : public IObject {
         public:
-            Text(std::pair<int, int> pos, std::string text, Arcade::Color color, int size);
+            Text(std::pair<int, int> pos, std::string text, Arcade::Color color, int size) : _pos(pos), _text(text), _color(color), _size(size) {};
             ~Text() override = default;
 
-            std::pair<int, int> getPos() const;
-            std::string getText() const;
-            Arcade::Color getColor() const;
-            int getSize() const;
+            std::pair<int, int> getPos() const { return _pos; };
+            std::string getText() const { return _text; };
+            Arcade::Color getColor() const { return _color; };
+            int getSize() const { return _size; };
 
         private:
             std::pair<int, int> _pos;
@@ -47,14 +47,14 @@ namespace Arcade {
 
     class Rectangle : public IObject {
         public:
-            Rectangle(std::pair<int, int> pos, std::string texture, Arcade::Color color, int width, int height);
+            Rectangle(std::pair<int, int> pos, std::string texture, Arcade::Color color, int width, int height) : _pos(pos), _texture(texture), _color(color), _width(width), _height(height) {};
             ~Rectangle() override = default;
 
-            std::pair<int, int> getPos() const;
-            std::string getTexture() const;
-            Arcade::Color getColor() const;
-            int getWidth() const;
-            int getHeight() const;
+            std::pair<int, int> getPos() const { return _pos; };
+            std::string getTexture() const { return _texture; };
+            Arcade::Color getColor() const { return _color; };
+            int getWidth() const { return _width; };
+            int getHeight() const { return _height; };
 
         private:
             std::pair<int, int> _pos;
@@ -66,13 +66,13 @@ namespace Arcade {
 
     class Circle : public IObject {
         public:
-            Circle(std::pair<int, int> pos, std::string texture, Arcade::Color color, int radius);
+            Circle(std::pair<int, int> pos, std::string texture, Arcade::Color color, int radius) : _pos(pos), _texture(texture), _color(color), _radius(radius) {};
             ~Circle() override = default;
 
-            std::pair<int, int> getPos() const;
-            std::string getTexture() const;
-            Arcade::Color getColor() const;
-            int getRadius() const;
+            std::pair<int, int> getPos() const { return _pos; };
+            std::string getTexture() const { return _texture; };
+            Arcade::Color getColor() const { return _color; };
+            int getRadius() const { return _radius; };
 
         private:
             std::pair<int, int> _pos;
@@ -83,11 +83,11 @@ namespace Arcade {
 
     class Sound : public IObject {
         public:
-            Sound(std::string path, int volume);
+            Sound(std::string path, int volume) : _path(path), _volume(volume) {};
             ~Sound() override = default;
 
-            std::string getPath() const;
-            int getVolume() const;
+            std::string getPath() const { return _path; };
+            int getVolume() const { return _volume; };
         private:
             std::string _path;
             int _volume;
