@@ -32,3 +32,5 @@
 *.app
 
 arcade
+.vscode/
+.idea/
