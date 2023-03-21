@@ -30,13 +30,13 @@ namespace Arcade {
 
     class Text : public IObject {
         public:
-            Text(std::pair<int, int> pos, std::string text, Arcade::Color color, int size) : _pos(pos), _text(text), _color(color), _size(size) {};
+            Text(std::pair<int, int> pos, std::string text, Arcade::Color color, int size);
             ~Text() override = default;
 
-            std::pair<int, int> getPos() const { return _pos; };
-            std::string getText() const { return _text; };
-            Arcade::Color getColor() const { return _color; };
-            int getSize() const { return _size; };
+            std::pair<int, int> getPos() const;
+            std::string getText() const;
+            Arcade::Color getColor() const;
+            int getSize() const;
 
         private:
             std::pair<int, int> _pos;
