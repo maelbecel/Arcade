@@ -16,10 +16,18 @@ CXXFLAGS = -W -Wall -Wextra -Werror -ldl
 
 CXX = g++
 
-all: $(NAME)
+all: $(NAME) games graphicals
 
 $(NAME): $(OBJ)
 	$(CXX) -o $(NAME) $(OBJ) $(CXXFLAGS)
+
+core: $(NAME)
+
+games:
+	make -C libraries/gametest/
+
+graphicals:
+	make -C libraries/libtest/
 
 clean:
 	rm -f $(OBJ)

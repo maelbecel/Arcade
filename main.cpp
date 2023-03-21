@@ -22,7 +22,7 @@ int main(int ac, char **av)
     DLLoader<IGameModule> game;
     Core core(av[1]);
 
-    core.setGamePath("librairies/gametest/libgame.so");
+    core.setGamePath("libraries/gametest/libgame.so");
 
     try {
         core.setDisplay(loader.load(core.getDisplayPath()));
