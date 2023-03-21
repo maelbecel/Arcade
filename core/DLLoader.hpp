@@ -37,6 +37,6 @@
             Type *lib = entryPoint();
             return lib;
         }
-    };
+    }
 
 #endif /* !DLLOADER_HPP_ */

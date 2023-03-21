@@ -9,7 +9,7 @@ SRC	=	./test.cpp
 
 OBJ	=	$(SRC:.cpp=.o)
 
-NAME	=	libtest.so
+NAME	=	libgame.so
 
 CXXFLAGS	=	-W -Wall -Wextra -fPIC -g
 

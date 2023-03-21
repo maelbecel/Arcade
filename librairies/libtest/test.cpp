@@ -11,7 +11,17 @@ namespace Arcade {
 
     Input TestLib::getLastInput()
     {
-        return (Arcade::Input::UNKNOWN);
+        std::string buffer;
+        std::getline(std::cin, buffer);
+        if (buffer == "UP")
+            return (Input::UP);
+        if (buffer == "DOWN")
+            return (Input::DOWN);
+        if (buffer == "LEFT")
+            return (Input::LEFT);
+        if (buffer == "RIGHT")
+            return (Input::RIGHT);
+        return (Input::UNKNOWN);
     }
 
     void TestLib::clear()

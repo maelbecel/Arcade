@@ -25,7 +25,7 @@ namespace Arcade {
             void refresh() override;
             void draw(std::shared_ptr<Arcade::IObject> object) override;
     };
-};
+}
 
 extern "C" Arcade::IDisplayModule *entryPoint();
 

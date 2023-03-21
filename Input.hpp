@@ -6,27 +6,27 @@
 */
 
 #ifndef INPUT_HPP_
-#define INPUT_HPP_
+    #define INPUT_HPP_
 
-namespace Arcade {
-    enum Input {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        ENTER,
-        ESCAPE,
-        SPACE,
-        PREV_LIB,
-        NEXT_LIB,
-        PREV_GAME,
-        NEXT_GAME,
-        RESTART,
-        MENU,
-        QUIT,
-        MUTE,
-        UNKNOWN
-    };
-}
+    namespace Arcade {
+        enum Input {
+            UP,
+            DOWN,
+            LEFT,
+            RIGHT,
+            ENTER,
+            ESCAPE,
+            SPACE,
+            PREV_LIB,
+            NEXT_LIB,
+            PREV_GAME,
+            NEXT_GAME,
+            RESTART,
+            MENU,
+            QUIT,
+            MUTE,
+            UNKNOWN
+        };
+    }
 
 #endif /*INPUT_HPP_*/
