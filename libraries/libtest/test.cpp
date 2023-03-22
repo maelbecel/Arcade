@@ -21,6 +21,10 @@ namespace Arcade {
             return (Input::LEFT);
         if (buffer == "RIGHT")
             return (Input::RIGHT);
+        if (buffer == "P")
+            return (Input::PREV_LIB);
+        if (buffer == "N")
+            return (Input::NEXT_LIB);
         return (Input::UNKNOWN);
     }
 
@@ -49,7 +53,7 @@ namespace Arcade {
     }
 }
 
-extern "C" Arcade::IDisplayModule *entryPoint()
+extern "C" Arcade::IDisplayModule *entryDisplayPoint()
 {
     return (new Arcade::TestLib());
 }

@@ -1,0 +1,99 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface IDisplayModule
+{
+    + Input getLastInput()
+    + void clear()
+    + void refresh()
+    + void draw(std::shared_ptr<IObject> object)
+}
+
+interface IGameModule
+{
+    + std::vector<std::shared_ptr<Arcade::IObject>> loop(Arcade::Input input)
+    + int getScore()
+    + void start()
+}
+
+enum Input
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT,
+    ENTER,
+    ESCAPE,
+    SPACE,
+    PREV_LIB,
+    NEXT_LIB,
+    PREV_GAME,
+    NEXT_GAME,
+    RESTART,
+    MENU,
+    MUTE,
+    NONE,
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W,
+    X,
+    Y,
+    Z,
+    UNKNOWN
+}
+
+enum Color {
+    BLACK,
+    RED,
+    GREEN,
+    YELLOW,
+    BLUE,
+    MAGENTA,
+    CYAN,
+    WHITE,
+    DEFAULT
+}
+
+class Core
+{
+    + void setDisplayPath(std::string path)
+    + void setGamePath(std::string path)
+    + void setDisplay(IDisplayModule *display)
+    + void setGame(IGameModule *game)
+    + void getDisplayPath()
+    + void getGamePath()
+    + void getDisplay()
+    + void getGame()
+}
+
+class IObject
+{
+
+}
+
+Core <--> IDisplayModule
+Core <--> IGameModule
+IObject --> Color
+IGameModule --> IObject
+IDisplayModule --> Input
+@enduml

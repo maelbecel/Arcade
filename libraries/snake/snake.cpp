@@ -107,7 +107,7 @@ namespace Arcade {
     }
 }
 
-extern "C" Arcade::IGameModule *entryPoint()
+extern "C" Arcade::IGameModule *entryGamePoint()
 {
     return (new Arcade::Snake());
 }

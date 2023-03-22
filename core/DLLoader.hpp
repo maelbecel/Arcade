@@ -10,6 +10,10 @@
 
     #include <iostream>
     #include <dlfcn.h>
+    #include <memory>
+    #include <vector>
+    #include "../IObject.hpp"
+    #include "../Input.hpp"
 
     namespace Arcade {
         template <class Type>
@@ -18,10 +22,14 @@
                     DLLoader() = default;
                     ~DLLoader() = default;
 
-                    static Type *load(std::string path);
+                    static bool isDisplay(std::string path);
+                    static bool isGame(std::string path);
+                    Type *load(std::string path);
+                    void close() { dlclose(_handle); };
 
                 protected:
                 private:
+                    void *_handle;
             };
 
         template <typename Type>
@@ -33,15 +41,68 @@
          */
         inline Type *DLLoader<Type>::load(std::string path) {
             typedef Type *(*entryPoint_t)();
-            void *handle = dlopen(path.c_str(), RTLD_LAZY);
-            if (!handle)
+            _handle = dlopen(path.c_str(), RTLD_LAZY);
+            if (!_handle)
                 throw std::runtime_error("Failed to open library: " + std::string(dlerror()));
 
-            entryPoint_t entryPoint = (entryPoint_t)dlsym(handle, "entryPoint");
-            if (!entryPoint)
+            entryPoint_t entryDisplayPoint = (entryPoint_t)dlsym(_handle, "entryDisplayPoint");
+            entryPoint_t entryGamePoint = (entryPoint_t)dlsym(_handle, "entryGamePoint");
+            if (!entryDisplayPoint && !entryGamePoint)
                 throw std::runtime_error("Failed to find entryPoint: " + std::string(dlerror()));
-            Type *lib = entryPoint();
-            return lib;
+            if (entryDisplayPoint)
+                return entryDisplayPoint();
+            else if (entryGamePoint)
+                return entryGamePoint();
+            return nullptr;
+        }
+
+        template <typename Type>
+        /**
+         * @brief check if the library is a display library
+         *
+         * @param path
+         * @return bool
+         */
+        inline bool DLLoader<Type>::isDisplay(std::string path)
+        {
+            void *handle = dlopen(path.c_str(), RTLD_LAZY);
+            if (!handle) {
+                dlclose(handle);
+                return false;
+            }
+            if (dlsym(handle, "entryDisplayPoint")) {
+                dlclose(handle);
+                return true;
+            }
+            else {
+                dlclose(handle);
+                return false;
+            }
+
+        }
+
+        template <typename Type>
+        /**
+         * @brief check if the library is a game library
+         *
+         * @param path
+         * @return bool
+         */
+        inline bool DLLoader<Type>::isGame(std::string path)
+        {
+            void *handle = dlopen(path.c_str(), RTLD_LAZY);
+            if (!handle) {
+                dlclose(handle);
+                return false;
+            }
+            if (dlsym(handle, "entryGamePoint")) {
+                dlclose(handle);
+                return true;
+            }
+            else {
+                dlclose(handle);
+                return false;
+            }
         }
     }
 

@@ -24,9 +24,10 @@ namespace Arcade {
         void clear() override;
         void refresh() override;
         void draw(std::shared_ptr<Arcade::IObject> object) override;
+        bool doLoop() override { return true; };
     };
 }
 
-extern "C" Arcade::IDisplayModule *entryPoint();
+extern "C" Arcade::IDisplayModule *entryDisplayPoint();
 
 #endif /* !TEST_HPP_ */

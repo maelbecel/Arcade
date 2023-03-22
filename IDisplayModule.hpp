@@ -38,6 +38,11 @@
                  * @param Arcade::IObject
                  */
                 virtual void draw(std::shared_ptr<Arcade::IObject> object) = 0;
+
+                /**
+                 * @brief Return true if display loop is good
+                 */
+                virtual bool doLoop() = 0;
         };
     }
 

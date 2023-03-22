@@ -28,6 +28,6 @@ namespace Arcade {
     };
 }
 
-extern "C" Arcade::IGameModule *entryPoint();
+extern "C" Arcade::IGameModule *entryGamePoint();
 
 #endif /* !TEST_HPP_ */
