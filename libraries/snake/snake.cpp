@@ -22,21 +22,16 @@ namespace Arcade {
             _player._direction = Arcade::Input::UP;
         if (_input == Arcade::Input::DOWN && _player._direction != Arcade::Input::UP)
             _player._direction = Arcade::Input::DOWN;
-        if (_player.isDead())
-            start();
         if (_player.isEating(_apple)) {
             _player.eat();
             _apple = getNewPos();
         }
         objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         _player.move();
+        if (_player.isDead())
+            start();
         for (auto &body : _player._body)
-            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 50, 50));
-        if (_player._direction == Input::LEFT)
-            std::cout << "LEFT" << std::endl;
-        if (_player._direction == Input::RIGHT)
-            std::cout << "RIGHT" << std::endl;
-        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
+            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
         return objects;
     }
 
@@ -48,12 +43,12 @@ namespace Arcade {
     void Snake::start()
     {
         _score = 0;
-        _input = Arcade::Input::LEFT;
+        _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 4), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 4), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 4), "snake", Arcade::Color::GREEN, 1, 1));
         _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 4), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
     }

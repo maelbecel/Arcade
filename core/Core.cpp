@@ -24,7 +24,7 @@ namespace Arcade {
                 _display->draw(object);
             }
             _display->refresh();
-            sleep(1);
+            usleep(500000);
         }
     }
 }
