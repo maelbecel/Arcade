@@ -30,6 +30,14 @@ namespace Arcade {
                     return (Input::LEFT);
                 if (event.key.code == sf::Keyboard::Right)
                     return (Input::RIGHT);
+                if (event.key.code == sf::Keyboard::P) {
+                    _window.close();
+                    return (Input::PREV_LIB);
+                }
+                if (event.key.code == sf::Keyboard::N) {
+                    _window.close();
+                    return (Input::NEXT_LIB);
+                }
             }
         }
         return (Input::UNKNOWN);
@@ -40,7 +48,7 @@ namespace Arcade {
      */
     void SFML::clear()
     {
-        _window.clear(sf::Color::White);
+        _window.clear(sf::Color::Black);
     }
 
     /**
@@ -163,7 +171,7 @@ namespace Arcade {
  *
  * @return pointer to SFML class
  */
-extern "C" Arcade::IDisplayModule *entryPoint()
+extern "C" Arcade::IDisplayModule *entryDisplayPoint()
 {
     return (new Arcade::SFML());
 }

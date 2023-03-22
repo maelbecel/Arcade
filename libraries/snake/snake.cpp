@@ -25,10 +25,6 @@ namespace Arcade {
         _player.move();
         for (auto &body : _player._body)
             objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
-        if (_player._direction == Input::LEFT)
-            std::cout << "LEFT" << std::endl;
-        if (_player._direction == Input::RIGHT)
-            std::cout << "RIGHT" << std::endl;
         objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         return objects;
     }
@@ -84,7 +80,7 @@ namespace Arcade {
     }
 }
 
-extern "C" Arcade::IGameModule *entryPoint()
+extern "C" Arcade::IGameModule *entryGamePoint()
 {
     return (new Arcade::Snake());
 }
