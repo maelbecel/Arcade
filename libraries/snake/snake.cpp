@@ -14,17 +14,24 @@ namespace Arcade {
         if (input != Arcade::Input::UNKNOWN) {
             _input = input;
         }
-        if (_input == Arcade::Input::LEFT)
+        if (_input == Arcade::Input::LEFT && _player._direction != Arcade::Input::RIGHT)
             _player._direction = Arcade::Input::LEFT;
-        if (_input == Arcade::Input::RIGHT)
+        if (_input == Arcade::Input::RIGHT && _player._direction != Arcade::Input::LEFT)
             _player._direction = Arcade::Input::RIGHT;
-        if (_input == Arcade::Input::UP)
+        if (_input == Arcade::Input::UP && _player._direction != Arcade::Input::DOWN)
             _player._direction = Arcade::Input::UP;
-        if (_input == Arcade::Input::DOWN)
+        if (_input == Arcade::Input::DOWN && _player._direction != Arcade::Input::UP)
             _player._direction = Arcade::Input::DOWN;
+        if (_player.isDead())
+            start();
+        if (_player.isEating(_apple)) {
+            _player.eat();
+            _apple = getNewPos();
+        }
+        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         _player.move();
         for (auto &body : _player._body)
-            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
+            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 50, 50));
         if (_player._direction == Input::LEFT)
             std::cout << "LEFT" << std::endl;
         if (_player._direction == Input::RIGHT)
@@ -53,7 +60,7 @@ namespace Arcade {
 
     std::pair<int, int> Snake::getNewPos()
     {
-        std::pair<int, int> pos = std::make_pair(rand() % SIZE_MAP, rand() % SIZE_MAP);
+        std::pair<int, int> pos = std::make_pair(rand() % 16, rand() % 12);
         if (pos == _apple)
             return getNewPos();
         for (auto &body : _player._body) {
@@ -81,6 +88,27 @@ namespace Arcade {
             }
         }
         _body = body;
+    }
+
+    bool Snake::Player::isDead()
+    {
+        for (std::size_t i = 1; i < _body.size(); i++) {
+            if (_body[i].getPos() == _body[0].getPos())
+                return true;
+        }
+        return false;
+    }
+
+    void Snake::Player::eat()
+    {
+        _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
+    }
+
+    bool Snake::Player::isEating(std::pair<int, int> apple)
+    {
+        if (_body[0].getPos() == apple)
+            return true;
+        return false;
     }
 }
 

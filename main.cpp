@@ -6,8 +6,9 @@
 */
 
 #include <dlfcn.h>
-#include "Input.hpp"
 #include <iostream>
+#include <time.h>
+#include "Input.hpp"
 #include "IDisplayModule.hpp"
 #include "./core/DLLoader.hpp"
 #include "./core/Core.hpp"
@@ -21,6 +22,7 @@ int main(int ac, char **av)
     DLLoader<IDisplayModule> loader;
     DLLoader<IGameModule> game;
     Core core(av[1]);
+    srand(time(NULL));
 
     core.setGamePath("lib/libarcade_snake.so");
 

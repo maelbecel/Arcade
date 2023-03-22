@@ -23,6 +23,9 @@ namespace Arcade {
                 Player() = default;
                 ~Player() = default;
                 void move();
+                bool isDead();
+                void eat();
+                bool isEating(std::pair<int, int> apple);
                 std::vector<Arcade::Rectangle> _body;
                 Arcade::Input _direction;
         };
