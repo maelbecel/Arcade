@@ -24,12 +24,12 @@ namespace Arcade {
             _player._direction = Arcade::Input::DOWN;
         _player.move();
         for (auto &body : _player._body)
-            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 50, 50));
+            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
         if (_player._direction == Input::LEFT)
             std::cout << "LEFT" << std::endl;
         if (_player._direction == Input::RIGHT)
             std::cout << "RIGHT" << std::endl;
-        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 10));
+        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         return objects;
     }
 
@@ -43,10 +43,10 @@ namespace Arcade {
         _score = 0;
         _input = Arcade::Input::LEFT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(10, 40), "snake", Arcade::Color::GREEN, 10, 10));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(70, 40), "snake", Arcade::Color::GREEN, 10, 10));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(130, 40), "snake", Arcade::Color::GREEN, 10, 10));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(190, 40), "snake", Arcade::Color::GREEN, 10, 10));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 4), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
     }
@@ -69,15 +69,15 @@ namespace Arcade {
         for (std::size_t i = 0; i < _body.size(); i++) {
             if (i == 0) {
                 if (_direction == Arcade::Input::LEFT)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first - 60, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first - 1, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
                 if (_direction == Arcade::Input::RIGHT)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first + 60, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first + 1, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
                 if (_direction == Arcade::Input::UP)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second - 60), "snake", Arcade::Color::GREEN, 10, 10));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second - 1), "snake", Arcade::Color::GREEN, 1, 1));
                 if (_direction == Arcade::Input::DOWN)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second + 60), "snake", Arcade::Color::GREEN, 10, 10));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second + 1), "snake", Arcade::Color::GREEN, 1, 1));
             } else {
-                body.push_back(Arcade::Rectangle(std::make_pair(_body[i - 1].getPos().first, _body[i - 1].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
+                body.push_back(Arcade::Rectangle(std::make_pair(_body[i - 1].getPos().first, _body[i - 1].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
             }
         }
         _body = body;
