@@ -22,16 +22,16 @@ namespace Arcade {
             _player._direction = Arcade::Input::UP;
         if (_input == Arcade::Input::DOWN && _player._direction != Arcade::Input::UP)
             _player._direction = Arcade::Input::DOWN;
-        if (_player.isEating(_apple)) {
-            _player.eat();
-            _apple = getNewPos();
-        }
         for (auto &line : _map) {
             for (auto &wall : line)
                 objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture(), wall.getColor(), 1, 1));
         }
-        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         _player.move();
+        if (_player.isEating(_apple)) {
+            _player.eat();
+            _apple = getNewPos();
+        }
+        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         if (_player.isDead())
             start();
         for (auto &body : _player._body)
