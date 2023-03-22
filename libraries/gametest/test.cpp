@@ -13,14 +13,14 @@ namespace Arcade {
         Rectangle *rectangle = dynamic_cast<Rectangle *>(_objects[0].get());
         std::pair<int, int> pos = rectangle->getPos();
         if (input == Arcade::Input::LEFT)
-            pos.first -= 1;
+            pos.first = (pos.first == 0) ? 0 : -1;
         if (input == Arcade::Input::RIGHT)
             pos.first += 1;
         if (input == Arcade::Input::UP)
-            pos.second -= 1;
+            pos.second = (pos.second == 0) ? 0 : -1;
         if (input == Arcade::Input::DOWN)
             pos.second += 1;
-        _objects[0] = std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(pos, "test", Arcade::Color::RED, 10, 10));
+        _objects[0] = std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(pos, "test", Arcade::Color::RED, 1, 1));
         return _objects;
     }
 
@@ -31,10 +31,10 @@ namespace Arcade {
 
     void GameLib::start()
     {
-        _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(0, 0), "test", Arcade::Color::RED, 10, 10)));
-        _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(100, 10), "UWU", Arcade::Color::BLUE, 100, 100)));
-        _objects.push_back(std::make_shared<Arcade::Circle>(Arcade::Circle(std::make_pair(400, 10), "OwO", Arcade::Color::GREEN, 10)));
-        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(400, 200), "UwU", Arcade::Color::BLACK, 100)));
+        _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(0, 0), "test", Arcade::Color::RED, 1, 1)));
+        _objects.push_back(std::make_shared<Arcade::Rectangle>(Arcade::Rectangle(std::make_pair(0, 1), "UWU", Arcade::Color::BLUE, 1, 1)));
+        _objects.push_back(std::make_shared<Arcade::Circle>(Arcade::Circle(std::make_pair(1, 0), "OwO", Arcade::Color::GREEN, 1)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, 1), "UwU", Arcade::Color::BLACK, 1)));
     }
 }
 

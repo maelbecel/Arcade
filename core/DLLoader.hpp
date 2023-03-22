@@ -25,6 +25,12 @@
             };
 
         template <typename Type>
+        /**
+         * @brief load the library from the path
+         *
+         * @param path
+         * @return Type*
+         */
         inline Type *DLLoader<Type>::load(std::string path) {
             typedef Type *(*entryPoint_t)();
             void *handle = dlopen(path.c_str(), RTLD_LAZY);

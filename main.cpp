@@ -33,12 +33,5 @@ int main(int ac, char **av)
     }
 
     core.mainLoop();
-
-    std::shared_ptr<IObject> text = std::make_shared<Text>(std::make_pair(10, 0), "Hello World", Color::WHITE, 20);
-    std::shared_ptr<IObject> circle = std::make_shared<Circle>(std::make_pair(0, 0), "test", Color::WHITE, 10);
-    std::shared_ptr<Arcade::IObject> rectangle = std::make_shared<Arcade::Rectangle>(std::make_pair(0, 0), "test", Arcade::Color::WHITE, 10, 10);
-    core.getDisplay()->draw(rectangle);
-    core.getDisplay()->draw(circle);
-    core.getDisplay()->draw(text);
     return (0);
 }

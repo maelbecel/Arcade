@@ -28,9 +28,9 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - run: make
-      - run: make clean
-      - run: make fclean
+      - run: mkdir build && cd build
+      - run: cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build .
 
   mirroring:
     runs-on: ubuntu-latest

@@ -25,6 +25,8 @@
 
     #define FONT "../assets/font.otf"
 
+    #define SQUARE_SIZE 50
+
 
     namespace Arcade {
         class SFML : public Arcade::IDisplayModule {
@@ -41,7 +43,7 @@
                 void drawRectangle(Arcade::Rectangle *rectangle);
                 void drawText(Arcade::Text *text);
                 void drawCircle(Arcade::Circle *circle);
-                sf::Color arcadeColorToSFMLColor(Arcade::Color color);
+                static sf::Color arcadeColorToSFMLColor(Arcade::Color color);
                 sf::RenderWindow _window;
         };
     }

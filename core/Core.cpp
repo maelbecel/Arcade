@@ -9,6 +9,10 @@
 #include <unistd.h>
 
 namespace Arcade {
+    /**
+     * It clears the display, gets the objects from the game, draws them on the
+     * display and refreshes the display
+     */
     void Core::mainLoop()
     {
         std::vector<std::shared_ptr<Arcade::IObject>> objects;

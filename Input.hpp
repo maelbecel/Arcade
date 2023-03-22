@@ -9,6 +9,9 @@
     #define INPUT_HPP_
 
     namespace Arcade {
+        /**
+         * Creating a list of inputs that can be used in the game.
+         */
         enum Input {
             UP,
             DOWN,
