@@ -144,8 +144,6 @@ namespace Arcade {
 
     bool Snake::Player::win()
     {
-        std::cout << "size: " << _body.size() << std::endl;
-        std::cout << "size map: " << (SIZE_MAP_X - 1) * (SIZE_MAP_Y - 1) + 1 << std::endl;
         if (_body.size() == (SIZE_MAP_X - 1) * (SIZE_MAP_Y - 1) + 1)
             return true;
         return false;
