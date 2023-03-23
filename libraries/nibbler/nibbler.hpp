@@ -9,8 +9,7 @@
     #define SNAKE_HPP_
 
     #include <iostream>
-#include <memory>
-#include <unistd.h>
+    #include <memory>
     #include "../../IObject.hpp"
     #include "../../Input.hpp"
     #include "../../IGameModule.hpp"

@@ -5,7 +5,7 @@
 ** test
 */
 
-#include "snake.hpp"
+#include "nibbler.hpp"
 
 namespace Arcade {
     std::vector<std::shared_ptr<Arcade::IObject>> Snake::loop(Arcade::Input input)
@@ -55,10 +55,10 @@ namespace Arcade {
         _score = 0;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 1), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
         initMap();
@@ -69,8 +69,6 @@ namespace Arcade {
         std::pair<int, int> pos = std::make_pair(rand() % (SIZE_MAP_X - 1) + 1, rand() % (SIZE_MAP_Y - 1) + 1);
         if (pos == _apple)
             return getNewPos();
-        if (_player.win())
-            return pos;
         for (auto &body : _player._body) {
             if (body.getPos() == pos)
                 return getNewPos();
