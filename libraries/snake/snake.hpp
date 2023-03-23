@@ -14,8 +14,8 @@
     #include "../../Input.hpp"
     #include "../../IGameModule.hpp"
 
-    #define SIZE_MAP_X 15
-    #define SIZE_MAP_Y 11
+    #define SIZE_MAP_X 5
+    #define SIZE_MAP_Y 5
 
     namespace Arcade {
         class Snake: public IGameModule {
@@ -27,6 +27,7 @@
                     void eat();
                     bool isEating(std::pair<int, int> apple);
                     bool isDead();
+                    bool win();
                     std::vector<Arcade::Rectangle> _body;
                     Arcade::Input _direction;
             };

@@ -34,6 +34,10 @@ namespace Arcade {
             _apple = getNewPos();
             _score++;
         }
+        if (_player.win()) {
+            std::cout << "You win" << std::endl;
+            start();
+        }
         objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
         for (auto &body : _player._body)
             objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
@@ -51,10 +55,10 @@ namespace Arcade {
         _score = 0;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 1), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
         initMap();
@@ -134,6 +138,15 @@ namespace Arcade {
     bool Snake::Player::isEating(std::pair<int, int> apple)
     {
         if (_body[0].getPos() == apple)
+            return true;
+        return false;
+    }
+
+    bool Snake::Player::win()
+    {
+        std::cout << "size: " << _body.size() << std::endl;
+        std::cout << "size map: " << (SIZE_MAP_X - 1) * (SIZE_MAP_Y - 1) + 1 << std::endl;
+        if (_body.size() == (SIZE_MAP_X - 1) * (SIZE_MAP_Y - 1) + 1)
             return true;
         return false;
     }
