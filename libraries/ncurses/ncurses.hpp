@@ -17,6 +17,7 @@
     #include <math.h>
 
     #define SQUARE_WIDTH 4
+    #define KEY_ESCAPE 27
     #define SQUARE_HEIGHT (SQUARE_WIDTH / 2)
 
     namespace Arcade {

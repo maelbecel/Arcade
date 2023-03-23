@@ -16,6 +16,7 @@ ADD_SUBDIRECTORY(libraries/gametest)
 ADD_SUBDIRECTORY(libraries/libtest)
 ADD_SUBDIRECTORY(libraries/snake)
 ADD_SUBDIRECTORY(libraries/SFML)
+ADD_SUBDIRECTORY(libraries/SDL2)
 ADD_SUBDIRECTORY(libraries/ncurses)
 
 
@@ -23,6 +24,7 @@ ADD_DEPENDENCIES(arcade arcade_gametest)
 ADD_DEPENDENCIES(arcade arcade_libtest)
 ADD_DEPENDENCIES(arcade arcade_snake)
 ADD_DEPENDENCIES(arcade arcade_SFML)
+ADD_DEPENDENCIES(arcade arcade_SDL2)
 ADD_DEPENDENCIES(arcade arcade_ncurses)
 
 SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "lib")

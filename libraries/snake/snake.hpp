@@ -14,7 +14,8 @@
     #include "../../Input.hpp"
     #include "../../IGameModule.hpp"
 
-    #define SIZE_MAP 10
+    #define SIZE_MAP_X 16
+    #define SIZE_MAP_Y 12
 
     namespace Arcade {
         class Snake: public IGameModule {
@@ -38,9 +39,11 @@
                 void start() override;
             private:
                 std::pair<int, int> getNewPos();
+                void initMap();
                 std::pair<int, int> _apple;
                 Arcade::Input _input = Arcade::Input::UNKNOWN;
                 Player _player;
+                std::vector<std::vector<Arcade::Rectangle>> _map;
                 int _score = 0;
         };
     }

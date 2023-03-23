@@ -58,6 +58,10 @@ namespace Arcade {
                 endwin();
                 return (Input::NEXT_LIB);
             }
+            case KEY_ESCAPE: {
+                endwin();
+                return (Input::ESCAPE);
+            }
             default:
                 return (Input::UNKNOWN);
         }

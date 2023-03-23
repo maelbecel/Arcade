@@ -67,7 +67,6 @@
         {
             void *handle = dlopen(path.c_str(), RTLD_LAZY);
             if (!handle) {
-                dlclose(handle);
                 return false;
             }
             if (dlsym(handle, "entryDisplayPoint")) {
@@ -92,7 +91,6 @@
         {
             void *handle = dlopen(path.c_str(), RTLD_LAZY);
             if (!handle) {
-                dlclose(handle);
                 return false;
             }
             if (dlsym(handle, "entryGamePoint")) {

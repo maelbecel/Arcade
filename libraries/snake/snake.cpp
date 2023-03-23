@@ -22,12 +22,16 @@ namespace Arcade {
             _player._direction = Arcade::Input::UP;
         if (_input == Arcade::Input::DOWN && _player._direction != Arcade::Input::UP)
             _player._direction = Arcade::Input::DOWN;
+        for (auto &line : _map) {
+            for (auto &wall : line)
+                objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture(), wall.getColor(), 1, 1));
+        }
+        _player.move();
         if (_player.isEating(_apple)) {
             _player.eat();
             _apple = getNewPos();
         }
         objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "apple", Arcade::Color::RED, 1));
-        _player.move();
         if (_player.isDead())
             start();
         for (auto &body : _player._body)
@@ -45,17 +49,18 @@ namespace Arcade {
         _score = 0;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 4), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 4), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 4), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 4), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
+        initMap();
     }
 
     std::pair<int, int> Snake::getNewPos()
     {
-        std::pair<int, int> pos = std::make_pair(rand() % 16, rand() % 12);
+        std::pair<int, int> pos = std::make_pair(rand() % SIZE_MAP_X, rand() % SIZE_MAP_Y);
         if (pos == _apple)
             return getNewPos();
         for (auto &body : _player._body) {
@@ -63,6 +68,29 @@ namespace Arcade {
                 return getNewPos();
         }
         return pos;
+    }
+
+    void Snake::initMap()
+    {
+        _map.clear();
+        for (int i = 0; i < SIZE_MAP_Y + 1; i++) {
+            std::vector<Arcade::Rectangle> line;
+            _map.push_back(line);
+        }
+        for (int i = 0; i < SIZE_MAP_X; i++)
+            _map[0].push_back(Arcade::Rectangle(std::make_pair(i, -1), "wall", Arcade::Color::WHITE, 1, 1));
+        for (int i = 0; i < SIZE_MAP_Y; i++) {
+            _map[i].push_back(Arcade::Rectangle(std::make_pair(-1, i), "wall", Arcade::Color::WHITE, 1, 1));
+            for (int j = 0; j < SIZE_MAP_X; j++) {
+                if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
+                else
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::CYAN, 1, 1));
+            }
+            _map[i].push_back(Arcade::Rectangle(std::make_pair(SIZE_MAP_X, i), "wall", Arcade::Color::WHITE, 1, 1));
+        }
+        for (int i = 0; i < SIZE_MAP_X; i++)
+            _map[SIZE_MAP_Y].push_back(Arcade::Rectangle(std::make_pair(i, SIZE_MAP_Y), "wall", Arcade::Color::WHITE, 1, 1));
     }
 
     void Snake::Player::move()
@@ -91,6 +119,8 @@ namespace Arcade {
             if (_body[i].getPos() == _body[0].getPos())
                 return true;
         }
+        if (_body[0].getPos().first < 0 || _body[0].getPos().first >= SIZE_MAP_X || _body[0].getPos().second < 0 || _body[0].getPos().second >= SIZE_MAP_Y)
+            return true;
         return false;
     }
 

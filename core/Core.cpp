@@ -105,7 +105,7 @@ namespace Arcade {
         if ((dir = opendir(path.c_str())) != nullptr) {
             while ((ent = readdir(dir)) != nullptr) {
                 file = ent->d_name;
-                std::cout << file << std::endl;
+
                 if (file.find(extension) != std::string::npos) {
                     if (displayLoader.isDisplay(path + file)) {
                         _displayLibs.push_back(file);
@@ -116,6 +116,14 @@ namespace Arcade {
 
             }
             closedir(dir);
+        }
+        std::cout << "Display lib: " << std::endl;
+        for (auto &lib : _displayLibs) {
+            std::cout << lib << std::endl;
+        }
+        std::cout << "Game lib: " << std::endl;
+        for (auto &lib : _gameLibs) {
+            std::cout << lib << std::endl;
         }
     }
 }
