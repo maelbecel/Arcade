@@ -36,6 +36,35 @@ namespace Arcade {
      */
     Input SDL2::getLastInput()
     {
+        SDL_Event   event = {};
+
+        while(SDL_PollEvent(&event)) {
+            switch (event.type) {
+                case SDL_QUIT:
+                    exit(0);
+                case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_UP)
+                        return (Input::UP);
+                    if (event.key.keysym.sym == SDLK_DOWN)
+                        return (Input::DOWN);
+                    if (event.key.keysym.sym == SDLK_LEFT)
+                        return (Input::LEFT);
+                    if (event.key.keysym.sym == SDLK_RIGHT)
+                        return (Input::RIGHT);
+                    if (event.key.keysym.sym == SDLK_p) {
+                        SDL_FreeSurface(_surface);
+                        SDL_DestroyWindow(_window);
+                        SDL_Quit();
+                        return (Input::PREV_LIB);
+                    }
+                    if (event.key.keysym.sym == SDLK_n) {
+                        SDL_FreeSurface(_surface);
+                        SDL_DestroyWindow(_window);
+                        SDL_Quit();
+                        return (Input::NEXT_LIB);
+                    }
+            }
+        }
         return (Input::UNKNOWN);
     }
 
@@ -114,7 +143,23 @@ namespace Arcade {
      */
     void SDL2::drawCircle(Arcade::Circle *circle)
     {
-        std::cout << __FUNCTION__ << std::endl;
+        RGBAColor   color   = circle->getColor();
+        int         radius  = circle->getRadius() * SQUARE_SIZE / 2;
+        int         x       = circle->getPos().first * SQUARE_SIZE + radius;
+        int         y       = circle->getPos().second * SQUARE_SIZE + radius;
+
+        SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
+        for (int i = 0; i < radius; i++) {
+            for (int j = 0; j < radius; j++) {
+                if (i * i + j * j <= radius * radius) {
+                    SDL_RenderDrawPoint(_renderer, x + i, y + j);
+                    SDL_RenderDrawPoint(_renderer, x - i, y + j);
+                    SDL_RenderDrawPoint(_renderer, x + i, y - j);
+                    SDL_RenderDrawPoint(_renderer, x - i, y - j);
+                }
+            }
+        }
+
     }
 
     SDL2::RGBAColor::RGBAColor(Arcade::Color color)
