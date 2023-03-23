@@ -44,6 +44,10 @@ namespace Arcade {
                 case SDL_QUIT:
                     exit(0);
                 case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_m)
+                        return (Input::MENU);
+                    if (event.key.keysym.sym == SDLK_KP_ENTER)
+                        return (Input::ENTER);
                     if (event.key.keysym.sym == SDLK_UP)
                         return (Input::UP);
                     if (event.key.keysym.sym == SDLK_DOWN)

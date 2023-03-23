@@ -88,6 +88,14 @@ namespace Arcade {
             _displayLoader.close();
             _display = display.load(_displayPath);
             _display->clear();
+        } else if (input == Input::ENTER && _gamePath == MENU_PATH) {
+            _gamePath = "lib/" + _gameLibs[_game->getScore()];
+            _game = _gameLoader.load(_gamePath);
+            _game->start();
+        } else if (input == Input::MENU) {
+            _gamePath = MENU_PATH;
+            _game = _gameLoader.load(_gamePath);
+            _game->start();
         }
         return true;
     }

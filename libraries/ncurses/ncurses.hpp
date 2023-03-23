@@ -10,6 +10,7 @@
 
     #include <iostream>
     #include <memory>
+    #include <unistd.h>
     #include "../../IObject.hpp"
     #include "../../Input.hpp"
     #include "../../IDisplayModule.hpp"

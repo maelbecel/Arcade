@@ -42,6 +42,10 @@ namespace Arcade {
 
         refresh();
         switch (ch) {
+            case'm':
+                return (Input::MENU);
+            case '\n':
+                return (Input::ENTER);
             case KEY_UP:
                 return (Input::UP);
             case KEY_DOWN:

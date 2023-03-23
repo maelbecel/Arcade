@@ -10,7 +10,6 @@
 #include <time.h>
 #include "Input.hpp"
 #include "IDisplayModule.hpp"
-#include "./core/DLLoader.hpp"
 #include "./core/Core.hpp"
 
 using namespace Arcade;
@@ -22,7 +21,7 @@ int main(int ac, char **av)
     Core core(av[1]);
     srand(time(NULL));
 
-    core.setGamePath("lib/libarcade_snake.so");
+    core.setGamePath(MENU_PATH);
 
     try {
         core.setDisplay(core.getDisplayLoader().load(core.getDisplayPath()));

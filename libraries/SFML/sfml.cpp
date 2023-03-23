@@ -22,6 +22,8 @@ namespace Arcade {
             if (event.type == sf::Event::Closed)
                 exit(0);
             if (event.type == sf::Event::KeyPressed) {
+                if (event.key.code == sf::Keyboard::M)
+                    return (Input::MENU);
                 if (event.key.code == sf::Keyboard::Up)
                     return (Input::UP);
                 if (event.key.code == sf::Keyboard::Down)
@@ -30,6 +32,8 @@ namespace Arcade {
                     return (Input::LEFT);
                 if (event.key.code == sf::Keyboard::Right)
                     return (Input::RIGHT);
+                if (event.key.code == sf::Keyboard::Enter)
+                    return (Input::ENTER);
                 if (event.key.code == sf::Keyboard::P) {
                     _window.close();
                     return (Input::PREV_LIB);
