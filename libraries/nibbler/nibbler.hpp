@@ -23,13 +23,15 @@
                 public:
                     Player() = default;
                     ~Player() = default;
-                    void move();
+                    void move(std::vector<std::vector<Arcade::Rectangle>> map);
                     void eat();
                     bool isEating(std::pair<int, int> apple);
                     bool isDead();
                     bool win();
+                    Arcade::Rectangle getBlock(std::string direction, std::vector<std::vector<Arcade::Rectangle>> map);
                     std::vector<Arcade::Rectangle> _body;
                     Arcade::Input _direction;
+                    bool _changeInput;
             };
             public:
                 Snake() {};
