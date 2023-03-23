@@ -109,7 +109,7 @@ namespace Arcade {
 
         sfText.setString(text->getText());
         sfText.setPosition((float)text->getPos().first * SQUARE_SIZE, (float)text->getPos().second * SQUARE_SIZE);
-        sfText.setCharacterSize(20);
+        sfText.setCharacterSize((unsigned int)text->getSize() * (SQUARE_SIZE / 2));
         sfText.setFillColor(arcadeColorToSFMLColor(text->getColor()));
         if (access(FONT, F_OK ) != -1 && font.loadFromFile(FONT))
             sfText.setFont(font);

@@ -11,4 +11,4 @@ find_package(SDL2TTF REQUIRED)
 add_library(arcade_SDL2 SHARED sdl2.cpp)
 
 target_include_directories(arcade_SDL2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(arcade_SDL2 ${SDL2_LIBRARIES} ${SDL2TTF_LIBRARIES})
+target_link_libraries(arcade_SDL2 ${SDL2_LIBRARIES} -lSDL2_ttf)

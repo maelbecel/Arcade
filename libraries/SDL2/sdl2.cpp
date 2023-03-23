@@ -11,6 +11,7 @@ namespace Arcade {
 
     SDL2::SDL2()
     {
+        TTF_Init();
         _window = SDL_CreateWindow("Arcade", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
         if (!_window)
             throw std::runtime_error("SDL_CreateWindow Error: " + std::string(SDL_GetError()));
@@ -130,10 +131,25 @@ namespace Arcade {
      */
     void SDL2::drawText(Arcade::Text *text)
     {
-        // TTF_FONT *font = TTF_OpenFont("arial.ttf", 24);
-        // if (!font)
-        //     throw std::runtime_error("TTF_OpenFont Error: " + std::string(TTF_GetError()));
-
+        TTF_Font    *font = TTF_OpenFont(FONT, text->getSize() * (SQUARE_SIZE));
+        RGBAColor   color = text->getColor();
+        if (!font)
+            throw std::runtime_error("TTF_OpenFont Error: " + std::string(TTF_GetError()));
+        SDL_Surface *surface = TTF_RenderText_Solid(font, text->getText().c_str(), {(Uint8)color._r, (Uint8)color._g, (Uint8)color._b, (Uint8)color._a});
+        if (!surface)
+            throw std::runtime_error("TTF_RenderText_Solid Error: " + std::string(TTF_GetError()));
+        SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
+        if (!texture)
+            throw std::runtime_error("SDL_CreateTextureFromSurface Error: " + std::string(SDL_GetError()));
+        SDL_Rect    rect;
+        rect.x = text->getPos().first * SQUARE_SIZE;
+        rect.y = text->getPos().second * SQUARE_SIZE;
+        rect.w = text->getSize() * (SQUARE_SIZE / 2) * text->getText().size();
+        rect.h = text->getSize() * SQUARE_SIZE;
+        SDL_RenderCopy(_renderer, texture, NULL, &rect);
+        SDL_FreeSurface(surface);
+        SDL_DestroyTexture(texture);
+        TTF_CloseFont(font);
     }
 
     /**

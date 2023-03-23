@@ -16,13 +16,13 @@
     #include "../../Input.hpp"
     #include "../../IDisplayModule.hpp"
     #include <SDL2/SDL.h>
-    //#include <SDL2/SDL_ttf.h>
+    #include <SDL2/SDL_ttf.h>
     #include <sys/stat.h>
     #include <unistd.h>
     #include <string>
     #include <fstream>
 
-    #define FONT "../assets/font.otf"
+    #define FONT "../assets/font.ttf"
 
     #define SQUARE_SIZE 50
 
