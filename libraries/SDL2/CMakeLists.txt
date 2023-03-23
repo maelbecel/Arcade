@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 
 find_package(SDL2 REQUIRED)
-find_package(SDL_ttf REQUIRED)
+# find_package(SDL_ttf REQUIRED)
 
 add_library(arcade_SDL2 SHARED sdl2.cpp)
 
