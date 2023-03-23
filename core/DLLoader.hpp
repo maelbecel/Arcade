@@ -70,7 +70,7 @@
                 return false;
             }
             if (dlsym(handle, "entryDisplayPoint")) {
-                dlclose(handle);
+                // dlclose(handle);
                 return true;
             }
             else {
