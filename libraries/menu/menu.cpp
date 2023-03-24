@@ -12,13 +12,13 @@ namespace Arcade {
     {
         updateGame(input);
         _objects.clear();
-        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 0), "Arcade", Arcade::Color::WHITE, 2)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 0), "Arcade", Arcade::Color::WHITE, 60)));
         for (size_t i = 0; i < _games.size(); i++) {
             if (_games[i] == _currentGame)
-                _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, i + 1), ">", Arcade::Color::WHITE, 1)));
+                _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, i + 2), ">", Arcade::Color::WHITE, 50)));
             else
-                _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, i + 1), _games[i], Arcade::Color::WHITE, 1)));
-            _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, i + 1), _games[i], Arcade::Color::WHITE, 1)));
+                _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, i + 2), _games[i], Arcade::Color::WHITE, 50)));
+            _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, i + 2), _games[i], Arcade::Color::WHITE, 50)));
         }
         return _objects;
     }
