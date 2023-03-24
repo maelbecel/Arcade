@@ -91,6 +91,8 @@
         {
             void *handle = dlopen(path.c_str(), RTLD_LAZY);
             if (!handle) {
+                std::cout << "Failed to load as Game: " << path << std::endl;
+                std::cout << "\tError: " << dlerror() << std::endl;
                 return false;
             }
             if (dlsym(handle, "entryGamePoint")) {
@@ -98,6 +100,7 @@
                 return true;
             }
             else {
+                std::cout << "Cannot find EntryGamePoint: " << path << std::endl;
                 dlclose(handle);
                 return false;
             }

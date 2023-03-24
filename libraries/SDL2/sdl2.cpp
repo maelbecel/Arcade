@@ -25,7 +25,6 @@ namespace Arcade {
 
     SDL2::~SDL2()
     {
-        SDL_FreeSurface(_surface);
         SDL_DestroyWindow(_window);
         SDL_Quit();
     }
@@ -57,7 +56,6 @@ namespace Arcade {
                     if (event.key.keysym.sym == SDLK_RIGHT)
                         return (Input::RIGHT);
                     if (event.key.keysym.sym == SDLK_p) {
-                        SDL_FreeSurface(_surface);
                         SDL_DestroyWindow(_window);
                         SDL_Quit();
                         return (Input::PREV_LIB);
@@ -135,7 +133,7 @@ namespace Arcade {
      */
     void SDL2::drawText(Arcade::Text *text)
     {
-        TTF_Font    *font = TTF_OpenFont(FONT, text->getSize() * (SQUARE_SIZE));
+        TTF_Font    *font = TTF_OpenFont(FONT, text->getSize() * (SQUARE_SIZE * 10));
         RGBAColor   color = text->getColor();
         if (!font)
             throw std::runtime_error("TTF_OpenFont Error: " + std::string(TTF_GetError()));
@@ -148,8 +146,8 @@ namespace Arcade {
         SDL_Rect    rect;
         rect.x = text->getPos().first * SQUARE_SIZE;
         rect.y = text->getPos().second * SQUARE_SIZE;
-        rect.w = text->getSize() * (SQUARE_SIZE / 2) * text->getText().size();
-        rect.h = text->getSize() * SQUARE_SIZE;
+        rect.w = text->getSize() * (SQUARE_SIZE  * text->getText().size()) / 4;
+        rect.h = text->getSize() * SQUARE_SIZE / 2;
         SDL_RenderCopy(_renderer, texture, NULL, &rect);
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
