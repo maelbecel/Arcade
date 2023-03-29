@@ -8,7 +8,7 @@
 #include "nibbler.hpp"
 
 namespace Arcade {
-    std::vector<std::shared_ptr<Arcade::IObject>> Snake::loop(Arcade::Input input)
+    std::vector<std::shared_ptr<Arcade::IObject>> Nibbler::loop(Arcade::Input input)
     {
         std::vector<std::shared_ptr<Arcade::IObject>> objects;
         if (input != Arcade::Input::UNKNOWN) {
@@ -33,75 +33,59 @@ namespace Arcade {
             start();
         if (_player.isEating(_apple)) {
             _player.eat();
-            _apple = getNewPos();
             _score++;
         }
-        if (_player.win()) {
+        if (win()) {
             std::cout << "You win" << std::endl;
             start();
         }
-        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "../assets/apple.png", Arcade::Color::RED, 1));
+        for (auto &apple : _apple)
+            objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(apple.first, apple.second), "../assets/apple.png", Arcade::Color::RED, 1));
         for (auto &body : _player._body)
             objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
         objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::BLACK, 1));
         return objects;
     }
 
-    int Snake::getScore()
+    int Nibbler::getScore()
     {
         return 0;
     }
 
-    void Snake::start()
+    void Nibbler::start()
     {
         _score = 0;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 10), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 10), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 10), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 10), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
-        _apple = getNewPos();
         initMap();
     }
 
-    std::pair<int, int> Snake::getNewPos()
-    {
-        std::pair<int, int> pos = std::make_pair(rand() % (SIZE_MAP_X - 1) + 1, rand() % (SIZE_MAP_Y - 1) + 1);
-        if (pos == _apple)
-            return getNewPos();
-        for (auto &body : _player._body) {
-            if (body.getPos() == pos)
-                return getNewPos();
-        }
-        return pos;
-    }
-
-    void Snake::initMap()
+    void Nibbler::initMap()
     {
         _map.clear();
         for (int i = 0; i < SIZE_MAP_Y + 1; i++) {
             std::vector<Arcade::Rectangle> line;
             _map.push_back(line);
         }
-        for (int i = 0; i < SIZE_MAP_X + 1; i++)
-            _map[0].push_back(Arcade::Rectangle(std::make_pair(i, 0), "wall", Arcade::Color::WHITE, 1, 1));
-        for (int i = 1; i < SIZE_MAP_Y; i++) {
-            _map[i].push_back(Arcade::Rectangle(std::make_pair(0, i), "wall", Arcade::Color::WHITE, 1, 1));
-            for (int j = 1; j < SIZE_MAP_X; j++) {
-                if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
+        for (int i = 0; i < SIZE_MAP_Y + 1; i++) {
+            for (int j = 0; j < SIZE_MAP_X + 1; j++) {
+                if (map[i][j] == '0')
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "wall", Arcade::Color::WHITE, 1, 1));
+                else if (map[i][j] == '2') {
+                    _apple.push_back(std::make_pair(j, i));
                     _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
-                else
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::CYAN, 1, 1));
+                } else
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
             }
-            _map[i].push_back(Arcade::Rectangle(std::make_pair(SIZE_MAP_X, i), "wall", Arcade::Color::WHITE, 1, 1));
         }
-        for (int i = 0; i < SIZE_MAP_X + 1; i++)
-            _map[SIZE_MAP_Y].push_back(Arcade::Rectangle(std::make_pair(i, SIZE_MAP_Y), "wall", Arcade::Color::WHITE, 1, 1));
     }
 
-    void Snake::Player::move(std::vector<std::vector<Arcade::Rectangle>> map)
+    void Nibbler::Player::move(std::vector<std::vector<Arcade::Rectangle>> map)
     {
         std::vector<Arcade::Rectangle> body;
         Arcade::Rectangle block = getBlock("top", map);
@@ -176,7 +160,7 @@ namespace Arcade {
         _body = body;
     }
 
-    Arcade::Rectangle Snake::Player::getBlock(std::string direction, std::vector<std::vector<Arcade::Rectangle>> map)
+    Arcade::Rectangle Nibbler::Player::getBlock(std::string direction, std::vector<std::vector<Arcade::Rectangle>> map)
     {
         if (direction == "top") {
             if (_direction == Arcade::Input::LEFT)
@@ -209,7 +193,7 @@ namespace Arcade {
         return Arcade::Rectangle(std::make_pair(0, 0), "snake", Arcade::Color::GREEN, 1, 1);
     }
 
-    bool Snake::Player::isDead()
+    bool Nibbler::Player::isDead()
     {
         for (std::size_t i = 1; i < _body.size(); i++) {
             if (_body[i].getPos() == _body[0].getPos())
@@ -218,21 +202,27 @@ namespace Arcade {
         return false;
     }
 
-    void Snake::Player::eat()
+    void Nibbler::Player::eat()
     {
         _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
     }
 
-    bool Snake::Player::isEating(std::pair<int, int> apple)
+    bool Nibbler::Player::isEating(std::vector<std::pair<int, int>> &apple)
     {
-        if (_body[0].getPos() == apple)
-            return true;
+        int i = 0;
+        for (auto app : apple) {
+            if (_body[0].getPos() == app) {
+                apple.erase(apple.begin() + i);
+                return true;
+            }
+            i++;
+        }
         return false;
     }
 
-    bool Snake::Player::win()
+    bool Nibbler::win()
     {
-        if (_body.size() == (SIZE_MAP_X - 1) * (SIZE_MAP_Y - 1) + 1)
+        if (_apple.size() == 0)
             return true;
         return false;
     }
@@ -240,5 +230,5 @@ namespace Arcade {
 
 extern "C" Arcade::IGameModule *entryGamePoint()
 {
-    return (new Arcade::Snake());
+    return (new Arcade::Nibbler());
 }

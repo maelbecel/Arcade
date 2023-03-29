@@ -10,6 +10,8 @@
 
     #include <iostream>
     #include <memory>
+    #include <vector>
+    #include <fstream>
     #include "../../IObject.hpp"
     #include "../../Input.hpp"
     #include "../../IGameModule.hpp"
@@ -18,36 +20,49 @@
     #define SIZE_MAP_Y 11
 
     namespace Arcade {
-        class Snake: public IGameModule {
+        class Nibbler: public IGameModule {
             class Player {
                 public:
                     Player() = default;
                     ~Player() = default;
                     void move(std::vector<std::vector<Arcade::Rectangle>> map);
                     void eat();
-                    bool isEating(std::pair<int, int> apple);
+                    bool isEating(std::vector<std::pair<int, int>> &apple);
                     bool isDead();
-                    bool win();
                     Arcade::Rectangle getBlock(std::string direction, std::vector<std::vector<Arcade::Rectangle>> map);
                     std::vector<Arcade::Rectangle> _body;
                     Arcade::Input _direction;
                     bool _changeInput;
             };
             public:
-                Snake() {};
-                ~Snake() override = default;
+                Nibbler() {};
+                ~Nibbler() override = default;
 
                 std::vector<std::shared_ptr<Arcade::IObject>> loop(Arcade::Input input) override;
                 int getScore() override;
                 void start() override;
             private:
-                std::pair<int, int> getNewPos();
                 void initMap();
-                std::pair<int, int> _apple;
+                bool win();
+                std::vector<std::pair<int, int>> _apple;
                 Arcade::Input _input = Arcade::Input::UNKNOWN;
                 Player _player;
                 std::vector<std::vector<Arcade::Rectangle>> _map;
                 int _score = 0;
+                std::string map[12] = {
+                    "0000000000000000",
+                    "0121112112111210",
+                    "0202010110102020",
+                    "0121010110101210",
+                    "0100011111100010",
+                    "0112110000112110",
+                    "0000010000100000",
+                    "0111211111121110",
+                    "0101010110101010",
+                    "0201010110101020",
+                    "0121111111111210",
+                    "0000000000000000"
+                };
         };
     }
 
