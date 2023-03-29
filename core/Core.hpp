@@ -18,7 +18,7 @@
     #include <string>
     #include "DLLoader.hpp"
 
-    #define MENU_PATH "lib/libarcade_menu.so"
+    #define MENU_PATH "lib/arcade_menu.so"
 
     namespace Arcade {
         class Core {

@@ -13,8 +13,6 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/core)
 ADD_EXECUTABLE(arcade main.cpp core/Core.cpp)
 TARGET_LINK_LIBRARIES(arcade dl)
 
-ADD_SUBDIRECTORY(libraries/gametest)
-ADD_SUBDIRECTORY(libraries/libtest)
 ADD_SUBDIRECTORY(libraries/SFML)
 ADD_SUBDIRECTORY(libraries/SFML3D)
 ADD_SUBDIRECTORY(libraries/SDL2)
@@ -23,9 +21,6 @@ ADD_SUBDIRECTORY(libraries/menu)
 ADD_SUBDIRECTORY(libraries/snake)
 ADD_SUBDIRECTORY(libraries/nibbler)
 
-
-ADD_DEPENDENCIES(arcade arcade_gametest)
-ADD_DEPENDENCIES(arcade arcade_libtest)
 ADD_DEPENDENCIES(arcade arcade_SFML)
 ADD_DEPENDENCIES(arcade arcade_SFML3D)
 ADD_DEPENDENCIES(arcade arcade_SDL2)
@@ -36,3 +31,6 @@ ADD_DEPENDENCIES(arcade arcade_nibbler)
 
 SET_DIRECTORY_PROPERTIES(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "lib")
 
+add_custom_command(TARGET arcade POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:arcade>
+        ${PROJECT_SOURCE_DIR}/$<TARGET_FILE_NAME:arcade>)

@@ -12,3 +12,8 @@ add_library(arcade_SDL2 SHARED sdl2.cpp)
 
 target_include_directories(arcade_SDL2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(arcade_SDL2 ${SDL2_LIBRARIES} -lSDL2_ttf)
+
+set_target_properties(arcade_SDL2 PROPERTIES PREFIX "")
+add_custom_command(TARGET arcade_SDL2 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:arcade_SDL2>
+        ${PROJECT_SOURCE_DIR}/lib/$<TARGET_FILE_NAME:arcade_SDL2>)

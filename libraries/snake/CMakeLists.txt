@@ -8,3 +8,8 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 add_library(arcade_snake SHARED snake.cpp)
 
 target_include_directories(arcade_snake PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
+set_target_properties(arcade_snake PROPERTIES PREFIX "")
+add_custom_command(TARGET arcade_snake POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:arcade_snake>
+        ${PROJECT_SOURCE_DIR}/lib/$<TARGET_FILE_NAME:arcade_snake>)

@@ -11,3 +11,8 @@ add_library(arcade_SFML SHARED sfml.cpp)
 
 target_include_directories(arcade_SFML PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(arcade_SFML sfml-graphics sfml-window sfml-system)
+
+set_target_properties(arcade_SFML PROPERTIES PREFIX "")
+add_custom_command(TARGET arcade_SFML POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:arcade_SFML>
+        ${PROJECT_SOURCE_DIR}/lib/$<TARGET_FILE_NAME:arcade_SFML>)

@@ -11,3 +11,8 @@ add_library(arcade_ncurses SHARED ncurses.cpp ncurses.cpp)
 target_include_directories(arcade_ncurses PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(arcade_ncurses ${CURSES_LIBRARIES})
 target_link_libraries(arcade_ncurses m)
+
+set_target_properties(arcade_ncurses PROPERTIES PREFIX "")
+add_custom_command(TARGET arcade_ncurses POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+        $<TARGET_FILE:arcade_ncurses>
+        ${PROJECT_SOURCE_DIR}/lib/$<TARGET_FILE_NAME:arcade_ncurses>)
