@@ -17,6 +17,7 @@
     #include <vector>
     #include <string>
     #include "DLLoader.hpp"
+    #include "Score.hpp"
 
     #define MENU_PATH "lib/arcade_menu.so"
 

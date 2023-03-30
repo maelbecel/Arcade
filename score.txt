@@ -1,0 +1,2 @@
+Nibbler:200:toto
+Snake:400:PAvaaaaard

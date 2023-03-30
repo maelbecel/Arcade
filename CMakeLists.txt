@@ -10,7 +10,7 @@ SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wall -Wextra -g3")
 
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR})
 INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/core)
-ADD_EXECUTABLE(arcade main.cpp core/Core.cpp)
+ADD_EXECUTABLE(arcade main.cpp core/Core.cpp core/Score.cpp)
 TARGET_LINK_LIBRARIES(arcade dl)
 
 ADD_SUBDIRECTORY(libraries/SFML)
