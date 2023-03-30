@@ -26,7 +26,7 @@ namespace Arcade {
             for (auto &wall : line)
                 objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture(), wall.getColor(), 1, 1));
         }
-        _player.move(_map);
+        _player.move(_map, walls);
         if (_player._changeInput)
             _input = _player._direction;
         if (_player.isDead())
@@ -74,9 +74,9 @@ namespace Arcade {
         }
         for (int i = 0; i < SIZE_MAP_Y + 1; i++) {
             for (int j = 0; j < SIZE_MAP_X + 1; j++) {
-                if (map[i][j] == '0')
+                if (walls[i][j] == '0')
                     _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "wall", Arcade::Color::WHITE, 1, 1));
-                else if (map[i][j] == '2') {
+                else if (walls[i][j] == '2') {
                     _apple.push_back(std::make_pair(j, i));
                     _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
                 } else
@@ -85,13 +85,13 @@ namespace Arcade {
         }
     }
 
-    void Nibbler::Player::move(std::vector<std::vector<Arcade::Rectangle>> map)
+    void Nibbler::Player::move(std::vector<std::vector<Arcade::Rectangle>> map, std::string wall[12])
     {
         std::vector<Arcade::Rectangle> body;
         Arcade::Rectangle block = getBlock("top", map);
         Arcade::Rectangle right = getBlock("right", map);
         Arcade::Rectangle left = getBlock("left", map);
-        if (block.getTexture() == "empty") {
+        if (wall[block.getPos().second][block.getPos().first] != '0') {
             if (_direction == Arcade::Input::LEFT)
                 body.push_back(Arcade::Rectangle(std::make_pair(_body[0].getPos().first - 1, _body[0].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
             if (_direction == Arcade::Input::RIGHT)
@@ -100,8 +100,8 @@ namespace Arcade {
                 body.push_back(Arcade::Rectangle(std::make_pair(_body[0].getPos().first, _body[0].getPos().second - 1), "snake", Arcade::Color::GREEN, 1, 1));
             if (_direction == Arcade::Input::DOWN)
                 body.push_back(Arcade::Rectangle(std::make_pair(_body[0].getPos().first, _body[0].getPos().second + 1), "snake", Arcade::Color::GREEN, 1, 1));
-        } else if (block.getTexture() == "wall") {
-            if (right.getTexture() == "wall" && left.getTexture() != "wall") {
+        } else if (wall[block.getPos().second][block.getPos().first] == '0') {
+            if (wall[right.getPos().second][right.getPos().first] == '0' && wall[left.getPos().second][left.getPos().first] != '0') {
                 if (_direction == Arcade::Input::UP) {
                     body.push_back(Arcade::Rectangle(std::make_pair(_body[0].getPos().first - 1, _body[0].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
                     _direction = Arcade::Input::LEFT;
@@ -122,7 +122,7 @@ namespace Arcade {
                     _direction = Arcade::Input::UP;
                     _changeInput = true;
                 }
-            } else if (right.getTexture() != "wall" && left.getTexture() == "wall") {
+            } else if (wall[right.getPos().second][right.getPos().first] != '0' && wall[left.getPos().second][left.getPos().first] == '0') {
                 if (_direction == Arcade::Input::UP) {
                     body.push_back(Arcade::Rectangle(std::make_pair(_body[0].getPos().first + 1, _body[0].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
                     _direction = Arcade::Input::RIGHT;
@@ -144,8 +144,6 @@ namespace Arcade {
                     _changeInput = true;
                 }
             } else {
-                std::cout << "GAME OVER" << std::endl;
-                std::cout << "direction : " << _direction << std::endl;
                 body.push_back(Arcade::Rectangle(std::make_pair(_body[0].getPos().first, _body[0].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
                 for (std::size_t i = 1; i < _body.size(); i++) {
                     body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));

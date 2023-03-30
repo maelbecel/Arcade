@@ -25,7 +25,7 @@
                 public:
                     Player() = default;
                     ~Player() = default;
-                    void move(std::vector<std::vector<Arcade::Rectangle>> map);
+                    void move(std::vector<std::vector<Arcade::Rectangle>> map, std::string wall[12]);
                     void eat();
                     bool isEating(std::vector<std::pair<int, int>> &apple);
                     bool isDead();
@@ -49,7 +49,7 @@
                 Player _player;
                 std::vector<std::vector<Arcade::Rectangle>> _map;
                 int _score = 0;
-                std::string map[12] = {
+                std::string walls[12] = {
                     "0000000000000000",
                     "0121112112111210",
                     "0202010110102020",
