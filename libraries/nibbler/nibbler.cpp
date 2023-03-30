@@ -49,7 +49,7 @@ namespace Arcade {
 
     int Nibbler::getScore()
     {
-        return 0;
+        return _score;
     }
 
     void Nibbler::start()

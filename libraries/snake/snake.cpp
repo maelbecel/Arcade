@@ -47,7 +47,7 @@ namespace Arcade {
 
     int Snake::getScore()
     {
-        return 0;
+        return _score;
     }
 
     void Snake::start()
