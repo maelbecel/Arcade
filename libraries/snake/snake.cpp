@@ -38,7 +38,7 @@ namespace Arcade {
             std::cout << "You win" << std::endl;
             start();
         }
-        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "../assets/apple.png", Arcade::Color::RED, 1));
+        objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "assets/apple.png", Arcade::Color::RED, 1));
         for (auto &body : _player._body)
             objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
         objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::BLACK, 50));
