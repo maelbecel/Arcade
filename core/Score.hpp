@@ -13,6 +13,7 @@
     #define ARCADE_SCORE_H
 
     #define SCORE_FILE "score.txt"
+    #define USER "user.txt"
 
     namespace Arcade {
 
@@ -39,6 +40,8 @@
 
                 int getScore(std::string game);
                 void setScore(std::string game, int score, std::string name);
+                std::string getCurrentPlayer();
+                void setCurrentPlayer(std::string name);
                 std::string getBestPlayer(std::string game);
 
             private:

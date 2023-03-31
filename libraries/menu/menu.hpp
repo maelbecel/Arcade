@@ -16,6 +16,7 @@
 #include "../../IGameModule.hpp"
 #include "../../IDisplayModule.hpp"
 #include "../../core/DLLoader.hpp"
+#include "../../core/Score.hpp"
 
 namespace Arcade {
     class Menu: public IGameModule {

@@ -18,6 +18,8 @@ namespace Arcade {
         Input input;
         _game->start();
         getLibs();
+        int score;
+
         while (true) {
             _display->clear();
             input = _display->getLastInput();
@@ -28,6 +30,11 @@ namespace Arcade {
                 _display->draw(object);
             }
             _display->refresh();
+            score = _game->getScore();
+            Score scoreHandler;
+            if (score > scoreHandler.getScore(_gamePath.substr(_gamePath.find_last_of("/") + 1))) {
+                scoreHandler.setScore(_gamePath.substr(_gamePath.find_last_of("/") + 1), score, scoreHandler.getCurrentPlayer());
+            }
             usleep(500000);
         }
     }

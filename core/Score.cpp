@@ -37,6 +37,7 @@ namespace Arcade {
             game.setScore(std::atoi(line.substr(0, line.find(":")).c_str()));
             line = line.substr(line.find(":") + 1);
             game.setPlayer(line);
+            games.push_back(game);
         }
         stream.close();
         return games;
@@ -89,5 +90,26 @@ namespace Arcade {
                 return g.getPlayer();
         }
         return "";
+    }
+
+    std::string Score::getCurrentPlayer()
+    {
+        std::ifstream f(USER);
+        std::string name;
+
+        if (!f.is_open())
+            return "";
+        std::getline(f, name);
+        f.close();
+        return name;
+    }
+
+    void Score::setCurrentPlayer(std::string name)
+    {
+        std::ofstream f(USER);
+        if (!f.is_open())
+            return;
+        f << name;
+        f.close();
     }
 }
