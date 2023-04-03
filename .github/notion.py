@@ -16,12 +16,8 @@ def update_database(actor, sha, status):
         "Commit": {"rich_text": [{"text": {"content": sha}}]},
         "Status": {"rich_text": [{"text": {"content": status}}]}
     }
-
-    try:
-        database.pages.create(properties=new_page)
-        print("Successfully updated Notion database!")
-    except (NotionClientError, APIResponseError) as e:
-        print(f"Error updating Notion database: {e}")
+    notion.pages.create(parent={"database_id":database_id},properties=new_page)
+    print("Successfully updated Notion database!")
 
 if __name__ == "__main__":
     import sys
