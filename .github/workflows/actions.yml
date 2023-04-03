@@ -72,9 +72,8 @@ jobs:
 
       - name: Update Notion Database
         env:
-          DATABASE_ID: 9716ef39b1464fe8b47f118613886fd8
+          DATABASE_ID: 99478491001d468e91d85dc570ccbae6
 
           NOTION_TOKEN: ${{ secrets.NOTION_SECRET }}
         run: |
           python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "${{ job.status }}"
-
