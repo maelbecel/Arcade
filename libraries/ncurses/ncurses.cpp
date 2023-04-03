@@ -183,6 +183,16 @@ namespace Arcade {
         init_pair(17, COLOR_WHITE, COLOR_BLACK);
         init_pair(18, COLOR_WHITE, COLOR_BLACK);
     }
+
+    bool NCurses::doLoop()
+    {
+        if (clock()  - _clock >= 15000000 / 60) {
+            _clock = clock();
+            return (true);
+        } else {
+            return (false);
+        }
+    }
 }
 
 /**

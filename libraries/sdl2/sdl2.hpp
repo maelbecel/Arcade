@@ -21,6 +21,7 @@
     #include <unistd.h>
     #include <string>
     #include <fstream>
+    #include <time.h>
 
     #define FONT "assets/font.ttf"
 
@@ -37,7 +38,7 @@
                 void            clear() override;
                 void            refresh() override;
                 void            draw(std::shared_ptr<Arcade::IObject> object) override;
-                bool            doLoop() override { return (true);};
+                bool            doLoop() override;
 
             private:
                 class RGBAColor {
@@ -57,6 +58,7 @@
                 SDL_Window          *_window;
                 SDL_Surface         *_surface;
                 SDL_Renderer        *_renderer;
+                clock_t _clock = clock();
         };
     }
 
