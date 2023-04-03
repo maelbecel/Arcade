@@ -14,7 +14,7 @@ def update_database(actor, sha, status):
     new_page = {
         "Name": {"title": [{"text": {"content": actor}}]},
         "Commit": {"rich_text": [{"text": {"content": sha}}]},
-        "Status": {"rich_text": [{"text": {"content": status}}]}
+        "Status": {"select": [{"name": {"content": status}}]}
     }
     notion.pages.create(parent={"database_id":database_id},properties=new_page)
     print("Successfully updated Notion database!")

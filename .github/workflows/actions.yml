@@ -61,7 +61,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
+    needs: compilation
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -75,5 +75,9 @@ jobs:
           DATABASE_ID: 99478491001d468e91d85dc570ccbae6
 
           NOTION_TOKEN: ${{ secrets.NOTION_SECRET }}
-        run: |
-          python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "${{ job.status }}"
+        if: ${{ failure() }}
+          run: |
+            python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "Failure"
+        if: ${{ success() }}
+          run: |
+            python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "Success"
