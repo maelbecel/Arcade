@@ -58,7 +58,7 @@ jobs:
 
   send_to_notion:
     - name: Checkout code
-        uses: actions/checkout@v2
+      uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
