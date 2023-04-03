@@ -243,9 +243,9 @@ namespace Arcade {
 }
 
 /**
- * @brief Get a pointer to the SDL2 class
+ * @brief Get a pointer to the sdl2 class
  *
- * @return pointer to SDL2 class
+ * @return pointer to sdl2 class
  */
 extern "C" Arcade::IDisplayModule *entryDisplayPoint()
 {
