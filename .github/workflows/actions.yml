@@ -56,10 +56,10 @@ jobs:
           ssh_private_key:
             ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
 
-  send_to_notion:
+  send_to_notion_sucess:
     runs-on: ubuntu-latest
     needs: compilation
-    if: always()
+    if: ${{ always() && success() }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -76,9 +76,28 @@ jobs:
           DATABASE_ID: 99478491001d468e91d85dc570ccbae6
 
           NOTION_TOKEN: ${{ secrets.NOTION_SECRET }}
-        if: ${{ failure() }}
-          run: |
-            python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "Failure"
-        if: ${{ success() }}
-          run: |
+        run: |
             python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "Success"
+
+  send_to_notion_failure:
+    runs-on: ubuntu-latest
+    needs: compilation
+    if: ${{ always() && failure() }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install Notion API client
+        run: pip install notion-client
+
+      - name: Update Notion Database
+        env:
+          DATABASE_ID: 99478491001d468e91d85dc570ccbae6
+
+          NOTION_TOKEN: ${{ secrets.NOTION_SECRET }}
+        run: |
+            python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "Failure"
