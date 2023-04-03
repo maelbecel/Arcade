@@ -8,6 +8,14 @@
 #include "snake.hpp"
 
 namespace Arcade {
+    /**
+     * It moves the snake, checks if it's dead, checks if it's eating, checks if
+     * it's winning, and returns the objects to be displayed
+     *
+     * @param input The input from the user
+     *
+     * @return A vector of shared pointers to IObjects
+     */
     std::vector<std::shared_ptr<Arcade::IObject>> Snake::loop(Arcade::Input input)
     {
         std::vector<std::shared_ptr<Arcade::IObject>> objects;
@@ -45,11 +53,19 @@ namespace Arcade {
         return objects;
     }
 
+    /**
+     * This function returns the score of the snake
+     *
+     * @return The score of the snake.
+     */
     int Snake::getScore()
     {
         return _score;
     }
 
+    /**
+     * It initializes the game
+     */
     void Snake::start()
     {
         _score = 0;
@@ -64,6 +80,13 @@ namespace Arcade {
         initMap();
     }
 
+    /**
+     * It returns a random position on the map, but it makes sure that the
+     * position is not the same as the apple's position, and that it is not the
+     * same as any of the snake's body parts
+     *
+     * @return A pair of ints
+     */
     std::pair<int, int> Snake::getNewPos()
     {
         std::pair<int, int> pos = std::make_pair(rand() % (SIZE_MAP_X - 1) + 1, rand() % (SIZE_MAP_Y - 1) + 1);
@@ -78,6 +101,9 @@ namespace Arcade {
         return pos;
     }
 
+    /**
+     * It initializes the map
+     */
     void Snake::initMap()
     {
         _map.clear();
@@ -101,6 +127,9 @@ namespace Arcade {
             _map[SIZE_MAP_Y].push_back(Arcade::Rectangle(std::make_pair(i, SIZE_MAP_Y), "wall", Arcade::Color::WHITE, 1, 1));
     }
 
+    /**
+     * It moves the snake
+     */
     void Snake::Player::move()
     {
         std::vector<Arcade::Rectangle> body;
@@ -121,6 +150,12 @@ namespace Arcade {
         _body = body;
     }
 
+    /**
+     * If the head of the snake is in the same position as any other part of the
+     * snake, or if the head of the snake is outside the map, the snake is dead
+     *
+     * @return A boolean value.
+     */
     bool Snake::Player::isDead()
     {
         for (std::size_t i = 1; i < _body.size(); i++) {
@@ -132,11 +167,21 @@ namespace Arcade {
         return false;
     }
 
+    /**
+     * It adds a new rectangle to the body of the snake
+     */
     void Snake::Player::eat()
     {
         _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
     }
 
+    /**
+     * If the head of the snake is in the same position as the apple, return true
+     *
+     * @param apple The position of the apple.
+     *
+     * @return A boolean value.
+     */
     bool Snake::Player::isEating(std::pair<int, int> apple)
     {
         if (_body[0].getPos() == apple)
@@ -144,6 +189,12 @@ namespace Arcade {
         return false;
     }
 
+    /**
+     * If the size of the snake's body is equal to the size of the map minus the
+     * walls, then the player has won
+     *
+     * @return A boolean value.
+     */
     bool Snake::Player::win()
     {
         if (_body.size() == (SIZE_MAP_X - 1) * (SIZE_MAP_Y - 1) + 1)
@@ -152,6 +203,7 @@ namespace Arcade {
     }
 }
 
+/* It's a function that returns a pointer to an Arcade::IGameModule. */
 extern "C" Arcade::IGameModule *entryGamePoint()
 {
     return (new Arcade::Snake());

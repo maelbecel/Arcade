@@ -176,6 +176,13 @@ namespace Arcade {
         _window.draw(sfCircle);
     }
 
+    /**
+     * It draws a line between two points
+     *
+     * @param pos1 The first position of the line
+     * @param pos2 The position of the second point of the line.
+     * @param color The color of the line.
+     */
     void SFML3D::drawLine(sf::Vector2f pos1, sf::Vector2f pos2, sf::Color color)
     {
         sf::Vertex line[] =

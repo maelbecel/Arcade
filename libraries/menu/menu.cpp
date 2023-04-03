@@ -8,6 +8,13 @@
 #include "menu.hpp"
 
 namespace Arcade {
+    /**
+     * It creates a vector of shared pointers to IObjects, and returns it
+     *
+     * @param input The input from the user.
+     *
+     * @return A vector of shared pointers to IObjects.
+     */
     std::vector<std::shared_ptr<Arcade::IObject>> Menu::loop(Arcade::Input input)
     {
         Score score;
@@ -25,6 +32,11 @@ namespace Arcade {
         return _objects;
     }
 
+    /**
+     * It returns the index of the current game in the vector of games
+     *
+     * @return The index of the current game in the vector of games.
+     */
     int Menu::getScore()
     {
         for (size_t i = 0; i < _games.size(); i++) {
@@ -34,6 +46,10 @@ namespace Arcade {
         return 0;
     }
 
+    /**
+     * It loads the names of the games and graphics, and if there are none, it
+     * throws an exception
+     */
     void Menu::start()
     {
         loadNames();
@@ -42,6 +58,11 @@ namespace Arcade {
         _currentGame = _games[0];
     }
 
+    /**
+     * It update the game using the player input
+     *
+     * @param input The input that the user has given.
+     */
     void Menu::updateGame(Arcade::Input input)
     {
         if (input == Arcade::Input::UP) {
@@ -67,6 +88,9 @@ namespace Arcade {
 
     }
 
+    /**
+     * It loads the names of the games and the graphics libraries
+     */
     void Menu::loadNames() {
         DIR *dir;
         struct dirent *ent;
@@ -96,6 +120,7 @@ namespace Arcade {
     }
 }
 
+/* A function that returns a pointer to a new instance of the Menu class. */
 extern "C" Arcade::IGameModule *entryGamePoint()
 {
     return (new Arcade::Menu());

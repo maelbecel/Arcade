@@ -9,9 +9,14 @@
 
 namespace Arcade {
 
+    /**
+     * It initializes SDL2 and creates a window
+     */
     SDL2::SDL2()
     {
         TTF_Init();
+        if (SDL_Init(SDL_INIT_VIDEO) != 0)
+            throw std::runtime_error("SDL_Init Error: " + std::string(SDL_GetError()));
         _window = SDL_CreateWindow("Arcade", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
         if (!_window)
             throw std::runtime_error("SDL_CreateWindow Error: " + std::string(SDL_GetError()));
@@ -23,9 +28,13 @@ namespace Arcade {
             throw std::runtime_error("SDL_CreateRenderer Error: " + std::string(SDL_GetError()));
     }
 
+    /**
+     * It destroys the window, quits the TTF library, and quits SDL
+     */
     SDL2::~SDL2()
     {
         SDL_DestroyWindow(_window);
+        TTF_Quit();
         SDL_Quit();
     }
 
@@ -180,6 +189,11 @@ namespace Arcade {
 
     }
 
+    /**
+     * It converts an Arcade::Color to an SDL2::RGBAColor
+     *
+     * @param color The color to convert to RGBAColor
+     */
     SDL2::RGBAColor::RGBAColor(Arcade::Color color)
     {
         switch (color) {

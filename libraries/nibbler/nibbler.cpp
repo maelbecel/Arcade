@@ -8,6 +8,15 @@
 #include "nibbler.hpp"
 
 namespace Arcade {
+    /**
+     * It takes the input, moves the player, checks if the player is dead, checks
+     * if the player is eating an apple, checks if the player won, and returns a
+     * vector of objects to be displayed
+     *
+     * @param input The input that the player has given.
+     *
+     * @return A vector of shared pointers to IObjects
+     */
     std::vector<std::shared_ptr<Arcade::IObject>> Nibbler::loop(Arcade::Input input)
     {
         std::vector<std::shared_ptr<Arcade::IObject>> objects;
@@ -47,11 +56,19 @@ namespace Arcade {
         return objects;
     }
 
+    /**
+     * This function returns the score of the player
+     *
+     * @return The score of the player.
+     */
     int Nibbler::getScore()
     {
         return _score;
     }
 
+    /**
+     * It initializes the game
+     */
     void Nibbler::start()
     {
         _score = 0;
@@ -65,6 +82,9 @@ namespace Arcade {
         initMap();
     }
 
+    /**
+     * It initializes the map
+     */
     void Nibbler::initMap()
     {
         _map.clear();
@@ -85,6 +105,14 @@ namespace Arcade {
         }
     }
 
+    /**
+     * It moves the snake
+     *
+     * @param map The map of the game
+     * @param wall The map of the game
+     *
+     * @return a vector of Arcade::Rectangle.
+     */
     void Nibbler::Player::move(std::vector<std::vector<Arcade::Rectangle>> map, std::string wall[12])
     {
         std::vector<Arcade::Rectangle> body;
@@ -158,6 +186,14 @@ namespace Arcade {
         _body = body;
     }
 
+    /**
+     * It returns the block in front of the player
+     *
+     * @param direction The direction of the block you want to get.
+     * @param map The map of the game
+     *
+     * @return The block in front of the player
+     */
     Arcade::Rectangle Nibbler::Player::getBlock(std::string direction, std::vector<std::vector<Arcade::Rectangle>> map)
     {
         if (direction == "top") {
@@ -191,6 +227,12 @@ namespace Arcade {
         return Arcade::Rectangle(std::make_pair(0, 0), "snake", Arcade::Color::GREEN, 1, 1);
     }
 
+    /**
+     * If the head of the snake is in the same position as any other part of the
+     * snake, the snake is dead
+     *
+     * @return A boolean value.
+     */
     bool Nibbler::Player::isDead()
     {
         for (std::size_t i = 1; i < _body.size(); i++) {
@@ -200,11 +242,22 @@ namespace Arcade {
         return false;
     }
 
+    /**
+     * It adds a new rectangle to the body of the snake
+     */
     void Nibbler::Player::eat()
     {
         _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
     }
 
+    /**
+     * If the head of the snake is on the same position as an apple, remove the
+     * apple from the vector and return true
+     *
+     * @param apple vector of all the apples on the map
+     *
+     * @return A boolean value.
+     */
     bool Nibbler::Player::isEating(std::vector<std::pair<int, int>> &apple)
     {
         int i = 0;
@@ -218,6 +271,11 @@ namespace Arcade {
         return false;
     }
 
+    /**
+     * It returns true if the snake has eaten all the apples
+     *
+     * @return A boolean value.
+     */
     bool Nibbler::win()
     {
         if (_apple.size() == 0)
@@ -226,6 +284,8 @@ namespace Arcade {
     }
 }
 
+/* Creating a function that returns a pointer to a new instance of the Nibbler
+class. */
 extern "C" Arcade::IGameModule *entryGamePoint()
 {
     return (new Arcade::Nibbler());
