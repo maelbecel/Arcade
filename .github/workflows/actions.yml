@@ -76,18 +76,3 @@ jobs:
             Name: ${{ github.actor }}
             Commit: ${{ github.sha }}
             Status: ${{ job.status }}
-
-      - name: Set build status
-        if: always()
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const result = await github.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              sha: context.sha,
-              state: context.jobStatus,
-              context: 'Notion Update',
-              description: 'Update Notion database'
-            })
