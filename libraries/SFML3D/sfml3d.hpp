@@ -9,7 +9,7 @@
     #define SFML3D_HPP_
 
     #define DEBUG std::cout << "DEBUG: " << __FILE__ << ":" << __LINE__ << std::endl;
-
+    #define DELAY 200
 
     #include <iostream>
     #include <memory>
@@ -39,7 +39,7 @@
                 void            clear() override;
                 void            refresh() override;
                 void            draw(std::shared_ptr<Arcade::IObject> object) override;
-                bool            doLoop() override { return _window.isOpen(); };
+                bool            doLoop() override;
 
             private:
                 void                drawRectangle(Arcade::Rectangle *rectangle);
@@ -48,6 +48,7 @@
                 static sf::Color    arcadeColorToSFMLColor(Arcade::Color color);
                 void                drawLine(sf::Vector2f pos1, sf::Vector2f pos2, sf::Color color);
                 sf::RenderWindow    _window;
+                sf::Clock           _clock;
         };
     }
 

@@ -254,6 +254,15 @@ namespace Arcade {
         }
     }
 
+    bool SDL2::doLoop()
+    {
+        if (clock()  - _clock >= 15000000 / 60) {
+            _clock = clock();
+            return (true);
+        } else {
+            return (false);
+        }
+    }
 }
 
 /**

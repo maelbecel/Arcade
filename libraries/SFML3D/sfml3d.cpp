@@ -224,6 +224,14 @@ namespace Arcade {
                 return (sf::Color::Black);
         }
     }
+
+    bool SFML3D::doLoop()
+    {
+        if (_clock.getElapsedTime().asMilliseconds() < DELAY)
+            return (false);
+        _clock.restart();
+        return (true);
+    }
 }
 
 /**

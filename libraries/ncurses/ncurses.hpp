@@ -16,6 +16,7 @@
     #include "../../IDisplayModule.hpp"
     #include <ncurses.h>
     #include <math.h>
+    #include <time.h>
 
     #define SQUARE_WIDTH 4
     #define KEY_ESCAPE 27
@@ -31,13 +32,14 @@
             void            clear() override;
             void            refresh() override;
             void            draw(std::shared_ptr<Arcade::IObject> object) override;
-            bool            doLoop() override { return true; };
+            bool            doLoop() override;
 
         private:
             void    drawRectangle(Arcade::Rectangle *rectangle);
             void    drawText(Arcade::Text *text);
             void    drawCircle(Arcade::Circle *circle);
             void    defineColor();
+            clock_t _clock = clock();
         };
     }
 

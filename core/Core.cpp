@@ -21,21 +21,22 @@ namespace Arcade {
         int score;
 
         while (true) {
-            _display->clear();
-            input = _display->getLastInput();
-            if (!handleInput(input))
-                break;
-            objects = _game->loop(input);
-            for (auto &object : objects) {
-                _display->draw(object);
+            if (_display->doLoop()) {
+                _display->clear();
+                input = _display->getLastInput();
+                if (!handleInput(input))
+                    break;
+                objects = _game->loop(input);
+                for (auto &object : objects) {
+                    _display->draw(object);
+                }
+                _display->refresh();
+                score = _game->getScore();
+                Score scoreHandler;
+                if (score > scoreHandler.getScore(_gamePath.substr(_gamePath.find_last_of("/") + 1))) {
+                    scoreHandler.setScore(_gamePath.substr(_gamePath.find_last_of("/") + 1), score, scoreHandler.getCurrentPlayer());
+                }
             }
-            _display->refresh();
-            score = _game->getScore();
-            Score scoreHandler;
-            if (score > scoreHandler.getScore(_gamePath.substr(_gamePath.find_last_of("/") + 1))) {
-                scoreHandler.setScore(_gamePath.substr(_gamePath.find_last_of("/") + 1), score, scoreHandler.getCurrentPlayer());
-            }
-            usleep(500000);
         }
     }
 
