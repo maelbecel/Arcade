@@ -17,7 +17,7 @@ def update_database(actor, sha, status):
         "Status": {"select": [{"name": {"content": status}}]}
     }
     notion.pages.create(parent={"database_id":database_id},properties=new_page)
-    print("Successfully updated Notion database!")
+    print("Successfully updated Notion database")
 
 if __name__ == "__main__":
     import sys
