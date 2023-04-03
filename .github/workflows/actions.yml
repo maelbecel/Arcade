@@ -70,9 +70,3 @@ jobs:
           # Utilisez les clés pour remplacer les valeurs ci-dessous.
           notion-token: ${{ secrets.NOTION_SECRET }}
           notion-db: 99478491001d468e91d85dc570ccbae6
-
-          # Utilisez les champs de votre base de données Notion pour mapper les informations de votre commit et du statut de la GitHub Action.
-          properties: |
-            Name: ${{ github.actor }}
-            Commit: ${{ github.sha }}
-            Status: ${{ job.status }}
