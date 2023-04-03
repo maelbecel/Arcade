@@ -62,27 +62,32 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get action status
-        id: status
-        run: echo "::set-output name=status::${{ job.status }}"
-        shell: bash
-
-      # Add the commit and status to Notion
-      - name: Add commit status to Notion
-        uses: jbscript/notion-upload@v1.0.0
+      - name: Notion Update
+        id: notion-update
+        uses: tryfabric/notion-github-action@v1
         with:
+          # Récupérez votre clé d'intégration Notion et votre Database ID à partir de vos secrets GitHub.
+          # Utilisez les clés pour remplacer les valeurs ci-dessous.
           notion_secret: ${{ secrets.NOTION_SECRET }}
           database_id: 99478491001d468e91d85dc570ccbae6
-          page_title: "Commit ${{ github.sha }}"
+
+          # Utilisez les champs de votre base de données Notion pour mapper les informations de votre commit et du statut de la GitHub Action.
           properties: |
-            {
-              "Status": {
-                "title": [
-                  {
-                    "text": {
-                      "content": "${{ steps.status.outputs.status }}"
-                    }
-                  }
-                ]
-              }
-            }
+            Name: ${{ github.actor }}
+            Commit: ${{ github.sha }}
+            Status: ${{ job.status }}
+
+      - name: Set build status
+        if: always()
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const result = await github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: context.jobStatus,
+              context: 'Notion Update',
+              description: 'Update Notion database'
+            })
