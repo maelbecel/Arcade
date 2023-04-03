@@ -31,6 +31,11 @@ int main(int ac, char **av)
         return (84);
     }
 
-    core.mainLoop();
+    try {
+        core.mainLoop();
+    } catch (std::exception &e) {
+        std::cerr << "[" << core.getDisplayPath() << "] -> " << core.getGamePath() << ":" << e.what() << std::endl;
+        return (84);
+    }
     return (0);
 }
