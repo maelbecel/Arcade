@@ -55,3 +55,34 @@ jobs:
             ${{ env.MIRROR_URL }}
           ssh_private_key:
             ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
+
+  send_to_notion:
+    uns-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Get action status
+        id: status
+        run: echo "::set-output name=status::${{ job.status }}"
+        shell: bash
+
+      # Add the commit and status to Notion
+      - name: Add commit status to Notion
+        uses: jbscript/notion-upload@v1.0.0
+        with:
+          notion_secret: ${{ secrets.NOTION_SECRET }}
+          database_id: 99478491001d468e91d85dc570ccbae6
+          page_title: "Commit ${{ github.sha }}"
+          properties: |
+            {
+              "Status": {
+                "title": [
+                  {
+                    "text": {
+                      "content": "${{ steps.status.outputs.status }}"
+                    }
+                  }
+                ]
+              }
+            }
