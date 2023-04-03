@@ -67,7 +67,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install Notion API
+      - name: Install Notion API client
         run: pip install notion-client
 
       - name: Update Notion Database
