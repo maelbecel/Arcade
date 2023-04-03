@@ -57,16 +57,21 @@ jobs:
             ${{ secrets.GITLAB_SSH_PRIVATE_KEY }}
 
   send_to_notion:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
+    - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Notion Update
-        uses: tryfabric/notion-github-action@v1
-        with:
-          # Récupérez votre clé d'intégration Notion et votre Database ID à partir de vos secrets GitHub.
-          # Utilisez les clés pour remplacer les valeurs ci-dessous.
-          notion-token: ${{ secrets.NOTION_SECRET }}
-          notion-db: 99478491001d468e91d85dc570ccbae6
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.x"
+
+    - name: Install Notion API
+      run: pip install notion-client
+
+    - name: Update Notion Database
+      env:
+        DATABASE_ID: ${{ secrets.DATABASE_ID }}
+        NOTION_TOKEN: 99478491001d468e91d85dc570ccbae6
+      run: |
+        python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "${{ job.status }}"
 
