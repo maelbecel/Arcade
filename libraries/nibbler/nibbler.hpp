@@ -20,6 +20,11 @@
     #define SIZE_MAP_Y 11
 
     namespace Arcade {
+        enum Scene {
+            GAME,
+            WIN,
+            END
+        };
         class Nibbler: public IGameModule {
             class Player {
                 public:
@@ -42,6 +47,7 @@
                 int getScore() override;
                 void start() override;
             private:
+                void end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects);
                 void initMap();
                 bool win();
                 std::vector<std::pair<int, int>> _apple;
@@ -49,6 +55,7 @@
                 Player _player;
                 std::vector<std::vector<Arcade::Rectangle>> _map;
                 int _score = 0;
+                int _scene = 0;
                 std::string walls[12] = {
                     "0000000000000000",
                     "0121112112111210",

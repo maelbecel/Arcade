@@ -23,37 +23,54 @@ namespace Arcade {
         if (input != Arcade::Input::UNKNOWN) {
             _input = input;
         }
-        if (_input == Arcade::Input::LEFT && _player._direction != Arcade::Input::RIGHT)
-            _player._direction = Arcade::Input::LEFT;
-        if (_input == Arcade::Input::RIGHT && _player._direction != Arcade::Input::LEFT)
-            _player._direction = Arcade::Input::RIGHT;
-        if (_input == Arcade::Input::UP && _player._direction != Arcade::Input::DOWN)
-            _player._direction = Arcade::Input::UP;
-        if (_input == Arcade::Input::DOWN && _player._direction != Arcade::Input::UP)
-            _player._direction = Arcade::Input::DOWN;
-        for (auto &line : _map) {
-            for (auto &wall : line)
-                objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture(), wall.getColor(), 1, 1));
+        if (_scene == GAME) {
+            if (_input == Arcade::Input::LEFT && _player._direction != Arcade::Input::RIGHT)
+                _player._direction = Arcade::Input::LEFT;
+            if (_input == Arcade::Input::RIGHT && _player._direction != Arcade::Input::LEFT)
+                _player._direction = Arcade::Input::RIGHT;
+            if (_input == Arcade::Input::UP && _player._direction != Arcade::Input::DOWN)
+                _player._direction = Arcade::Input::UP;
+            if (_input == Arcade::Input::DOWN && _player._direction != Arcade::Input::UP)
+                _player._direction = Arcade::Input::DOWN;
+            _player.move(_map, walls);
+            if (_player._changeInput)
+                _input = _player._direction;
+            if (_player.isDead()) {
+                _scene = END;
+                end("You lose", objects);
+            }
+            if (_player.isEating(_apple)) {
+                _player.eat();
+                _score++;
+            }
+            if (win()) {
+                _scene = WIN;
+                end("You win", objects);
+            }
+            for (auto &line : _map) {
+                for (auto &wall : line)
+                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture(), wall.getColor(), 1, 1));
+            }
+            for (auto &apple : _apple)
+                objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(apple.first, apple.second), "assets/apple.png", Arcade::Color::RED, 1));
+            for (auto &body : _player._body)
+                objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
+            objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::BLACK, 50));
+        }  else if (_scene == END) {
+            end("You lose", objects);
+        } else if (_scene == WIN) {
+            end("You win", objects);
         }
-        _player.move(_map, walls);
-        if (_player._changeInput)
-            _input = _player._direction;
-        if (_player.isDead())
-            start();
-        if (_player.isEating(_apple)) {
-            _player.eat();
-            _score++;
-        }
-        if (win()) {
-            std::cout << "You win" << std::endl;
-            start();
-        }
-        for (auto &apple : _apple)
-            objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(apple.first, apple.second), "assets/apple.png", Arcade::Color::RED, 1));
-        for (auto &body : _player._body)
-            objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
-        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::BLACK, 50));
         return objects;
+    }
+
+    void Nibbler::end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects)
+    {
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(5, 4), str, Arcade::Color::WHITE, 50));
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(5, 5), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(2, 6), "Press ENTER to play", Arcade::Color::WHITE, 50));
+        if (_input == Arcade::Input::ENTER)
+            start();
     }
 
     /**
@@ -72,6 +89,7 @@ namespace Arcade {
     void Nibbler::start()
     {
         _score = 0;
+        _scene = GAME;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
         _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 10), "snake", Arcade::Color::GREEN, 1, 1));

@@ -19,6 +19,11 @@
     #define SIZE_MAP_Y 11
 
     namespace Arcade {
+        enum Scene {
+            GAME,
+            WIN,
+            END
+        };
         class Snake: public IGameModule {
             class Player {
                 public:
@@ -40,6 +45,7 @@
                 int getScore() override;
                 void start() override;
             private:
+                void end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects);
                 std::pair<int, int> getNewPos();
                 void initMap();
                 std::pair<int, int> _apple;
@@ -47,6 +53,7 @@
                 Player _player;
                 std::vector<std::vector<Arcade::Rectangle>> _map;
                 int _score = 0;
+                int _scene = 0;
         };
     }
 
