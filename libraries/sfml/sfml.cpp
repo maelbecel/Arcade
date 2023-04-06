@@ -16,90 +16,91 @@ namespace Arcade {
      */
     Input SFML::getLastInput()
     {
-        return (Input::NONE);
-        // sf::Event   event = {};
+        sf::Event   event = {};
 
-        // while (_window.pollEvent(event)) {
-        //     if (event.type == sf::Event::Closed)
-        //         exit(0);
-        //     switch (event.key.code) {
-        //         case sf::Keyboard::F5:
-        //             return (Input::MENU);
-        //         case sf::Keyboard::Up:
-        //             return (Input::UP);
-        //         case sf::Keyboard::Down:
-        //             return (Input::DOWN);
-        //         case sf::Keyboard::Left:
-        //             return (Input::LEFT);
-        //         case sf::Keyboard::Right:
-        //             return (Input::RIGHT);
-        //         case sf::Keyboard::Enter:
-        //             return (Input::ENTER);
-        //         case sf::Keyboard::F1:
-        //             _window.close();
-        //             return (Input::PREV_LIB);
-        //         case sf::Keyboard::F2:
-        //             _window.close();
-        //             return (Input::NEXT_LIB);
-        //         case sf::Keyboard::Backspace:
-        //             return (Input::BACKSPACE);
-        //         case sf::Keyboard::A:
-        //             return (Input::A);
-        //         case sf::Keyboard::B:
-        //             return (Input::B);
-        //         case sf::Keyboard::C:
-        //             return (Input::C);
-        //         case sf::Keyboard::D:
-        //             return (Input::D);
-        //         case sf::Keyboard::E:
-        //             return (Input::E);
-        //         case sf::Keyboard::F:
-        //             return (Input::F);
-        //         case sf::Keyboard::G:
-        //             return (Input::G);
-        //         case sf::Keyboard::H:
-        //             return (Input::H);
-        //         case sf::Keyboard::I:
-        //             return (Input::I);
-        //         case sf::Keyboard::J:
-        //             return (Input::J);
-        //         case sf::Keyboard::K:
-        //             return (Input::K);
-        //         case sf::Keyboard::L:
-        //             return (Input::L);
-        //         case sf::Keyboard::M:
-        //             return (Input::M);
-        //         case sf::Keyboard::N:
-        //             return (Input::N);
-        //         case sf::Keyboard::O:
-        //             return (Input::O);
-        //         case sf::Keyboard::P:
-        //             return (Input::P);
-        //         case sf::Keyboard::Q:
-        //             return (Input::Q);
-        //         case sf::Keyboard::R:
-        //             return (Input::R);
-        //         case sf::Keyboard::S:
-        //             return (Input::S);
-        //         case sf::Keyboard::T:
-        //             return (Input::T);
-        //         case sf::Keyboard::U:
-        //             return (Input::U);
-        //         case sf::Keyboard::V:
-        //             return (Input::V);
-        //         case sf::Keyboard::W:
-        //             return (Input::W);
-        //         case sf::Keyboard::X:
-        //             return (Input::X);
-        //         case sf::Keyboard::Y:
-        //             return (Input::Y);
-        //         case sf::Keyboard::Z:
-        //             return (Input::Z);
-        //         default:
-        //             return (Input::NONE);
-        //     }
-        // }
-        // return (Input::UNKNOWN);
+        while (_window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed)
+                exit(0);
+            if (event.type != sf::Event::KeyPressed)
+                continue;
+            switch (event.key.code) {
+                case sf::Keyboard::F5:
+                    return (Input::MENU);
+                case sf::Keyboard::Up:
+                    return (Input::UP);
+                case sf::Keyboard::Down:
+                    return (Input::DOWN);
+                case sf::Keyboard::Left:
+                    return (Input::LEFT);
+                case sf::Keyboard::Right:
+                    return (Input::RIGHT);
+                case sf::Keyboard::Enter:
+                    return (Input::ENTER);
+                case sf::Keyboard::F1:
+                    _window.close();
+                    return (Input::PREV_LIB);
+                case sf::Keyboard::F2:
+                    _window.close();
+                    return (Input::NEXT_LIB);
+                case sf::Keyboard::Backspace:
+                    return (Input::BACKSPACE);
+                case sf::Keyboard::A:
+                    return (Input::A);
+                case sf::Keyboard::B:
+                    return (Input::B);
+                case sf::Keyboard::C:
+                    return (Input::C);
+                case sf::Keyboard::D:
+                    return (Input::D);
+                case sf::Keyboard::E:
+                    return (Input::E);
+                case sf::Keyboard::F:
+                    return (Input::F);
+                case sf::Keyboard::G:
+                    return (Input::G);
+                case sf::Keyboard::H:
+                    return (Input::H);
+                case sf::Keyboard::I:
+                    return (Input::I);
+                case sf::Keyboard::J:
+                    return (Input::J);
+                case sf::Keyboard::K:
+                    return (Input::K);
+                case sf::Keyboard::L:
+                    return (Input::L);
+                case sf::Keyboard::M:
+                    return (Input::M);
+                case sf::Keyboard::N:
+                    return (Input::N);
+                case sf::Keyboard::O:
+                    return (Input::O);
+                case sf::Keyboard::P:
+                    return (Input::P);
+                case sf::Keyboard::Q:
+                    return (Input::Q);
+                case sf::Keyboard::R:
+                    return (Input::R);
+                case sf::Keyboard::S:
+                    return (Input::S);
+                case sf::Keyboard::T:
+                    return (Input::T);
+                case sf::Keyboard::U:
+                    return (Input::U);
+                case sf::Keyboard::V:
+                    return (Input::V);
+                case sf::Keyboard::W:
+                    return (Input::W);
+                case sf::Keyboard::X:
+                    return (Input::X);
+                case sf::Keyboard::Y:
+                    return (Input::Y);
+                case sf::Keyboard::Z:
+                    return (Input::Z);
+                default:
+                    break;
+            }
+        }
+        return (Input::UNKNOWN);
     }
 
     /**

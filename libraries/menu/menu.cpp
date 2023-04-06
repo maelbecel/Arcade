@@ -38,8 +38,7 @@ namespace Arcade {
         {Input::W, 'w'},
         {Input::X, 'x'},
         {Input::Y, 'y'},
-        {Input::Z, 'z'},
-        {Input::BACKSPACE, '_'}
+        {Input::Z, 'z'}
     };
 
     char Menu::getInput(Input input)
@@ -61,13 +60,12 @@ namespace Arcade {
     {
         Score score;
         updateGame(input);
-        if (getInput(input) != -1)
-            std::cout << "Input : " << getInput(input) << std::endl;
-        if (input == Input::BACKSPACE && !score.getCurrentPlayer().empty()) {
+        if (getInput(input) != -1) {
+            score.setCurrentPlayer(score.getCurrentPlayer() + getInput(input));
+        } if (input == Input::BACKSPACE && !score.getCurrentPlayer().empty()) {
             std::string s = score.getCurrentPlayer();
             s.pop_back();
             score.setCurrentPlayer(s);
-            std::cout << "Current player: " << score.getCurrentPlayer() << std::endl;
         }
         _objects.clear();
         _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 0), "Arcade", Arcade::Color::WHITE, 60)));
