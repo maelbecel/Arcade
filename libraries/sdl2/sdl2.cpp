@@ -214,8 +214,8 @@ namespace Arcade {
         SDL_Rect    rect;
         rect.x = text->getPos().first * SQUARE_SIZE;
         rect.y = text->getPos().second * SQUARE_SIZE;
-        rect.w = text->getSize() / 2 * (text->getText().size());
-        rect.h = text->getSize() ;
+        rect.w = surface->w;
+        rect.h = surface->h ;
         SDL_RenderCopy(_renderer, texture, NULL, &rect);
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);

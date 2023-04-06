@@ -1,3 +1,3 @@
 arcade_menu.so:1:francois
-arcade_snake.so:4:bob
-arcade_nibbler.so:6:francois
+arcade_snake.so:10:bob
+arcade_nibbler.so:18:tom
