@@ -26,6 +26,8 @@ namespace Arcade {
             switch (event.key.code) {
                 case sf::Keyboard::F5:
                     return (Input::MENU);
+                case sf::Keyboard::F6:
+                    return (Input::RESTART);
                 case sf::Keyboard::Up:
                     return (Input::UP);
                 case sf::Keyboard::Down:

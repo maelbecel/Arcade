@@ -63,10 +63,10 @@ namespace Arcade {
 
     void Snake::end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects)
     {
-        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(5, 4), str, Arcade::Color::WHITE, 50));
-        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(5, 5), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
-        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(2, 6), "Press ENTER to play", Arcade::Color::WHITE, 50));
-        if (_input == Arcade::Input::ENTER)
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(6, 4), str, Arcade::Color::WHITE, 50));
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(6, 5), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(4, 6), "Press F6 to play", Arcade::Color::WHITE, 50));
+        if (_input == Arcade::Input::RESTART)
             start();
     }
 
@@ -89,10 +89,10 @@ namespace Arcade {
         _scene = GAME;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 1), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 1), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 1), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
         initMap();

@@ -54,6 +54,8 @@ namespace Arcade {
                 case SDL_KEYDOWN:
                     if (event.key.keysym.sym == SDLK_F5)
                         return (Input::MENU);
+                    if (event.key.keysym.sym == SDLK_F6)
+                        return (Input::RESTART);
                     if (event.key.keysym.sym == SDLK_RETURN)
                         return (Input::ENTER);
                     if (event.key.keysym.sym == SDLK_UP)
