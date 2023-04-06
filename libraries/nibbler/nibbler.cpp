@@ -38,6 +38,7 @@ namespace Arcade {
             if (_player.isDead()) {
                 _scene = END;
                 end("You lose", objects);
+                return objects;
             }
             if (_player.isEating(_apple)) {
                 _player.eat();
@@ -45,7 +46,6 @@ namespace Arcade {
             }
             if (win()) {
                 _scene = WIN;
-                end("You win", objects);
             }
             for (auto &line : _map) {
                 for (auto &wall : line)

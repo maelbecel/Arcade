@@ -35,6 +35,7 @@ namespace Arcade {
             if (_player.isDead()) {
                 _scene = END;
                 end("You lose", objects);
+                return objects;
             }
             if (_player.isEating(_apple)) {
                 _player.eat();
@@ -43,7 +44,6 @@ namespace Arcade {
             }
             if (_player.win()) {
                 _scene = WIN;
-                end("You win", objects);
             }
             for (auto &line : _map) {
                 for (auto &wall : line)
@@ -89,10 +89,10 @@ namespace Arcade {
         _scene = GAME;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(3, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(2, 1), "snake", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(1, 1), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
         _apple = getNewPos();
         initMap();
@@ -180,7 +180,7 @@ namespace Arcade {
             if (_body[i].getPos() == _body[0].getPos())
                 return true;
         }
-        if (_body[0].getPos().first < 2 || _body[0].getPos().first >= SIZE_MAP_X - 1 || _body[0].getPos().second < 2 || _body[0].getPos().second == SIZE_MAP_Y - 1)
+        if (_body[0].getPos().first < 1 || _body[0].getPos().first >= SIZE_MAP_X || _body[0].getPos().second < 1 || _body[0].getPos().second == SIZE_MAP_Y)
             return true;
         return false;
     }
