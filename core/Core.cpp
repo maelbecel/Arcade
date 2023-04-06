@@ -86,13 +86,11 @@ namespace Arcade {
         if (input == Input::ESCAPE)
             return false;
         if (input == Input::NEXT_LIB) {
-            std::cout << "Lib = " << _displayPath << " Next lib = " << nextLib() << std::endl;
             _displayPath = nextLib();
             _displayLoader.close();
             _display = display.load(_displayPath);
             _display->clear();
         } else if (input == Input::PREV_LIB) {
-            std::cout << "Lib = " << _displayPath << " Prev lib = " << prevLib() << std::endl;
             _displayPath = prevLib();
             _displayLoader.close();
             _display = display.load(_displayPath);
@@ -105,8 +103,7 @@ namespace Arcade {
             _gamePath = MENU_PATH;
             _game = _gameLoader.load(_gamePath);
             _game->start();
-        } else if (input == Input::BACKSPACE)
-            std::cout << "Core detect backspace" << std::endl;
+        }
         return true;
     }
 
@@ -134,14 +131,6 @@ namespace Arcade {
 
             }
             closedir(dir);
-        }
-        std::cout << "Display lib: " << std::endl;
-        for (auto &lib : _displayLibs) {
-            std::cout << lib << std::endl;
-        }
-        std::cout << "Game lib: " << std::endl;
-        for (auto &lib : _gameLibs) {
-            std::cout << lib << std::endl;
         }
     }
 }

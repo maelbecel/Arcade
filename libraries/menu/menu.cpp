@@ -98,6 +98,11 @@ namespace Arcade {
         _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(10, 5), "|" , Arcade::Color::WHITE, 40)));
         _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(11, 5), score.getBestPlayer(_games[x]) , Arcade::Color::WHITE, 40)));
 
+        std::string graphics;
+        for (size_t i = 0; i < _graphics.size(); i++) {
+            graphics += cleanName(_graphics[i]) + "  ";
+        }
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair((20 - graphics.size() / 2) * 8 / 20, 11), graphics, Arcade::Color::WHITE, 40)));
         return _objects;
     }
 

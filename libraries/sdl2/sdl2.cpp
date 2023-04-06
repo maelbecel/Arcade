@@ -196,8 +196,6 @@ namespace Arcade {
      */
     void SDL2::drawText(Arcade::Text *text)
     {
-
-        std::cout << "Text: \"" << text->getText() << "\" at (" << text->getPos().first << ", " << text->getPos().second << ") of size " << text->getSize() << std::endl;
         TTF_Font    *font = TTF_OpenFont(FONT, text->getSize());
         RGBAColor   color = text->getColor();
         if (!font) {
