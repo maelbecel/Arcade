@@ -28,6 +28,7 @@ namespace Arcade {
         int getScore() override;
         void start() override;
     private:
+        std::string cleanName(std::string);
         void loadNames();
         void updateGame(Arcade::Input);
         char getInput(Input);

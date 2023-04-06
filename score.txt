@@ -1,4 +1,3 @@
-arcade_menu.so:1:jej
-arcade_snake.so:7:caca
-arcade_nibbler.so:18:bob
-Pacman:100:test
+arcade_menu.so:1:francois
+arcade_snake.so:2:
+arcade_nibbler.so:6:francois

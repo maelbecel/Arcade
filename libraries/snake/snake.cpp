@@ -47,7 +47,7 @@ namespace Arcade {
             }
             for (auto &line : _map) {
                 for (auto &wall : line)
-                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture(), wall.getColor(), 1, 1));
+                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture().value(), wall.getColor(), 1, 1));
             }
             objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "assets/apple.png", Arcade::Color::RED, 1));
             for (auto &body : _player._body)

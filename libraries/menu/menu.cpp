@@ -49,6 +49,22 @@ namespace Arcade {
         }
         return (-1);
     }
+
+    std::string Menu::cleanName(std::string inputString) {
+        if (inputString.substr(0, 7) == "arcade_") {
+            // remove "arcade_" prefix from the string
+            inputString.erase(0, 7);
+        }
+
+        // check if the string ends with ".so"
+        if (inputString.length() > 3 && inputString.substr(inputString.length() - 3, 3) == ".so") {
+            // remove ".so" suffix from the string
+            inputString.erase(inputString.length() - 3, 3);
+        }
+
+        // return the modified string
+        return inputString;
+    }
     /**
      * It creates a vector of shared pointers to IObjects, and returns it
      *
@@ -67,16 +83,21 @@ namespace Arcade {
             s.pop_back();
             score.setCurrentPlayer(s);
         }
+        size_t x = this->getScore();
+
         _objects.clear();
-        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 0), "Arcade", Arcade::Color::WHITE, 60)));
-        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 2), "User : " + score.getCurrentPlayer(), Arcade::Color::WHITE, 60)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 0), "Games:", Arcade::Color::RED, 50)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(8, 0), "User : ", Arcade::Color::RED, 50)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(12, 0), score.getCurrentPlayer(), Arcade::Color::WHITE, 50)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(8, 3), "Highscore : ", Arcade::Color::RED, 50)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(5, 9), "Graphics : ", Arcade::Color::RED, 50)));
         for (size_t i = 0; i < _games.size(); i++) {
-            if (_games[i] == _currentGame)
-                _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, i + 4), "-", Arcade::Color::WHITE, 40)));
-            else
-                _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, i + 4), _games[i], Arcade::Color::WHITE, 40)));
-            _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(1, i + 4), _games[i], Arcade::Color::WHITE, 40)));
+            _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, i  + 2), cleanName(_games[i]), (i == x) ? Arcade::Color::GREEN : Arcade::Color::WHITE, 40)));
         }
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(8, 5), std::to_string(score.getScore(_games[x])) , Arcade::Color::WHITE, 40)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(10, 5), "|" , Arcade::Color::WHITE, 40)));
+        _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(11, 5), score.getBestPlayer(_games[x]) , Arcade::Color::WHITE, 40)));
+
         return _objects;
     }
 
@@ -157,7 +178,7 @@ namespace Arcade {
                     if (displayLoader.isDisplay(path + file)) {
                         _graphics.push_back(file);
                     } else if (gameLoader.isGame(path + file)) {
-                        file =  file.substr(file.find_last_of("/") + 1) + " | " + score.getBestPlayer(file.substr(file.find_last_of("/") + 1)) + " [" + std::to_string(score.getScore(file.substr(file.find_last_of("/") + 1))) + "]";
+                        file =  file.substr(file.find_last_of("/") + 1);
                         _games.push_back(file);
                     }
                 }

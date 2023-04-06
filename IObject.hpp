@@ -9,6 +9,8 @@
 
 #include <string>
 #include <utility>
+#include <optional>
+
 
 namespace Arcade {
     /*Defining a list of colors that can be used in the game.*/
@@ -58,14 +60,14 @@ namespace Arcade {
     class Rectangle : public IObject {
         public:
             /*It's a constructor.*/
-            Rectangle(std::pair<int, int> pos, std::string texture, Arcade::Color color, int width, int height) : _pos(pos), _texture(texture), _color(color), _width(width), _height(height) {};
+            Rectangle(std::pair<int, int> pos, const std::optional<std::string> &texture, Arcade::Color color, int width, int height) : _pos(pos), _texture(texture), _color(color), _width(width), _height(height) {};
             ~Rectangle() override = default;
 
             /*Get positions of rectangle.*/
             std::pair<int, int> getPos() const { return _pos; };
 
             /*Get rectangle texture.*/
-            std::string getTexture() const { return _texture; };
+            std::optional<std::string> getTexture() const { return _texture; };
 
             /*Get color of rectangle .*/
             Arcade::Color getColor() const { return _color; };
@@ -78,7 +80,7 @@ namespace Arcade {
 
         private:
             std::pair<int, int> _pos;
-            std::string _texture;
+            std::optional<std::string> _texture;
             Arcade::Color _color;
             int _width;
             int _height;
@@ -87,14 +89,14 @@ namespace Arcade {
     class Circle : public IObject {
         public:
             /*Constructor*/
-            Circle(std::pair<int, int> pos, std::string texture, Arcade::Color color, int radius) : _pos(pos), _texture(texture), _color(color), _radius(radius) {};
+            Circle(std::pair<int, int> pos, const std::optional<std::string> &texture, Arcade::Color color, int radius) : _pos(pos), _texture(texture), _color(color), _radius(radius) {};
             ~Circle() override = default;
 
             /*Get positions of circle.*/
             std::pair<int, int> getPos() const { return _pos; };
 
             /*Get circle texture.*/
-            std::string getTexture() const { return _texture; };
+            std::optional<std::string> getTexture() const { return _texture; };
 
             /*Get color of circle .*/
             Arcade::Color getColor() const { return _color; };
@@ -104,7 +106,7 @@ namespace Arcade {
 
         private:
             std::pair<int, int> _pos;
-            std::string _texture;
+            std::optional<std::string> _texture;
             Arcade::Color _color;
             int _radius;
     };

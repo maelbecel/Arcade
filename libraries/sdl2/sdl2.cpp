@@ -187,6 +187,8 @@ namespace Arcade {
         SDL_RenderDrawRect(_renderer, &rect);
     }
 
+#include <optional>
+
     /**
      * It draws a text on the screen
      *
@@ -194,23 +196,27 @@ namespace Arcade {
      */
     void SDL2::drawText(Arcade::Text *text)
     {
+
+        std::cout << "Text: \"" << text->getText() << "\" at (" << text->getPos().first << ", " << text->getPos().second << ") of size " << text->getSize() << std::endl;
         TTF_Font    *font = TTF_OpenFont(FONT, text->getSize());
         RGBAColor   color = text->getColor();
-        if (!font)
+        if (!font) {
             throw std::runtime_error("TTF_OpenFont Error: " + std::string(TTF_GetError()));
-        SDL_Surface *surface = TTF_RenderText_Solid(font, text->getText().c_str(), {(Uint8)color._r, (Uint8)color._g, (Uint8)color._b, (Uint8)color._a});
-        if (!surface)
+        }
+        SDL_Surface *surface = TTF_RenderText_Solid(font, (text->getText().length() == 0) ? " " : text->getText().c_str(), {(Uint8)color._r, (Uint8)color._g, (Uint8)color._b, (Uint8)color._a});
+        if (!surface) {
             throw std::runtime_error("TTF_RenderText_Solid Error: " + std::string(TTF_GetError()));
+        }
         SDL_Texture *texture = SDL_CreateTextureFromSurface(_renderer, surface);
-        if (!texture)
+        if (!texture) {
             throw std::runtime_error("SDL_CreateTextureFromSurface Error: " + std::string(SDL_GetError()));
+        }
         SDL_Rect    rect;
         rect.x = text->getPos().first * SQUARE_SIZE;
         rect.y = text->getPos().second * SQUARE_SIZE;
-        rect.w = text->getSize() * (text->getText().size() / 2);
+        rect.w = text->getSize() / 2 * (text->getText().size());
         rect.h = text->getSize() ;
         SDL_RenderCopy(_renderer, texture, NULL, &rect);
-        std::cout << "Text: " << text->getText() << "at (" << text->getPos().first << ", " << text->getPos().second << ")" << std::endl;
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
         TTF_CloseFont(font);
