@@ -42,7 +42,7 @@ namespace Arcade {
 
         refresh();
         switch (ch) {
-            case 'm':
+            case KEY_F(5):
                 return (Input::MENU);
             case '\n':
                 return (Input::ENTER);
@@ -54,11 +54,11 @@ namespace Arcade {
                 return (Input::LEFT);
             case KEY_RIGHT:
                 return (Input::RIGHT);
-            case 'p': {
+            case KEY_F(1): {
                 endwin();
                 return (Input::PREV_LIB);
             }
-            case 'n': {
+            case KEY_F(2): {
                 endwin();
                 return (Input::NEXT_LIB);
             }
@@ -66,6 +66,60 @@ namespace Arcade {
                 endwin();
                 return (Input::ESCAPE);
             }
+            case KEY_BACKSPACE:
+                return (Input::BACKSPACE);
+            case 'a':
+                return (Input::A);
+            case 'b':
+                return (Input::B);
+            case 'c':
+                return (Input::C);
+            case 'd':
+                return (Input::D);
+            case 'e':
+                return (Input::E);
+            case 'f':
+                return (Input::F);
+            case 'g':
+                return (Input::G);
+            case 'h':
+                return (Input::H);
+            case 'i':
+                return (Input::I);
+            case 'j':
+                return (Input::J);
+            case 'k':
+                return (Input::K);
+            case 'l':
+                return (Input::L);
+            case 'm':
+                return (Input::M);
+            case 'n':
+                return (Input::N);
+            case 'o':
+                return (Input::O);
+            case 'p':
+                return (Input::P);
+            case 'q':
+                return (Input::Q);
+            case 'r':
+                return (Input::R);
+            case 's':
+                return (Input::S);
+            case 't':
+                return (Input::T);
+            case 'u':
+                return (Input::U);
+            case 'v':
+                return (Input::V);
+            case 'w':
+                return (Input::W);
+            case 'x':
+                return (Input::X);
+            case 'y':
+                return (Input::Y);
+            case 'z':
+                return (Input::Z);
             default:
                 return (Input::UNKNOWN);
         }

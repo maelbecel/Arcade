@@ -98,7 +98,7 @@ namespace Arcade {
         std::string name;
 
         if (!f.is_open())
-            return "";
+            return "NULL";
         std::getline(f, name);
         f.close();
         return name;

@@ -52,7 +52,7 @@ namespace Arcade {
                 case SDL_QUIT:
                     exit(0);
                 case SDL_KEYDOWN:
-                    if (event.key.keysym.sym == SDLK_m)
+                    if (event.key.keysym.sym == SDLK_F5)
                         return (Input::MENU);
                     if (event.key.keysym.sym == SDLK_KP_ENTER)
                         return (Input::ENTER);
@@ -64,17 +64,70 @@ namespace Arcade {
                         return (Input::LEFT);
                     if (event.key.keysym.sym == SDLK_RIGHT)
                         return (Input::RIGHT);
-                    if (event.key.keysym.sym == SDLK_p) {
+                    if (event.key.keysym.sym == SDLK_F1) {
                         SDL_DestroyWindow(_window);
                         SDL_Quit();
                         return (Input::PREV_LIB);
                     }
-                    if (event.key.keysym.sym == SDLK_n) {
+                    if (event.key.keysym.sym == SDLK_F2) {
                         SDL_FreeSurface(_surface);
                         SDL_DestroyWindow(_window);
                         SDL_Quit();
                         return (Input::NEXT_LIB);
-                    }
+                    } if (event.key.keysym.sym == SDLK_a)
+                        return (Input::A);
+                    if (event.key.keysym.sym == SDLK_b)
+                        return (Input::B);
+                    if (event.key.keysym.sym == SDLK_c)
+                        return (Input::C);
+                    if (event.key.keysym.sym == SDLK_d)
+                        return (Input::D);
+                    if (event.key.keysym.sym == SDLK_e)
+                        return (Input::E);
+                    if (event.key.keysym.sym == SDLK_f)
+                        return (Input::F);
+                    if (event.key.keysym.sym == SDLK_g)
+                        return (Input::G);
+                    if (event.key.keysym.sym == SDLK_h)
+                        return (Input::H);
+                    if (event.key.keysym.sym == SDLK_i)
+                        return (Input::I);
+                    if (event.key.keysym.sym == SDLK_j)
+                        return (Input::J);
+                    if (event.key.keysym.sym == SDLK_k)
+                        return (Input::K);
+                    if (event.key.keysym.sym == SDLK_l)
+                        return (Input::L);
+                    if (event.key.keysym.sym == SDLK_m)
+                        return (Input::M);
+                    if (event.key.keysym.sym == SDLK_n)
+                        return (Input::N);
+                    if (event.key.keysym.sym == SDLK_o)
+                        return (Input::O);
+                    if (event.key.keysym.sym == SDLK_p)
+                        return (Input::P);
+                    if (event.key.keysym.sym == SDLK_q)
+                        return (Input::Q);
+                    if (event.key.keysym.sym == SDLK_r)
+                        return (Input::R);
+                    if (event.key.keysym.sym == SDLK_s)
+                        return (Input::S);
+                    if (event.key.keysym.sym == SDLK_t)
+                        return (Input::T);
+                    if (event.key.keysym.sym == SDLK_u)
+                        return (Input::U);
+                    if (event.key.keysym.sym == SDLK_v)
+                        return (Input::V);
+                    if (event.key.keysym.sym == SDLK_w)
+                        return (Input::W);
+                    if (event.key.keysym.sym == SDLK_x)
+                        return (Input::X);
+                    if (event.key.keysym.sym == SDLK_y)
+                        return (Input::Y);
+                    if (event.key.keysym.sym == SDLK_z)
+                        return (Input::Z);
+                    if (event.key.keysym.sym == SDLK_BACKSPACE)
+                        return (Input::BACKSPACE);
             }
         }
         return (Input::UNKNOWN);

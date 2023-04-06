@@ -8,6 +8,48 @@
 #include "menu.hpp"
 
 namespace Arcade {
+
+    /* Defining a static constant vector of pairs, where each pair contains an
+    Input enum value and its corresponding character representation. This
+    vector is used in the Menu class to handle user input. */
+    static const std::vector<std::pair<Input, char>> InputArray = {
+        {Input::A, 'a'},
+        {Input::B, 'b'},
+        {Input::C, 'c'},
+        {Input::D, 'd'},
+        {Input::E, 'e'},
+        {Input::F, 'f'},
+        {Input::G, 'g'},
+        {Input::H, 'h'},
+        {Input::I, 'i'},
+        {Input::J, 'j'},
+        {Input::K, 'k'},
+        {Input::L, 'l'},
+        {Input::M, 'm'},
+        {Input::N, 'n'},
+        {Input::O, 'o'},
+        {Input::P, 'p'},
+        {Input::Q, 'q'},
+        {Input::R, 'r'},
+        {Input::S, 's'},
+        {Input::T, 't'},
+        {Input::U, 'u'},
+        {Input::V, 'v'},
+        {Input::W, 'w'},
+        {Input::X, 'x'},
+        {Input::Y, 'y'},
+        {Input::Z, 'z'},
+        {Input::BACKSPACE, '_'}
+    };
+
+    char Menu::getInput(Input input)
+    {
+        for (auto &i : InputArray) {
+            if (i.first == input)
+                return (i.second);
+        }
+        return (-1);
+    }
     /**
      * It creates a vector of shared pointers to IObjects, and returns it
      *
@@ -19,6 +61,14 @@ namespace Arcade {
     {
         Score score;
         updateGame(input);
+        if (getInput(input) != -1)
+            std::cout << "Input : " << getInput(input) << std::endl;
+        if (input == Input::BACKSPACE && !score.getCurrentPlayer().empty()) {
+            std::string s = score.getCurrentPlayer();
+            s.pop_back();
+            score.setCurrentPlayer(s);
+            std::cout << "Current player: " << score.getCurrentPlayer() << std::endl;
+        }
         _objects.clear();
         _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 0), "Arcade", Arcade::Color::WHITE, 60)));
         _objects.push_back(std::make_shared<Arcade::Text>(Arcade::Text(std::make_pair(0, 2), "User : " + score.getCurrentPlayer(), Arcade::Color::WHITE, 60)));

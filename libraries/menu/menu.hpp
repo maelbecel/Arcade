@@ -30,6 +30,7 @@ namespace Arcade {
     private:
         void loadNames();
         void updateGame(Arcade::Input);
+        char getInput(Input);
         std::vector<std::shared_ptr<Arcade::IObject>> _objects;
         std::string _currentGame;
         std::vector<std::string> _games;

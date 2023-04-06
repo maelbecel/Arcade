@@ -22,7 +22,7 @@ namespace Arcade {
             if (event.type == sf::Event::Closed)
                 exit(0);
             if (event.type == sf::Event::KeyPressed) {
-                if (event.key.code == sf::Keyboard::M)
+                if (event.key.code == sf::Keyboard::F5)
                     return (Input::MENU);
                 if (event.key.code == sf::Keyboard::Up)
                     return (Input::UP);
@@ -34,14 +34,66 @@ namespace Arcade {
                     return (Input::RIGHT);
                 if (event.key.code == sf::Keyboard::Enter)
                     return (Input::ENTER);
-                if (event.key.code == sf::Keyboard::P) {
+                if (event.key.code == sf::Keyboard::F1) {
                     _window.close();
                     return (Input::PREV_LIB);
                 }
-                if (event.key.code == sf::Keyboard::N) {
+                if (event.key.code == sf::Keyboard::F2) {
                     _window.close();
                     return (Input::NEXT_LIB);
                 }
+                if (event.key.code == sf::Keyboard::A)
+                    return (Input::A);
+                if (event.key.code == sf::Keyboard::B)
+                    return (Input::B);
+                if (event.key.code == sf::Keyboard::C)
+                    return (Input::C);
+                if (event.key.code == sf::Keyboard::D)
+                    return (Input::D);
+                if (event.key.code == sf::Keyboard::E)
+                    return (Input::E);
+                if (event.key.code == sf::Keyboard::F)
+                    return (Input::F);
+                if (event.key.code == sf::Keyboard::G)
+                    return (Input::G);
+                if (event.key.code == sf::Keyboard::H)
+                    return (Input::H);
+                if (event.key.code == sf::Keyboard::I)
+                    return (Input::I);
+                if (event.key.code == sf::Keyboard::J)
+                    return (Input::J);
+                if (event.key.code == sf::Keyboard::K)
+                    return (Input::K);
+                if (event.key.code == sf::Keyboard::L)
+                    return (Input::L);
+                if (event.key.code == sf::Keyboard::M)
+                    return (Input::M);
+                if (event.key.code == sf::Keyboard::N)
+                    return (Input::N);
+                if (event.key.code == sf::Keyboard::O)
+                    return (Input::O);
+                if (event.key.code == sf::Keyboard::P)
+                    return (Input::P);
+                if (event.key.code == sf::Keyboard::Q)
+                    return (Input::Q);
+                if (event.key.code == sf::Keyboard::R)
+                    return (Input::R);
+                if (event.key.code == sf::Keyboard::S)
+                    return (Input::S);
+                if (event.key.code == sf::Keyboard::T)
+                    return (Input::T);
+                if (event.key.code == sf::Keyboard::U)
+                    return (Input::U);
+                if (event.key.code == sf::Keyboard::V)
+                    return (Input::V);
+                if (event.key.code == sf::Keyboard::W)
+                    return (Input::W);
+                if (event.key.code == sf::Keyboard::X)
+                    return (Input::X);
+                if (event.key.code == sf::Keyboard::Y)
+                    return (Input::Y);
+                if (event.key.code == sf::Keyboard::Z)
+                    return (Input::Z);
             }
         }
         return (Input::UNKNOWN);

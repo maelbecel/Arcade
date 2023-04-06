@@ -27,6 +27,7 @@ namespace Arcade {
                 if (!handleInput(input))
                     break;
                 objects = _game->loop(input);
+                input = Input::NONE;
                 for (auto &object : objects) {
                     _display->draw(object);
                 }
@@ -104,7 +105,8 @@ namespace Arcade {
             _gamePath = MENU_PATH;
             _game = _gameLoader.load(_gamePath);
             _game->start();
-        }
+        } else if (input == Input::BACKSPACE)
+            std::cout << "Core detect backspace" << std::endl;
         return true;
     }
 
