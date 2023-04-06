@@ -25,7 +25,7 @@
                     static bool isDisplay(std::string path);
                     static bool isGame(std::string path);
                     Type *load(std::string path);
-                    void close() { dlclose(_handle); };
+                    void close() { if (_handle){dlclose(_handle);}; };
 
                 protected:
                 private:

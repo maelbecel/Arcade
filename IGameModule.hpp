@@ -16,7 +16,7 @@
 namespace Arcade {
     class IGameModule {
         public:
-            virtual ~IGameModule() = 0;
+            virtual ~IGameModule() = default;
 
             /**
              * Loop of the game

@@ -23,7 +23,7 @@
     #include <string>
     #include <fstream>
 
-    #define FONT "assets/font.otf"
+    #define FONT "assets/font.ttf"
 
     #define SQUARE_SIZE 50
 

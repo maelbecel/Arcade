@@ -1,3 +1,4 @@
 arcade_menu.so:1:jej
-arcade_snake.so:4:uwujej
+arcade_snake.so:7:caca
 arcade_nibbler.so:18:bob
+Pacman:100:test

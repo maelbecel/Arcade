@@ -54,7 +54,7 @@ namespace Arcade {
                 case SDL_KEYDOWN:
                     if (event.key.keysym.sym == SDLK_F5)
                         return (Input::MENU);
-                    if (event.key.keysym.sym == SDLK_KP_ENTER)
+                    if (event.key.keysym.sym == SDLK_RETURN)
                         return (Input::ENTER);
                     if (event.key.keysym.sym == SDLK_UP)
                         return (Input::UP);
@@ -70,7 +70,6 @@ namespace Arcade {
                         return (Input::PREV_LIB);
                     }
                     if (event.key.keysym.sym == SDLK_F2) {
-                        SDL_FreeSurface(_surface);
                         SDL_DestroyWindow(_window);
                         SDL_Quit();
                         return (Input::NEXT_LIB);
@@ -211,6 +210,7 @@ namespace Arcade {
         rect.w = text->getSize() * (text->getText().size() / 2);
         rect.h = text->getSize() ;
         SDL_RenderCopy(_renderer, texture, NULL, &rect);
+        std::cout << "Text: " << text->getText() << "at (" << text->getPos().first << ", " << text->getPos().second << ")" << std::endl;
         SDL_FreeSurface(surface);
         SDL_DestroyTexture(texture);
         TTF_CloseFont(font);

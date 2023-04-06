@@ -15,7 +15,7 @@
     namespace Arcade {
         class IDisplayModule {
             public:
-                virtual ~IDisplayModule() = 0;
+                virtual ~IDisplayModule() = default;
 
                 /**
                  * @brief Get last input get by the graphic library
