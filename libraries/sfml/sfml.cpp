@@ -24,6 +24,8 @@ namespace Arcade {
             if (event.type != sf::Event::KeyPressed)
                 continue;
             switch (event.key.code) {
+                case sf::Keyboard::Escape:
+                    return (Input::ESCAPE);
                 case sf::Keyboard::F1:
                     return (Input::PREV_LIB);
                 case sf::Keyboard::F2:
