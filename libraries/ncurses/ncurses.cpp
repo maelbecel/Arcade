@@ -42,6 +42,18 @@ namespace Arcade {
 
         refresh();
         switch (ch) {
+            case KEY_F(1): {
+                endwin();
+                return (Input::PREV_LIB);
+            }
+            case KEY_F(2): {
+                endwin();
+                return (Input::NEXT_LIB);
+            }
+            case KEY_F(3):
+                return (Input::PREV_GAME);
+            case KEY_F(4):
+                return (Input::NEXT_GAME);
             case KEY_F(5):
                 return (Input::MENU);
             case KEY_F(6):
@@ -56,14 +68,6 @@ namespace Arcade {
                 return (Input::LEFT);
             case KEY_RIGHT:
                 return (Input::RIGHT);
-            case KEY_F(1): {
-                endwin();
-                return (Input::PREV_LIB);
-            }
-            case KEY_F(2): {
-                endwin();
-                return (Input::NEXT_LIB);
-            }
             case KEY_ESCAPE: {
                 endwin();
                 return (Input::ESCAPE);

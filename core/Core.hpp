@@ -45,6 +45,8 @@
             private:
                 std::string nextLib();
                 std::string prevLib();
+                std::string nextGame();
+                std::string prevGame();
                 bool        handleInput(Arcade::Input input);
 
                 std::vector<std::string>    _displayLibs;

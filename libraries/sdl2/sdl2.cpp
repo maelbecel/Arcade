@@ -52,6 +52,20 @@ namespace Arcade {
                 case SDL_QUIT:
                     exit(0);
                 case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_F1) {
+                        SDL_DestroyWindow(_window);
+                        SDL_Quit();
+                        return (Input::PREV_LIB);
+                    }
+                    if (event.key.keysym.sym == SDLK_F2) {
+                        SDL_DestroyWindow(_window);
+                        SDL_Quit();
+                        return (Input::NEXT_LIB);
+                    }
+                    if (event.key.keysym.sym == SDLK_F3)
+                        return (Input::PREV_GAME);
+                    if (event.key.keysym.sym == SDLK_F4)
+                        return (Input::NEXT_GAME);
                     if (event.key.keysym.sym == SDLK_F5)
                         return (Input::MENU);
                     if (event.key.keysym.sym == SDLK_F6)
@@ -66,16 +80,7 @@ namespace Arcade {
                         return (Input::LEFT);
                     if (event.key.keysym.sym == SDLK_RIGHT)
                         return (Input::RIGHT);
-                    if (event.key.keysym.sym == SDLK_F1) {
-                        SDL_DestroyWindow(_window);
-                        SDL_Quit();
-                        return (Input::PREV_LIB);
-                    }
-                    if (event.key.keysym.sym == SDLK_F2) {
-                        SDL_DestroyWindow(_window);
-                        SDL_Quit();
-                        return (Input::NEXT_LIB);
-                    } if (event.key.keysym.sym == SDLK_a)
+                    if (event.key.keysym.sym == SDLK_a)
                         return (Input::A);
                     if (event.key.keysym.sym == SDLK_b)
                         return (Input::B);

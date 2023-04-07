@@ -24,6 +24,16 @@ namespace Arcade {
             if (event.type != sf::Event::KeyPressed)
                 continue;
             switch (event.key.code) {
+                case sf::Keyboard::F1:
+                    _window.close();
+                    return (Input::PREV_LIB);
+                case sf::Keyboard::F2:
+                    _window.close();
+                    return (Input::NEXT_LIB);
+                case sf::Keyboard::F3:
+                    return (Input::PREV_GAME);
+                case sf::Keyboard::F4:
+                    return (Input::NEXT_GAME);
                 case sf::Keyboard::F5:
                     return (Input::MENU);
                 case sf::Keyboard::F6:
@@ -38,12 +48,6 @@ namespace Arcade {
                     return (Input::RIGHT);
                 case sf::Keyboard::Enter:
                     return (Input::ENTER);
-                case sf::Keyboard::F1:
-                    _window.close();
-                    return (Input::PREV_LIB);
-                case sf::Keyboard::F2:
-                    _window.close();
-                    return (Input::NEXT_LIB);
                 case sf::Keyboard::Backspace:
                     return (Input::BACKSPACE);
                 case sf::Keyboard::A:

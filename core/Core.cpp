@@ -86,6 +86,39 @@ namespace Arcade {
         return path + _displayLibs[0];
     }
 
+    std::string Core::prevGame()
+    {
+        std::string path = "lib/";
+
+        int i = 0;
+        for (auto &lib : _gameLibs) {
+            if ((path + lib) == _gamePath) {
+                if (i == 0) {
+                    return path + _gameLibs[_gameLibs.size() - 1];
+                }
+                return path + _gameLibs[i - 1];
+            }
+            i++;
+        }
+        return path + _gameLibs[0];
+    }
+
+    std::string Core::nextGame()
+    {
+        std::string path = "lib/";
+
+        int i = 0;
+        for (auto &lib : _gameLibs) {
+            if ((path + lib) == _gamePath) {
+                if (i == (int)_gameLibs.size() - 1)
+                    return path + _gameLibs[0];
+                return path + _gameLibs[i + 1];
+            }
+            i++;
+        }
+        return path + _gameLibs[0];
+    }
+
     /**
      * It handles the input from the display
      * @param input The input from the display
@@ -113,6 +146,18 @@ namespace Arcade {
             _game->start();
         } else if (input == Input::MENU) {
             _gamePath = MENU_PATH;
+            _game = _gameLoader.load(_gamePath);
+            _game->start();
+        } else if (input == Input::NEXT_GAME) {
+            _gamePath = nextGame();
+            if (_gamePath == MENU_PATH)
+                _gamePath = nextGame();
+            _game = _gameLoader.load(_gamePath);
+            _game->start();
+        } else if (input == Input::PREV_GAME) {
+            _gamePath = prevGame();
+            if (_gamePath == MENU_PATH)
+                _gamePath = prevGame();
             _game = _gameLoader.load(_gamePath);
             _game->start();
         }
