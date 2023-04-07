@@ -9,8 +9,9 @@
     #define SNAKE_HPP_
 
     #include <iostream>
-#include <memory>
-#include <unistd.h>
+    #include <memory>
+    #include <unistd.h>
+    #include <optional>
     #include "../../IObject.hpp"
     #include "../../Input.hpp"
     #include "../../IGameModule.hpp"
@@ -36,11 +37,12 @@
                     bool win();
                     std::vector<Arcade::Rectangle> _body;
                     Arcade::Input _direction;
+                    std::optional<std::string> yves(std::string bodyPart, int i);
+                    std::optional<std::string> getTextureDir(std::string bodyPart, std::string direction);
             };
             public:
                 Snake() {};
                 ~Snake() override = default;
-
                 std::vector<std::shared_ptr<Arcade::IObject>> loop(Arcade::Input input) override;
                 int getScore() override;
                 void start() override;

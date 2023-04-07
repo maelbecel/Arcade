@@ -50,8 +50,12 @@ namespace Arcade {
                     objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture().value(), wall.getColor(), 1, 1));
             }
             objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "assets/apple.png", Arcade::Color::RED, 1));
-            for (auto &body : _player._body)
-                objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
+            for (auto &body : _player._body) {
+                if (body.getTexture().has_value())
+                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), body.getTexture().value(), Arcade::Color::GREEN, 1, 1));
+                else
+                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), std::nullopt, Arcade::Color::GREEN, 1, 1));
+            }
             objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
         } else if (_scene == END) {
             end("You lose", objects);
@@ -99,11 +103,11 @@ namespace Arcade {
         _scene = GAME;
         _input = Arcade::Input::RIGHT;
         _player._body.clear();
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "snake", Arcade::Color::GREEN, 1, 1));
-        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "snake", Arcade::Color::GREEN, 1, 1));
         _player._direction = Arcade::Input::RIGHT;
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(7, 5), _player.getTextureDir("head", ""), Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(6, 5), "./assets/snake/body_horizontal.png", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(5, 5), "./assets/snake/body_horizontal.png", Arcade::Color::GREEN, 1, 1));
+        _player._body.push_back(Arcade::Rectangle(std::make_pair(4, 5), "./assets/snake/tail_right.png", Arcade::Color::GREEN, 1, 1));
         _apple = getNewPos();
         initMap();
     }
@@ -164,18 +168,90 @@ namespace Arcade {
         for (std::size_t i = 0; i < _body.size(); i++) {
             if (i == 0) {
                 if (_direction == Arcade::Input::LEFT)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first - 1, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first - 1, _body[i].getPos().second), getTextureDir("head", ""), Arcade::Color::GREEN, 1, 1));
                 if (_direction == Arcade::Input::RIGHT)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first + 1, _body[i].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first + 1, _body[i].getPos().second), getTextureDir("head", ""), Arcade::Color::GREEN, 1, 1));
                 if (_direction == Arcade::Input::UP)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second - 1), "snake", Arcade::Color::GREEN, 1, 1));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second - 1), getTextureDir("head", ""), Arcade::Color::GREEN, 1, 1));
                 if (_direction == Arcade::Input::DOWN)
-                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second + 1), "snake", Arcade::Color::GREEN, 1, 1));
+                    body.push_back(Arcade::Rectangle(std::make_pair(_body[i].getPos().first, _body[i].getPos().second + 1), getTextureDir("head", ""), Arcade::Color::GREEN, 1, 1));
+            } else if (i == _body.size() - 1) {
+                body.push_back(Arcade::Rectangle(std::make_pair(_body[i - 1].getPos().first, _body[i - 1].getPos().second), yves("tail", i), Arcade::Color::GREEN, 1, 1));
             } else {
-                body.push_back(Arcade::Rectangle(std::make_pair(_body[i - 1].getPos().first, _body[i - 1].getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
+                body.push_back(Arcade::Rectangle(std::make_pair(_body[i - 1].getPos().first, _body[i - 1].getPos().second), yves("body", i), Arcade::Color::GREEN, 1, 1));
             }
         }
         _body = body;
+    }
+
+    std::optional<std::string> Snake::Player::yves(std::string bodyPart, int i)
+    {
+        if (bodyPart == "body") {
+            if (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i + 1].getPos().first == _body[i].getPos().first)
+                return getTextureDir("body", "vertical");
+            if (_body[i - 1].getPos().second == _body[i].getPos().second && _body[i + 1].getPos().second == _body[i].getPos().second)
+                return getTextureDir("body", "horizontal");
+            if ((_body[i - 1].getPos().second == _body[i].getPos().second && _body[i - 1].getPos().first > _body[i].getPos().first && _body[i + 1].getPos().first == _body[i].getPos().first && _body[i + 1].getPos().second < _body[i].getPos().second) ||
+                (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second < _body[i].getPos().second && _body[i + 1].getPos().first > _body[i].getPos().first && _body[i + 1].getPos().second == _body[i].getPos().second))
+                return getTextureDir("body", "down-left");
+            if ((_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second > _body[i].getPos().second && _body[i + 1].getPos().first > _body[i].getPos().first && _body[i + 1].getPos().second == _body[i].getPos().second) ||
+                (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second < _body[i].getPos().second && _body[i + 1].getPos().first < _body[i].getPos().first && _body[i + 1].getPos().second == _body[i].getPos().second))
+                return getTextureDir("body", "down-right");
+            if ((_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second > _body[i].getPos().second && _body[i + 1].getPos().first < _body[i].getPos().first && _body[i + 1].getPos().second == _body[i].getPos().second) ||
+                (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second > _body[i].getPos().second && _body[i + 1].getPos().first == _body[i].getPos().first && _body[i + 1].getPos().second < _body[i].getPos().second))
+                return getTextureDir("body", "up-left");
+            if ((_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second > _body[i].getPos().second && _body[i + 1].getPos().first == _body[i].getPos().first && _body[i + 1].getPos().second > _body[i].getPos().second) ||
+                (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second < _body[i].getPos().second && _body[i + 1].getPos().first == _body[i].getPos().first && _body[i + 1].getPos().second > _body[i].getPos().second))
+                return getTextureDir("body", "up-right");
+        } else if (bodyPart == "tail") {
+            if (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second < _body[i].getPos().second)
+                return getTextureDir("tail", "up");
+            if (_body[i - 1].getPos().first == _body[i].getPos().first && _body[i - 1].getPos().second > _body[i].getPos().second)
+                return getTextureDir("tail", "down");
+            if (_body[i - 1].getPos().first < _body[i].getPos().first && _body[i - 1].getPos().second == _body[i].getPos().second)
+                return getTextureDir("tail", "left");
+            if (_body[i - 1].getPos().first > _body[i].getPos().first && _body[i - 1].getPos().second == _body[i].getPos().second)
+                return getTextureDir("tail", "right");
+        }
+        return std::nullopt;
+    }
+
+    std::optional<std::string> Snake::Player::getTextureDir(std::string bodyPart, std::string direction)
+    {
+        std::string dir = "./assets/snake/";
+        if (bodyPart == "head") {
+            if (_direction == Arcade::Input::LEFT)
+                return dir + "head_left.png";
+            if (_direction == Arcade::Input::RIGHT)
+                return dir + "head_right.png";
+            if (_direction == Arcade::Input::UP)
+                return dir + "head_up.png";
+            if (_direction == Arcade::Input::DOWN)
+                return dir + "head_down.png";
+        } else if (bodyPart == "tail") {
+            if (direction == "left")
+                return dir + "tail_right.png";
+            if (direction == "right")
+                return dir + "tail_left.png";
+            if (direction == "up")
+                return dir + "tail_down.png";
+            if (direction == "down")
+                return dir + "tail_up.png";
+        } else if (bodyPart == "body") {
+            if (direction == "horizontal")
+                return dir + "body_horizontal.png";
+            if (direction == "vertical")
+                return dir + "body_vertical.png";
+            if (direction == "up-right")
+                return dir + "body_topright.png";
+            if (direction == "up-left")
+                return dir + "body_topleft.png";
+            if (direction == "down-right")
+                return dir + "body_bottomright.png";
+            if (direction == "down-left")
+                return dir + "body_bottomleft.png";
+        }
+        return std::nullopt;
     }
 
     /**
@@ -200,7 +276,7 @@ namespace Arcade {
      */
     void Snake::Player::eat()
     {
-        _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), "snake", Arcade::Color::GREEN, 10, 10));
+        _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), yves("tail", _body.size() - 1), Arcade::Color::GREEN, 10, 10));
     }
 
     /**
