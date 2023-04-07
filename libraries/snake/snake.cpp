@@ -52,7 +52,7 @@ namespace Arcade {
             objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "assets/apple.png", Arcade::Color::RED, 1));
             for (auto &body : _player._body)
                 objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "snake", Arcade::Color::GREEN, 1, 1));
-            objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::BLACK, 50));
+            objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
         } else if (_scene == END) {
             end("You lose", objects);
         } else if (_scene == WIN) {
@@ -140,19 +140,19 @@ namespace Arcade {
             _map.push_back(line);
         }
         for (int i = 0; i < SIZE_MAP_X + 1; i++)
-            _map[0].push_back(Arcade::Rectangle(std::make_pair(i, 0), "wall", Arcade::Color::WHITE, 1, 1));
+            _map[0].push_back(Arcade::Rectangle(std::make_pair(i, 0), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
         for (int i = 1; i < SIZE_MAP_Y; i++) {
-            _map[i].push_back(Arcade::Rectangle(std::make_pair(0, i), "wall", Arcade::Color::WHITE, 1, 1));
+            _map[i].push_back(Arcade::Rectangle(std::make_pair(0, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
             for (int j = 1; j < SIZE_MAP_X; j++) {
                 if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
                     _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
                 else
                     _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::CYAN, 1, 1));
             }
-            _map[i].push_back(Arcade::Rectangle(std::make_pair(SIZE_MAP_X, i), "wall", Arcade::Color::WHITE, 1, 1));
+            _map[i].push_back(Arcade::Rectangle(std::make_pair(SIZE_MAP_X, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
         }
         for (int i = 0; i < SIZE_MAP_X + 1; i++)
-            _map[SIZE_MAP_Y].push_back(Arcade::Rectangle(std::make_pair(i, SIZE_MAP_Y), "wall", Arcade::Color::WHITE, 1, 1));
+            _map[SIZE_MAP_Y].push_back(Arcade::Rectangle(std::make_pair(i, SIZE_MAP_Y), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
     }
 
     /**
