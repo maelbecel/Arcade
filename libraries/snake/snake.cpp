@@ -61,6 +61,16 @@ namespace Arcade {
         return objects;
     }
 
+    /**
+     * The function "end" adds text objects to a vector and restarts the game if
+     * the input is "RESTART".
+     *
+     * @param str A string that represents the message to be displayed on the
+     * screen when the game ends.
+     * @param objects A reference to a vector of shared pointers to objects that
+     * implement the Arcade::IObject interface. This vector is used to store the
+     * objects that will be displayed on the screen.
+     */
     void Snake::end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects)
     {
         objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(6, 4), str, Arcade::Color::WHITE, 50));

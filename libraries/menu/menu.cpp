@@ -41,6 +41,19 @@ namespace Arcade {
         {Input::Z, 'z'}
     };
 
+    /**
+     * The function "getInput" returns the corresponding character value for a
+     * given input from an array of input-value pairs.
+     *
+     * @param input The parameter `input` is of type `Input`, which is likely an
+     * enumeration or a class representing some kind of input option or command.
+     * It is used to search for a corresponding character value in the
+     * `InputArray` data member of the `Menu` class.
+     *
+     * @return The function `getInput` returns a character value. If the input
+     * parameter matches with any of the keys in the `InputArray`, then the
+     * corresponding value is returned. Otherwise, `-1` is returned.
+     */
     char Menu::getInput(Input input)
     {
         for (auto &i : InputArray) {
@@ -50,21 +63,28 @@ namespace Arcade {
         return (-1);
     }
 
+    /**
+     * The function removes the "arcade_" prefix and ".so" suffix from a given
+     * string.
+     *
+     * @param inputString The input string that needs to be cleaned up by removing
+     * the "arcade_" prefix and ".so" suffix (if present).
+     *
+     * @return The modified input string with the "arcade_" prefix removed and the
+     * ".so" suffix removed, if present.
+     */
     std::string Menu::cleanName(std::string inputString) {
         if (inputString.substr(0, 7) == "arcade_") {
-            // remove "arcade_" prefix from the string
             inputString.erase(0, 7);
         }
-
-        // check if the string ends with ".so"
         if (inputString.length() > 3 && inputString.substr(inputString.length() - 3, 3) == ".so") {
-            // remove ".so" suffix from the string
             inputString.erase(inputString.length() - 3, 3);
         }
 
         // return the modified string
         return inputString;
     }
+
     /**
      * It creates a vector of shared pointers to IObjects, and returns it
      *

@@ -41,6 +41,12 @@ namespace Arcade {
         }
     }
 
+    /**
+     * The function returns the path of the next library in a list of display
+     * libraries.
+     *
+     * @return The name of the next lib
+     */
     std::string Core::nextLib()
     {
         std::string path = "lib/";
@@ -57,6 +63,12 @@ namespace Arcade {
         return path + _displayLibs[0];
     }
 
+    /**
+     * The function returns the path of the previous library in a list of display
+     * libraries.
+     *
+     * @return The name of the previous lib
+     */
     std::string Core::prevLib()
     {
         std::string path = "lib/";
@@ -107,6 +119,11 @@ namespace Arcade {
         return true;
     }
 
+    /**
+     * The function searches for shared object files with a specific extension in
+     * a directory and categorizes them as either display or game libraries using
+     * DLLoader.
+     */
     void Core::getLibs()
     {
         DIR *dir;

@@ -240,6 +240,15 @@ namespace Arcade {
         init_pair(18, COLOR_WHITE, COLOR_BLACK);
     }
 
+    /**
+     * The function checks if a certain amount of time has passed and returns true
+     * if it has.
+     *
+     * @return The function `doLoop()` returns a boolean value. It returns `true`
+     * if the difference between the current clock time and the stored `_clock`
+     * time is greater than or equal to 250000 (which is equivalent to 15000000 /
+     * 60), and it returns `false` otherwise.
+     */
     bool NCurses::doLoop()
     {
         if (clock()  - _clock >= 15000000 / 60) {

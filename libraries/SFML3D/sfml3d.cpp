@@ -279,6 +279,16 @@ namespace Arcade {
         }
     }
 
+    /**
+     * This function checks if a certain amount of time has passed and returns
+     * true if it has.
+     *
+     * @return The function `doLoop()` returns a boolean value. If the elapsed
+     * time since the last loop iteration is less than the specified delay
+     * (`DELAY`), the function returns `false`, indicating that the loop should
+     * not continue. Otherwise, the function returns `true`, indicating that the
+     * loop should continue.
+     */
     bool SFML3D::doLoop()
     {
         if (_clock.getElapsedTime().asMilliseconds() < DELAY)
