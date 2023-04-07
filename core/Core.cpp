@@ -177,7 +177,8 @@ namespace Arcade {
                 _gamePath = prevGame();
             _game = _gameLoader.load(_gamePath);
             _game->start();
-        }
+        } else if (input == Input::RESTART)
+            _game->start();
         return true;
     }
 
