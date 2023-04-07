@@ -15,6 +15,7 @@
     #include <unistd.h>
     #include <dirent.h>
     #include <vector>
+    #include <optional>
     #include <string>
     #include "DLLoader.hpp"
     #include "Score.hpp"

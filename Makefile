@@ -11,8 +11,10 @@ CXXFLAGS       +=         -Wall -Wextra -pedantic
 
 SRC          =         core/Core.cpp \
 					   core/Score.cpp \
+					   libraries/menu/menu.cpp \
 
-TESTS        =         tests/core.cpp
+TESTS        =         tests/core.cpp \
+					   tests/menu.cpp
 
 OBJ          =	        $(SRC:.c=.o)
 
@@ -29,7 +31,7 @@ LIGHT_BLUE   =         "\e[94m"
 WHITE        =         "\e[1;37m"
 
 tests_run:
-			@g++ -o unit_tests -Wall -Wextra $(SRC) $(TESTS) -lcriterion -ldl \
+			@g++ -std=c++2a -o unit_tests -Wall -Wextra $(SRC) $(TESTS) -lcriterion -ldl \
 			--coverage
 			@./$(NAME)
 fclean:		clean

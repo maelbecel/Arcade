@@ -60,5 +60,28 @@ Test(Core, initCore)
     Arcade::Core core("lib/lib_arcade_sfml.so");
 }
 
+Test(Core, getLibs)
+{
+    Arcade::Core core("lib/lib_arcade_sfml.so");
+    core.getLibs();
+}
 
+Test(Core, getter_and_setter)
+{
+    Arcade::Core core("lib/lib_arcade_sfml.so");
+    core.setGamePath("test");
+    cr_assert_eq(core.getGamePath(), "test");
+    core.setDisplayPath("test");
+    cr_assert_eq(core.getDisplayPath(), "test");
+    core.setGame(nullptr);
+    cr_assert_eq(core.getGame(), nullptr);
+    core.setDisplay(nullptr);
+    cr_assert_eq(core.getDisplay(), nullptr);
 
+    Arcade::DLLoader<Arcade::IDisplayModule> displayLoader;
+    Arcade::DLLoader<Arcade::IGameModule> gameLoader;
+    core.setDisplayLoader(displayLoader);
+    core.getDisplayLoader();
+    core.setGameLoader(gameLoader);
+    core.getGameLoader();
+}
