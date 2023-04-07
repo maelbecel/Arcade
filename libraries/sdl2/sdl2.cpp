@@ -49,9 +49,17 @@ namespace Arcade {
 
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
-                case SDL_QUIT:
-                    exit(0);
+                case SDL_QUIT: {
+                    SDL_DestroyWindow(_window);
+                    SDL_Quit();
+                    return (Input::ESCAPE);
+                }
                 case SDL_KEYDOWN:
+                    if (event.key.keysym.sym == SDLK_ESCAPE) {
+                        SDL_DestroyWindow(_window);
+                        SDL_Quit();
+                        return (Input::ESCAPE);
+                    }
                     if (event.key.keysym.sym == SDLK_F1) {
                         SDL_DestroyWindow(_window);
                         SDL_Quit();
@@ -183,18 +191,23 @@ namespace Arcade {
     void SDL2::drawRectangle(Arcade::Rectangle *rectangle)
     {
         SDL_Rect   rect;
+        SDL_Texture *img;
         rect.x = rectangle->getPos().first * SQUARE_SIZE;
         rect.y = rectangle->getPos().second * SQUARE_SIZE;
         rect.w = rectangle->getWidth() * SQUARE_SIZE;
         rect.h = rectangle->getHeight() * SQUARE_SIZE;
-        RGBAColor color = rectangle->getColor();
 
-        SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
-        SDL_RenderFillRect(_renderer, &rect);
-        SDL_RenderDrawRect(_renderer, &rect);
+        if (access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && (img = IMG_LoadTexture(_renderer, rectangle->getTexture().value().c_str()))) {
+            SDL_RenderCopy(_renderer, img, NULL, &rect);
+            SDL_DestroyTexture(img);
+            SDL_RenderPresent(_renderer);
+        } else {
+            RGBAColor color = rectangle->getColor();
+            SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
+            SDL_RenderFillRect(_renderer, &rect);
+            SDL_RenderDrawRect(_renderer, &rect);
+        }
     }
-
-#include <optional>
 
     /**
      * It draws a text on the screen
@@ -239,18 +252,30 @@ namespace Arcade {
         int         x       = circle->getPos().first * SQUARE_SIZE + radius;
         int         y       = circle->getPos().second * SQUARE_SIZE + radius;
 
-        SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
-        for (int i = 0; i < radius; i++) {
-            for (int j = 0; j < radius; j++) {
-                if (i * i + j * j <= radius * radius) {
-                    SDL_RenderDrawPoint(_renderer, x + i, y + j);
-                    SDL_RenderDrawPoint(_renderer, x - i, y + j);
-                    SDL_RenderDrawPoint(_renderer, x + i, y - j);
-                    SDL_RenderDrawPoint(_renderer, x - i, y - j);
+        SDL_Texture *img;
+        SDL_Rect   rect;
+        rect.x = circle->getPos().first * SQUARE_SIZE;
+        rect.y = circle->getPos().second * SQUARE_SIZE;
+        rect.w = circle->getRadius() * SQUARE_SIZE;
+        rect.h = circle->getRadius() * SQUARE_SIZE;
+
+        if (access(circle->getTexture().value().c_str(), F_OK ) != -1 && (img = IMG_LoadTexture(_renderer, circle->getTexture().value().c_str()))) {
+            SDL_RenderCopy(_renderer, img, NULL, &rect);
+            SDL_DestroyTexture(img);
+            SDL_RenderPresent(_renderer);
+        } else {
+            SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
+            for (int i = 0; i < radius; i++) {
+                for (int j = 0; j < radius; j++) {
+                    if (i * i + j * j <= radius * radius) {
+                        SDL_RenderDrawPoint(_renderer, x + i, y + j);
+                        SDL_RenderDrawPoint(_renderer, x - i, y + j);
+                        SDL_RenderDrawPoint(_renderer, x + i, y - j);
+                        SDL_RenderDrawPoint(_renderer, x - i, y - j);
+                    }
                 }
             }
         }
-
     }
 
     /**

@@ -17,11 +17,13 @@
     #include "../../IDisplayModule.hpp"
     #include <SDL2/SDL.h>
     #include <SDL2/SDL_ttf.h>
+    #include <SDL2/SDL_image.h>
     #include <sys/stat.h>
     #include <unistd.h>
     #include <string>
     #include <fstream>
     #include <time.h>
+    #include <optional>
 
     #define FONT "assets/font.ttf"
 

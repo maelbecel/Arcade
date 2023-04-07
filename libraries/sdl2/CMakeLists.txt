@@ -11,7 +11,7 @@ find_package(SDL2TTF REQUIRED)
 add_library(arcade_sdl2 SHARED sdl2.cpp)
 
 target_include_directories(arcade_sdl2 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(arcade_sdl2 ${SDL2_LIBRARIES} -lSDL2_ttf)
+target_link_libraries(arcade_sdl2 ${SDL2_LIBRARIES} -lSDL2_ttf -lSDL2_image)
 
 set_target_properties(arcade_sdl2 PROPERTIES PREFIX "")
 add_custom_command(TARGET arcade_sdl2 POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
