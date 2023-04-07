@@ -86,6 +86,13 @@ namespace Arcade {
         return path + _displayLibs[0];
     }
 
+    /**
+     * The function returns the path of the previous game library in a list of
+     * game libraries.
+     *
+     * @return The function `prevGame()` returns a `std::string` which represents
+     * the path to the previous game library in the `_gameLibs` vector.
+     */
     std::string Core::prevGame()
     {
         std::string path = "lib/";
@@ -103,6 +110,16 @@ namespace Arcade {
         return path + _gameLibs[0];
     }
 
+    /**
+     * The function returns the path of the next game library in a list of game
+     * libraries.
+     *
+     * @return A string representing the path to the next game library in the list
+     * of game libraries stored in the `_gameLibs` vector. If the current game
+     * library path is the last one in the list, it will return the path to the
+     * first game library in the list. If the `_gameLibs` vector is empty, it will
+     * return a path to a default game library in the "lib/"
+     */
     std::string Core::nextGame()
     {
         std::string path = "lib/";
