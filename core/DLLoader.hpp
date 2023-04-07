@@ -25,11 +25,15 @@
                     static bool isDisplay(std::string path);
                     static bool isGame(std::string path);
                     Type *load(std::string path);
-                    void close() { if (_handle){dlclose(_handle);}; };
+                    void close() {
+                        if (_handle)
+                            dlclose(_handle);
+                    };
 
                 protected:
                 private:
-                    void *_handle;
+                    Type *_type = nullptr;
+                    void *_handle = nullptr;
             };
 
         template <typename Type>
@@ -50,10 +54,12 @@
             if (!entryDisplayPoint && !entryGamePoint)
                 throw std::runtime_error("Failed to find entryPoint: " + std::string(dlerror()));
             if (entryDisplayPoint)
-                return entryDisplayPoint();
+                _type = entryDisplayPoint();
             else if (entryGamePoint)
-                return entryGamePoint();
-            return nullptr;
+                _type =  entryGamePoint();
+            else
+                _type = nullptr;
+            return _type;
         }
 
         template <typename Type>

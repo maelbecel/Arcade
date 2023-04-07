@@ -20,15 +20,13 @@ namespace Arcade {
 
         while (_window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                exit(0);
+                return (Input::ESCAPE);
             if (event.type != sf::Event::KeyPressed)
                 continue;
             switch (event.key.code) {
                 case sf::Keyboard::F1:
-                    _window.close();
                     return (Input::PREV_LIB);
                 case sf::Keyboard::F2:
-                    _window.close();
                     return (Input::NEXT_LIB);
                 case sf::Keyboard::F3:
                     return (Input::PREV_GAME);
@@ -156,7 +154,7 @@ namespace Arcade {
         sf::RectangleShape  rect(sf::Vector2f((float)rectangle->getWidth() * SQUARE_SIZE, (float)rectangle->getHeight() * SQUARE_SIZE));
 
         rect.setPosition((float)rectangle->getPos().first * SQUARE_SIZE, (float)rectangle->getPos().second * SQUARE_SIZE);
-        if (access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value()))
+        if (rectangle->getTexture().has_value() && (rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value()))
             rect.setTexture(&texture);
         else
             rect.setFillColor(arcadeColorToSFMLColor(rectangle->getColor()));
@@ -193,7 +191,7 @@ namespace Arcade {
         sf::CircleShape sfCircle((float)circle->getRadius() * SQUARE_SIZE / 2);
 
         sfCircle.setPosition((float)circle->getPos().first * SQUARE_SIZE, (float)circle->getPos().second * SQUARE_SIZE);
-        if (access(circle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(circle->getTexture().value()))
+        if (circle->getTexture().has_value() && access(circle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(circle->getTexture().value()))
             sfCircle.setTexture(&texture);
         else
             sfCircle.setFillColor(arcadeColorToSFMLColor(circle->getColor()));

@@ -29,6 +29,7 @@ namespace Arcade {
      */
     NCurses::~NCurses()
     {
+        std::cout << "DESTRUCTOR" << std::endl;
         endwin();
     }
 
@@ -43,11 +44,9 @@ namespace Arcade {
         refresh();
         switch (ch) {
             case KEY_F(1): {
-                endwin();
                 return (Input::PREV_LIB);
             }
             case KEY_F(2): {
-                endwin();
                 return (Input::NEXT_LIB);
             }
             case KEY_F(3):
@@ -69,7 +68,6 @@ namespace Arcade {
             case KEY_RIGHT:
                 return (Input::RIGHT);
             case KEY_ESCAPE: {
-                endwin();
                 return (Input::ESCAPE);
             }
             case KEY_BACKSPACE:

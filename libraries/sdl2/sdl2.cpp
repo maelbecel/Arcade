@@ -33,6 +33,7 @@ namespace Arcade {
      */
     SDL2::~SDL2()
     {
+        std::cout << "DESTRUCTOR" << std::endl;
         SDL_DestroyWindow(_window);
         TTF_Quit();
         SDL_Quit();
@@ -51,24 +52,16 @@ namespace Arcade {
         while(SDL_PollEvent(&event)) {
             switch (event.type) {
                 case SDL_QUIT: {
-                    SDL_DestroyWindow(_window);
-                    SDL_Quit();
                     return (Input::ESCAPE);
                 }
                 case SDL_KEYDOWN:
                     if (event.key.keysym.sym == SDLK_ESCAPE) {
-                        SDL_DestroyWindow(_window);
-                        SDL_Quit();
                         return (Input::ESCAPE);
                     }
                     if (event.key.keysym.sym == SDLK_F1) {
-                        SDL_DestroyWindow(_window);
-                        SDL_Quit();
                         return (Input::PREV_LIB);
                     }
                     if (event.key.keysym.sym == SDLK_F2) {
-                        SDL_DestroyWindow(_window);
-                        SDL_Quit();
                         return (Input::NEXT_LIB);
                     }
                     if (event.key.keysym.sym == SDLK_F3)
@@ -221,7 +214,7 @@ namespace Arcade {
         rect.w = rectangle->getWidth() * SQUARE_SIZE;
         rect.h = rectangle->getHeight() * SQUARE_SIZE;
 
-        if (access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && loadTexture(rectangle->getTexture().value().c_str())) {
+        if (rectangle->getTexture().has_value() && access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && loadTexture(rectangle->getTexture().value().c_str())) {
             SDL_RenderCopy(_renderer,  _textures[rectangle->getTexture().value()], NULL, &rect);
         } else {
             RGBAColor color = rectangle->getColor();
@@ -280,7 +273,7 @@ namespace Arcade {
         rect.w = circle->getRadius() * SQUARE_SIZE;
         rect.h = circle->getRadius() * SQUARE_SIZE;
 
-        if (access(circle->getTexture().value().c_str(), F_OK ) != -1 && loadTexture(circle->getTexture().value().c_str())) {
+        if (circle->getTexture().has_value()  && access(circle->getTexture().value().c_str(), F_OK ) != -1 && loadTexture(circle->getTexture().value().c_str())) {
             SDL_RenderCopy(_renderer, _textures[circle->getTexture().value()], NULL, &rect);
         } else {
             SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);

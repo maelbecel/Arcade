@@ -1,4 +1,4 @@
 arcade_menu.so:1:francois
-arcade_snake.so:10:bob
+arcade_snake.so:11:mamadou
 arcade_nibbler.so:18:tom
 Pacman:100:test

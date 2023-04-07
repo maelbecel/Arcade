@@ -150,11 +150,13 @@ namespace Arcade {
         if (input == Input::NEXT_LIB) {
             _displayPath = nextLib();
             _displayLoader.close();
+            delete _display;
             _display = display.load(_displayPath);
             _display->clear();
         } else if (input == Input::PREV_LIB) {
             _displayPath = prevLib();
             _displayLoader.close();
+            delete _display;
             _display = display.load(_displayPath);
             _display->clear();
         } else if (input == Input::ENTER && _gamePath == MENU_PATH) {

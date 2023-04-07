@@ -20,14 +20,12 @@ namespace Arcade {
 
         while (_window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
-                exit(0);
+                return Input::ESCAPE;
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::F1) {
-                    _window.close();
                     return (Input::PREV_LIB);
                 }
                 if (event.key.code == sf::Keyboard::F2) {
-                    _window.close();
                     return (Input::NEXT_LIB);
                 }
                 if (event.key.code == sf::Keyboard::F3)
@@ -160,7 +158,7 @@ namespace Arcade {
         shape.setPoint(4, sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE));
         shape.setPoint(5, sf::Vector2f(x, y));
 
-        if (access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value())) {
+        if (rectangle->getTexture().has_value() && access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value())) {
             shape.setTexture(&texture);
             _window.draw(shape);
         }
@@ -227,7 +225,7 @@ namespace Arcade {
         sf::CircleShape sfCircle((float)circle->getRadius() * SQUARE_SIZE / 2);
 
         sfCircle.setPosition((float)circle->getPos().first * SQUARE_SIZE, (float)circle->getPos().second * SQUARE_SIZE);
-        if (access(circle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(circle->getTexture().value()))
+        if (circle->getTexture().has_value() && access(circle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(circle->getTexture().value()))
             sfCircle.setTexture(&texture);
         else
             sfCircle.setFillColor(arcadeColorToSFMLColor(circle->getColor()));
