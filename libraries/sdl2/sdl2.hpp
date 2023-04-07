@@ -24,6 +24,7 @@
     #include <fstream>
     #include <time.h>
     #include <optional>
+    #include <unordered_map>
 
     #define FONT "assets/font.ttf"
 
@@ -54,13 +55,15 @@
                         int _b;
                         int _a;
                 };
+                bool                loadTexture(std::string path);
                 void                drawRectangle(Arcade::Rectangle *rectangle);
                 void                drawText(Arcade::Text *text);
                 void                drawCircle(Arcade::Circle *circle);
                 SDL_Window          *_window;
                 SDL_Surface         *_surface;
                 SDL_Renderer        *_renderer;
-                clock_t _clock = clock();
+                clock_t             _clock = clock();
+                std::unordered_map<std::string, SDL_Texture *> _textures;
         };
     }
 

@@ -36,6 +36,7 @@ namespace Arcade {
         SDL_DestroyWindow(_window);
         TTF_Quit();
         SDL_Quit();
+        _textures.clear();
     }
 
     /**
@@ -184,6 +185,30 @@ namespace Arcade {
     }
 
     /**
+     * This function loads a texture from a given file path and stores it in a map
+     * for future use.
+     *
+     * @param path A string representing the file path of the image to be loaded
+     * as a texture.
+     *
+     * @return The function `loadTexture` returns a boolean value. It returns
+     * `true` if the texture at the specified path has been successfully loaded
+     * and added to the `_textures` map, and `false` if there was an error loading
+     * the texture.
+     */
+    bool SDL2::loadTexture(std::string path)
+    {
+        if (_textures.find(path) != _textures.end())
+            return (true);
+        SDL_Texture *img = IMG_LoadTexture(_renderer, path.c_str());
+        if (img == NULL) {
+            return (false);
+        }
+        _textures[path] = img;
+        return (true);
+    }
+
+    /**
      * It draws a rectangle
      *
      * @param rectangle The rectangle to draw
@@ -191,16 +216,13 @@ namespace Arcade {
     void SDL2::drawRectangle(Arcade::Rectangle *rectangle)
     {
         SDL_Rect   rect;
-        SDL_Texture *img;
         rect.x = rectangle->getPos().first * SQUARE_SIZE;
         rect.y = rectangle->getPos().second * SQUARE_SIZE;
         rect.w = rectangle->getWidth() * SQUARE_SIZE;
         rect.h = rectangle->getHeight() * SQUARE_SIZE;
 
-        if (access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && (img = IMG_LoadTexture(_renderer, rectangle->getTexture().value().c_str()))) {
-            SDL_RenderCopy(_renderer, img, NULL, &rect);
-            SDL_DestroyTexture(img);
-            SDL_RenderPresent(_renderer);
+        if (access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && loadTexture(rectangle->getTexture().value().c_str())) {
+            SDL_RenderCopy(_renderer,  _textures[rectangle->getTexture().value()], NULL, &rect);
         } else {
             RGBAColor color = rectangle->getColor();
             SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
@@ -252,17 +274,14 @@ namespace Arcade {
         int         x       = circle->getPos().first * SQUARE_SIZE + radius;
         int         y       = circle->getPos().second * SQUARE_SIZE + radius;
 
-        SDL_Texture *img;
         SDL_Rect   rect;
         rect.x = circle->getPos().first * SQUARE_SIZE;
         rect.y = circle->getPos().second * SQUARE_SIZE;
         rect.w = circle->getRadius() * SQUARE_SIZE;
         rect.h = circle->getRadius() * SQUARE_SIZE;
 
-        if (access(circle->getTexture().value().c_str(), F_OK ) != -1 && (img = IMG_LoadTexture(_renderer, circle->getTexture().value().c_str()))) {
-            SDL_RenderCopy(_renderer, img, NULL, &rect);
-            SDL_DestroyTexture(img);
-            SDL_RenderPresent(_renderer);
+        if (access(circle->getTexture().value().c_str(), F_OK ) != -1 && loadTexture(circle->getTexture().value().c_str())) {
+            SDL_RenderCopy(_renderer, _textures[circle->getTexture().value()], NULL, &rect);
         } else {
             SDL_SetRenderDrawColor(_renderer, color._r, color._g, color._b, color._a);
             for (int i = 0; i < radius; i++) {
