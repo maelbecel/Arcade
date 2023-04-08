@@ -171,9 +171,9 @@ namespace Arcade {
             _map[i].push_back(Arcade::Rectangle(std::make_pair(0, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
             for (int j = 1; j < SIZE_MAP_X; j++) {
                 if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "", Arcade::Color::BLUE, 1, 1));
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "./assets/grass.png", Arcade::Color::BLUE, 1, 1));
                 else
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "", Arcade::Color::CYAN, 1, 1));
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "./assets/grass2.png", Arcade::Color::CYAN, 1, 1));
             }
             _map[i].push_back(Arcade::Rectangle(std::make_pair(SIZE_MAP_X, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
         }
