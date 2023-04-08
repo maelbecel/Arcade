@@ -33,7 +33,6 @@ namespace Arcade {
      */
     SDL2::~SDL2()
     {
-        std::cout << "DESTRUCTOR" << std::endl;
         SDL_DestroyWindow(_window);
         TTF_Quit();
         SDL_Quit();

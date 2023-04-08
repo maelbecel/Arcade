@@ -156,7 +156,7 @@ namespace Arcade {
         sf::RectangleShape  rect(sf::Vector2f((float)rectangle->getWidth() * SQUARE_SIZE, (float)rectangle->getHeight() * SQUARE_SIZE));
 
         rect.setPosition((float)rectangle->getPos().first * SQUARE_SIZE, (float)rectangle->getPos().second * SQUARE_SIZE);
-        if (rectangle->getTexture().has_value() && (rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value()))
+        if (rectangle->getTexture().has_value() && access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value()))
             rect.setTexture(&texture);
         else
             rect.setFillColor(arcadeColorToSFMLColor(rectangle->getColor()));

@@ -116,9 +116,9 @@ namespace Arcade {
                     _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
                 else if (walls[i][j] == '2') {
                     _apple.push_back(std::make_pair(j, i));
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "", Arcade::Color::BLUE, 1, 1));
                 } else
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i),"", Arcade::Color::BLUE, 1, 1));
             }
         }
     }

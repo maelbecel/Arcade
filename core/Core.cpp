@@ -145,9 +145,11 @@ namespace Arcade {
     {
         DLLoader<IDisplayModule> display;
 
-        if (input == Input::ESCAPE)
+        if (input == Input::ESCAPE) {
+            _displayLoader.close();
+            delete _display;
             return false;
-        if (input == Input::NEXT_LIB) {
+        } if (input == Input::NEXT_LIB) {
             _displayPath = nextLib();
             _displayLoader.close();
             delete _display;

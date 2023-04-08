@@ -158,41 +158,35 @@ namespace Arcade {
         shape.setPoint(4, sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE));
         shape.setPoint(5, sf::Vector2f(x, y));
 
-        if (rectangle->getTexture().has_value() && access(rectangle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(rectangle->getTexture().value())) {
-            shape.setTexture(&texture);
-            _window.draw(shape);
-        }
-        else {
-            shape.setFillColor(arcadeColorToSFMLColor(rectangle->getColor()));
-            _window.draw(shape);
-            drawLine(sf::Vector2f(x, y),
-                        sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x, y),
-                        sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y),
-                        sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y),
-                        sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE + PROF, y + PROF),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE + PROF, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Vector2f(x + PROF, y + (float)rectangle->getHeight() * SQUARE_SIZE + PROF),
-                        sf::Color::Black);
-            drawLine(sf::Vector2f(x + PROF + (float)rectangle->getWidth() * SQUARE_SIZE, y + PROF),
-                     sf::Vector2f(x + PROF + (float)rectangle->getWidth() * SQUARE_SIZE, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
-                     sf::Color::Black);
-            drawLine(sf::Vector2f(x + PROF, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE + PROF, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
-                        sf::Color::Black);
-        }
+        shape.setFillColor(arcadeColorToSFMLColor(rectangle->getColor()));
+        _window.draw(shape);
+        drawLine(sf::Vector2f(x, y),
+                    sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x, y),
+                    sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y),
+                    sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y),
+                    sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE + PROF, y + PROF),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE, y + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE + PROF, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x, y + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Vector2f(x + PROF, y + (float)rectangle->getHeight() * SQUARE_SIZE + PROF),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x + PROF + (float)rectangle->getWidth() * SQUARE_SIZE, y + PROF),
+                    sf::Vector2f(x + PROF + (float)rectangle->getWidth() * SQUARE_SIZE, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Color::Black);
+        drawLine(sf::Vector2f(x + PROF, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Vector2f(x + (float)rectangle->getWidth() * SQUARE_SIZE + PROF, y + PROF + (float)rectangle->getHeight() * SQUARE_SIZE),
+                    sf::Color::Black);
     }
 
     /**
@@ -225,10 +219,7 @@ namespace Arcade {
         sf::CircleShape sfCircle((float)circle->getRadius() * SQUARE_SIZE / 2);
 
         sfCircle.setPosition((float)circle->getPos().first * SQUARE_SIZE, (float)circle->getPos().second * SQUARE_SIZE);
-        if (circle->getTexture().has_value() && access(circle->getTexture().value().c_str(), F_OK ) != -1 && texture.loadFromFile(circle->getTexture().value()))
-            sfCircle.setTexture(&texture);
-        else
-            sfCircle.setFillColor(arcadeColorToSFMLColor(circle->getColor()));
+        sfCircle.setFillColor(arcadeColorToSFMLColor(circle->getColor()));
         _window.draw(sfCircle);
     }
 

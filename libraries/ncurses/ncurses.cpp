@@ -29,7 +29,6 @@ namespace Arcade {
      */
     NCurses::~NCurses()
     {
-        std::cout << "DESTRUCTOR" << std::endl;
         endwin();
     }
 

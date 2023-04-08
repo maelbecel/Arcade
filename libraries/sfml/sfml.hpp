@@ -32,7 +32,7 @@
         class SFML : public Arcade::IDisplayModule {
             public:
                 SFML()  : _window(sf::VideoMode(800, 600), "SFML window") {};
-                ~SFML() { std::cout << "DESTRUCTOR" << std::endl;_window.close(); };
+                ~SFML() { _window.close(); };
 
                 Arcade::Input   getLastInput() override;
                 void            clear() override;

@@ -76,7 +76,7 @@ namespace Arcade {
                 if (body.getTexture().has_value())
                     objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), body.getTexture().value(), Arcade::Color::GREEN, 1, 1));
                 else
-                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), std::nullopt, Arcade::Color::GREEN, 1, 1));
+                    objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), "", Arcade::Color::GREEN, 1, 1));
             }
             objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(0, 0), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
         } else if (_scene == END) {
@@ -171,9 +171,9 @@ namespace Arcade {
             _map[i].push_back(Arcade::Rectangle(std::make_pair(0, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
             for (int j = 1; j < SIZE_MAP_X; j++) {
                 if ((i % 2 == 0 && j % 2 == 0) || (i % 2 != 0 && j % 2 != 0))
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::BLUE, 1, 1));
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "", Arcade::Color::BLUE, 1, 1));
                 else
-                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "empty", Arcade::Color::CYAN, 1, 1));
+                    _map[i].push_back(Arcade::Rectangle(std::make_pair(j, i), "", Arcade::Color::CYAN, 1, 1));
             }
             _map[i].push_back(Arcade::Rectangle(std::make_pair(SIZE_MAP_X, i), "./assets/wall.jpg", Arcade::Color::WHITE, 1, 1));
         }
@@ -271,7 +271,7 @@ namespace Arcade {
             if (direction[i] == Arcade::Input::DOWN && direction[i - 1] == Arcade::Input::RIGHT)
                 return "./assets/snake/body_topright.png";
         }
-        return std::nullopt;
+        return "";
     }
 
     std::optional<std::string> Snake::Player::getTextureDir(Arcade::Input direction)
@@ -284,7 +284,7 @@ namespace Arcade {
             return "./assets/snake/tail_down.png";
         if (direction == Arcade::Input::DOWN)
             return "./assets/snake/tail_up.png";
-        return std::nullopt;
+        return "";
     }
 
     /**
