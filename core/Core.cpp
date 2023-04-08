@@ -147,7 +147,9 @@ namespace Arcade {
 
         if (input == Input::ESCAPE) {
             _displayLoader.close();
+            _gameLoader.close();
             delete _display;
+            delete _game;
             return false;
         } if (input == Input::NEXT_LIB) {
             _displayPath = nextLib();
