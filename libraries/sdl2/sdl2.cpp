@@ -145,6 +145,7 @@ namespace Arcade {
      */
     void SDL2::clear()
     {
+        SDL_SetRenderDrawColor(_renderer, 0, 0, 0, 0);
         SDL_RenderClear(_renderer);
     }
 
