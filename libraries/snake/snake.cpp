@@ -192,8 +192,10 @@ namespace Arcade {
         for (std::size_t i = 0; i < _body.size(); i++) {
             if (i == 0)
                 direction.push_back(_direction);
-            else if (i == _body.size() - 1)
+            else if (i == _body.size() - 1) {
                 direction.push_back(direction[i - 1]);
+                _directionTail = direction[i - 1];
+            }
             else {
                 x = _body[i].getPos().first - _body[i - 1].getPos().first;
                 y = _body[i].getPos().second - _body[i - 1].getPos().second;
@@ -309,7 +311,7 @@ namespace Arcade {
      */
     void Snake::Player::eat()
     {
-        _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), getTextureDir(Arcade::Input::RIGHT), Arcade::Color::GREEN, 10, 10));
+        _body.push_back(Arcade::Rectangle(std::make_pair(_body[_body.size() - 1].getPos().first, _body[_body.size() - 1].getPos().second), getTextureDir(_directionTail), Arcade::Color::GREEN, 10, 10));
     }
 
     /**

@@ -36,6 +36,7 @@
                     bool isDead();
                     bool win();
                     std::vector<Arcade::Rectangle> _body;
+                    Arcade::Input _directionTail;
                     Arcade::Input _direction;
                     std::optional<std::string> getTextureDir(std::string bodyPart, int i, std::vector<Arcade::Input> direction);
                     std::optional<std::string> getTextureDir(Arcade::Input direction);
