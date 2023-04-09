@@ -84,7 +84,7 @@ namespace Arcade {
     {
         objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(6, 4), str, Arcade::Color::WHITE, 50));
         objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(6, 5), "Score: " + std::to_string(_score), Arcade::Color::WHITE, 50));
-        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(4, 6), "Press F6 to play", Arcade::Color::WHITE, 50));
+        objects.push_back(std::make_shared<Arcade::Text>(std::make_pair(4, 6), "Press F5 to play", Arcade::Color::WHITE, 50));
         if (_input == Arcade::Input::RESTART)
             start();
     }
