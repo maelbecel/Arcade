@@ -38,6 +38,8 @@
                     std::vector<Arcade::Rectangle> _body;
                     Arcade::Input _direction;
                     bool _changeInput;
+                    std::optional<std::string> getTextureDir(std::string bodyPart, int i, std::vector<Arcade::Input> direction);
+                    std::optional<std::string> getTextureDir(Arcade::Input direction);
             };
             public:
                 Nibbler() {};
