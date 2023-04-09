@@ -53,7 +53,9 @@ namespace Arcade {
             }
             for (auto &apple : _apple)
                 objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(apple.first, apple.second), "assets/apple.png", Arcade::Color::RED, 1));
-            for (auto &body : _player._body) {
+            std::vector<Arcade::Rectangle> snake = _player._body;
+            std::sort(snake.begin(), snake.end(), comparePos);
+            for (auto &body : snake) {
                 if (body.getTexture().has_value())
                     objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), body.getTexture().value(), Arcade::Color::GREEN, 1, 1));
                 else
@@ -67,6 +69,16 @@ namespace Arcade {
         }
         return objects;
     }
+
+
+    bool Nibbler::comparePos(Arcade::Rectangle rect1, Arcade::Rectangle rect2)
+    {
+        if (rect1.getPos().second == rect2.getPos().second)
+            return rect1.getPos().first < rect2.getPos().first;
+        else
+            return rect1.getPos().second < rect2.getPos().second;
+    }
+
 
     void Nibbler::end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects)
     {

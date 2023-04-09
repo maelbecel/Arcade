@@ -12,6 +12,7 @@
     #include <memory>
     #include <vector>
     #include <fstream>
+    #include <algorithm>
     #include "../../IObject.hpp"
     #include "../../Input.hpp"
     #include "../../IGameModule.hpp"
@@ -49,6 +50,7 @@
                 std::vector<std::shared_ptr<Arcade::IObject>> loop(Arcade::Input input) override;
                 int getScore() override;
                 void start() override;
+                static bool comparePos(Arcade::Rectangle rect1, Arcade::Rectangle rect2);
             private:
                 void end(std::string str, std::vector<std::shared_ptr<Arcade::IObject>> &objects);
                 void initMap();

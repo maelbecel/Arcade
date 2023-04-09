@@ -72,7 +72,9 @@ namespace Arcade {
                     objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(wall.getPos().first, wall.getPos().second), wall.getTexture().value(), wall.getColor(), 1, 1));
             }
             objects.push_back(std::make_shared<Arcade::Circle>(std::make_pair(_apple.first, _apple.second), "assets/apple.png", Arcade::Color::RED, 1));
-            for (auto &body : _player._body) {
+            std::vector<Arcade::Rectangle> snake = _player._body;
+            std::sort(snake.begin(), snake.end(), comparePos);
+            for (auto &body : snake) {
                 if (body.getTexture().has_value())
                     objects.push_back(std::make_shared<Arcade::Rectangle>(std::make_pair(body.getPos().first, body.getPos().second), body.getTexture().value(), Arcade::Color::GREEN, 1, 1));
                 else
@@ -85,6 +87,14 @@ namespace Arcade {
             end("You win", objects);
         }
         return objects;
+    }
+
+    bool Snake::comparePos(Arcade::Rectangle rect1, Arcade::Rectangle rect2)
+    {
+        if (rect1.getPos().second == rect2.getPos().second)
+            return rect1.getPos().first < rect2.getPos().first;
+        else
+            return rect1.getPos().second < rect2.getPos().second;
     }
 
     /**
