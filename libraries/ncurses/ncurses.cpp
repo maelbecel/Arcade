@@ -53,9 +53,9 @@ namespace Arcade {
             case KEY_F(4):
                 return (Input::NEXT_GAME);
             case KEY_F(5):
-                return (Input::MENU);
-            case KEY_F(6):
                 return (Input::RESTART);
+            case KEY_F(6):
+                return (Input::MENU);
             case '\n':
                 return (Input::ENTER);
             case KEY_UP:

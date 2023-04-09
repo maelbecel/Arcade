@@ -35,9 +35,9 @@ namespace Arcade {
                 case sf::Keyboard::F4:
                     return (Input::NEXT_GAME);
                 case sf::Keyboard::F5:
-                    return (Input::MENU);
-                case sf::Keyboard::F6:
                     return (Input::RESTART);
+                case sf::Keyboard::F6:
+                    return (Input::MENU);
                 case sf::Keyboard::Up:
                     return (Input::UP);
                 case sf::Keyboard::Down:

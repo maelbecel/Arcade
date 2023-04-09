@@ -33,9 +33,9 @@ namespace Arcade {
                 if (event.key.code == sf::Keyboard::F4)
                     return (Input::NEXT_GAME);
                 if (event.key.code == sf::Keyboard::F5)
-                    return (Input::MENU);
-                if (event.key.code == sf::Keyboard::F6)
                     return (Input::RESTART);
+                if (event.key.code == sf::Keyboard::F6)
+                    return (Input::MENU);
                 if (event.key.code == sf::Keyboard::Up)
                     return (Input::UP);
                 if (event.key.code == sf::Keyboard::Down)

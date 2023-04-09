@@ -68,9 +68,9 @@ namespace Arcade {
                     if (event.key.keysym.sym == SDLK_F4)
                         return (Input::NEXT_GAME);
                     if (event.key.keysym.sym == SDLK_F5)
-                        return (Input::MENU);
-                    if (event.key.keysym.sym == SDLK_F6)
                         return (Input::RESTART);
+                    if (event.key.keysym.sym == SDLK_F6)
+                        return (Input::MENU);
                     if (event.key.keysym.sym == SDLK_RETURN)
                         return (Input::ENTER);
                     if (event.key.keysym.sym == SDLK_UP)
