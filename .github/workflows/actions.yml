@@ -100,4 +100,4 @@ jobs:
 
           NOTION_TOKEN: ${{ secrets.NOTION_SECRET }}
         run: |
-            python .github/notion.py "${{ github.actor }}" "${{ github.sha }}" "Failure"
+            python .github/notion.py "${{ github.actor }}" "$(git log -1 --pretty=format:'%s' ${{ github.sha }})" "Failure"
