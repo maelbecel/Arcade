@@ -37,7 +37,7 @@
                     Arcade::Rectangle getBlock(std::string direction, std::vector<std::vector<Arcade::Rectangle>> map);
                     std::vector<Arcade::Rectangle> _body;
                     Arcade::Input _direction;
-                    bool _changeInput;
+                    bool _changeInput = false;
                     std::optional<std::string> getTextureDir(std::string bodyPart, int i, std::vector<Arcade::Input> direction);
                     std::optional<std::string> getTextureDir(Arcade::Input direction);
             };
